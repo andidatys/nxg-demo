@@ -20,6 +20,7 @@ ihre eigene `theme.css`. `shared/` trägt Struktur und Verhalten, das Theme
 wählt Farbe und Schrift.
 
 Dies ist eine Entwurfsvorschau, nicht die Live-Website. Die Fotos sind
-Platzhalter. Alle Texte stammen wörtlich von nxg-group.de.
+Platzhalter. Alle Texte stammen wörtlich von nxg-group.de. Keine Seite wird
+indexiert: jede trägt `<meta name="robots" content="noindex, nofollow">`.
 
 Erzeugt aus dem privaten Arbeits-Repository; hier nicht von Hand bearbeiten.

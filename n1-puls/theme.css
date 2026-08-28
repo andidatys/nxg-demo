@@ -1,0 +1,372 @@
+/* ============================================================
+   PULS — Entwurf mit den echten Inhalten von nxg-group.de
+
+   Two things separate this from the earlier passes.
+
+   One: every word on the page is NXG's own. The invented figures
+   and testimonials are gone. Where the scope asks for something
+   that does not exist yet, the page says so instead of filling
+   the hole with fiction.
+
+   Two: it is allowed to be loud. The earlier drafts kept choosing
+   the safe option — thin weight, small motion, square corners —
+   and each choice was defensible while the sum was timid. This one
+   spends the budget: weight 500 at 12vw, soft radii, glass, a
+   moving band, cards that stack under your hand.
+
+   Contrast is still measured, not guessed. Nothing below sits
+   under 4.5:1 for text or 3:1 for large type and UI edges.
+   ============================================================ */
+:root{
+  --ground:#0B0809;
+  --surface:#141011;
+  --surface-2:#1C1718;
+  --ink:#F7F4F2;             /* 18.5:1 */
+  --ink-2:#B9B0AE;           /*  9.6:1 */
+  --ink-3:#8A8180;           /*  5.4:1 on ground, 4.7:1 on --surface-2 */
+  --rule:#2A2325;
+  --rule-strong:#635D5C;     /*  3.1:1 */
+  --tint:rgba(247,244,242,.06);
+  --grain:rgba(255,255,255,.016);
+  --focus:#FFEDA3;
+
+  --accent:#FFBB57;
+  --accent-hover:#FFEDA3;
+  --on-accent:#0B0809;       /* 12.1:1 */
+  --accent-text:#FFBB57;
+
+  --header-bg:rgba(11,8,9,.55);
+  --header-bg-stuck:rgba(11,8,9,.9);
+  --hero-scrim:linear-gradient(to top,rgba(11,8,9,.95) 0%,rgba(11,8,9,.4) 52%,rgba(11,8,9,.25) 100%);
+
+  --phero-scrim:linear-gradient(to right,rgba(11,8,9,.97) 0%,rgba(11,8,9,.90) 46%,rgba(11,8,9,.62) 78%,rgba(11,8,9,.50) 100%);
+  --form-bg:linear-gradient(168deg,#171112 0%,#0B0809 100%);
+  --ink-placeholder:#8A807E;
+
+  --display:"Sofia Sans","Segoe UI","Helvetica Neue",Roboto,Arial,sans-serif;
+  --body:"Work Sans","Segoe UI",system-ui,sans-serif;
+
+  /* 2026 register: soft, not square. The earlier drafts were all
+     hard corners, which read austere rather than current. */
+  --radius:18px;
+  --radius-lg:26px;
+  --wrap:1240px;
+}
+
+/* one large, static light behind everything. Static is the point —
+   an animated blur of this size is what makes a page drop frames. */
+.glow{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(58% 46% at 78% -6%, rgba(255,81,90,.20) 0%, transparent 70%),
+    radial-gradient(52% 42% at 8% 24%, rgba(255,187,87,.13) 0%, transparent 70%),
+    radial-gradient(64% 52% at 52% 104%, rgba(255,237,163,.09) 0%, transparent 70%)}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.55;
+  background-image:repeating-linear-gradient(112deg,rgba(255,255,255,.015) 0 1px,transparent 1px 3px)}
+/* Name what needs lifting instead of blanketing every child of <body>.
+   The blanket version was (0,2,2) and quietly overruled `position` on any
+   element that set its own from a single class — it broke the fixed back
+   chip, and then it broke `position:sticky` on the header, which is why
+   the header stopped following the scroll. Two bugs from one clever
+   selector; specificity that high has no business setting `position`. */
+main,.foot{position:relative;z-index:2}
+
+/* ---------- type at a scale that carries ---------- */
+h1{font-size:clamp(50px,10.8vw,136px);font-weight:400;letter-spacing:-.05em;line-height:.93}   /* max chosen so the longest marked-up line stays on one line */
+h2{font-size:clamp(32px,5.4vw,75px);font-weight:300;letter-spacing:-.038em;line-height:1}   /* max chosen so the longest marked-up line stays on one line */
+h3{font:500 clamp(20px,2.1vw,27px)/1.2 var(--display);letter-spacing:-.02em;margin:0 0 12px}
+h1 em,h2 em,.statement__vow em{font-style:normal;background:var(--grad);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;margin:0 0 20px}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--brand-1);flex:none}
+/* The measure belongs on the heading, never on the wrapper. `ch` resolves
+   against the element's OWN font-size: 20ch on .sec-head is 20 characters
+   of 17px body text — about 172px — and the 78px heading inside it then
+   breaks one word per line and gets clipped by the .ln reveal box. */
+.sec-head{max-width:min(100%,860px);margin-bottom:clamp(40px,5.5vw,72px)}
+.sec-head--wide{max-width:min(100%,960px)}
+.sec-head h2{max-width:10em}   /* em, not ch: ch is the width of the digit zero, which varies far more
+      between faces than the letters do — the swap of display face broke
+      every ch-based headline measure at once. em tracks the type size
+      directly. Value derived from the longest marked-up line. */
+.sec-head--wide h2{max-width:18ch}
+
+.btn{border-radius:100px;padding:17px 32px;font-size:14px}
+.btn--ghost{border-color:var(--rule-strong);backdrop-filter:blur(8px)}
+
+/* ============================================================
+   HEADER — a floating capsule
+   The full-width bar is the default every site ships with. This one
+   detaches from the edges, sits on glass, and contracts as you scroll
+   so it takes less of the screen the further in you are. The pill
+   behind the nav follows the section you are actually reading; nav.js
+   writes only its position and width, the animation is CSS.
+   ============================================================ */
+.site{background:none;backdrop-filter:none;border-bottom:0;
+  padding:clamp(10px,1.4vw,18px) var(--pad);pointer-events:none}
+.site.is-stuck{background:none;border-bottom-color:transparent}
+.site__in{pointer-events:auto;max-width:var(--wrap);margin:0 auto;
+  padding:9px 9px 9px clamp(16px,1.6vw,24px);gap:clamp(12px,2vw,32px);
+  border-radius:100px;border:1px solid rgba(247,244,242,.09);
+  background:rgba(20,16,17,.46);backdrop-filter:blur(20px) saturate(1.4);
+  box-shadow:0 1px 0 rgba(247,244,242,.05) inset;
+  transition:max-width .55s var(--ease),background-color .4s var(--ease),
+             box-shadow .4s var(--ease),border-color .4s var(--ease)}
+.site.is-stuck .site__in{max-width:min(100%,1000px);
+  background:rgba(14,11,12,.8);border-color:rgba(247,244,242,.13);
+  box-shadow:0 24px 60px -30px rgba(0,0,0,.95),0 1px 0 rgba(247,244,242,.06) inset}
+.site__logo svg{width:88px}
+
+/* the sliding pill */
+.site__nav{position:relative;gap:2px}
+.site__nav::before{content:"";position:absolute;top:50%;left:var(--nx,0);
+  width:var(--nw,0);height:36px;margin-top:-18px;
+  border-radius:100px;-webkit-border-radius:100px;
+  background:rgba(247,244,242,.09);opacity:var(--no,0);pointer-events:none;
+  transition:left .42s var(--ease),width .42s var(--ease),opacity .3s var(--ease)}
+.site__nav a{position:relative;z-index:1;padding:10px clamp(11px,1.1vw,16px);
+  border-radius:100px;transition:color .25s var(--ease)}
+.site__nav a::after{display:none}          /* the pill replaces the underline */
+.site__nav a:hover,.site__nav a.is-here{color:var(--ink)}
+.site__cta{padding:13px 22px;font-size:12px;flex:none}
+@media (max-width:960px){.site__cta{display:none}}
+@media (max-width:760px){
+  .site__in{padding:8px 8px 8px 16px}
+  .site__burger{margin-left:auto}
+}
+/* the mobile sheet has to clear the floating capsule */
+.site__mnav{pointer-events:auto;margin-top:10px;border:1px solid rgba(247,244,242,.09);
+  border-radius:var(--radius-lg);overflow:hidden;background:rgba(14,11,12,.92);
+  backdrop-filter:blur(20px)}
+.site__mnav a{border-bottom:1px solid rgba(247,244,242,.07)}
+.site__mnav a:last-child{border-bottom:0;color:var(--accent)}
+
+/* prototype chrome, out of the way: a chip in the corner rather than a
+   bar competing with the header it sits above */
+/* Opaque, and --ink-2 rather than --ink-3. This chip is position:fixed, so it
+   floats over whatever happens to be beneath it; an 18% leak was enough to
+   drop 10px text to 3.61:1 against the 4.5 it needs. Fixed chrome cannot
+   assume its backdrop. */
+
+/* ---------- hero ---------- */
+.hero{min-height:min(96svh,940px);align-items:flex-end}
+.hero__plate{opacity:.6;transform:translate3d(0,calc(var(--p,0) * 80px),0) scale(1.14);
+  will-change:transform}
+.hero h1{max-width:7.4em}
+.hero__sub{font-size:clamp(18px,1.8vw,24px);max-width:34ch;color:var(--ink-2)}
+.plate__tag{right:5%;bottom:6%}
+
+/* ============================================================
+   LAUFBAND
+   The six specialisms, moving. It is the cheapest possible way
+   to put motion on a page — one transform on one element — and
+   it says "this is what we actually do" before any scrolling.
+   ============================================================ */
+.band{overflow:hidden;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:22px 0;background:rgba(20,16,17,.5);backdrop-filter:blur(10px);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.band__track{display:flex;align-items:center;gap:clamp(24px,3.4vw,52px);width:max-content;
+  list-style:none;margin:0;padding:0;animation:band 34s linear infinite;will-change:transform}
+.band__track li{font:400 clamp(17px,2vw,26px)/1 var(--display);letter-spacing:-.01em;
+  color:var(--ink-2);white-space:nowrap}
+.band__track li[aria-hidden]{color:var(--brand-2)}
+.band:hover .band__track{animation-play-state:paused}
+@keyframes band{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.band__track{animation:none}}
+
+/* ============================================================
+   STACK
+   The three segments stack under the reader with position:sticky.
+   No JavaScript is involved — the browser does it.
+   ============================================================ */
+/* ============================================================
+   SECTION RHYTHM
+   --sec was being applied top AND bottom, so every junction added
+   up to twice it: 296px of empty dark between blocks on a page
+   with no visible section edges. That does not read as breathing
+   room, it reads as the page having ended. Half each side, so a
+   junction totals --sec and the rhythm is what it says it is.
+   ============================================================ */
+.seg,.why,.paths,.contact{padding:calc(var(--sec) * .5) 0}
+/* .why ends with a full-bleed photograph — it needs no floor under it */
+.why{padding-bottom:0}
+.seg{padding-top:calc(var(--sec) * .5)}
+.stack{list-style:none;margin:0;padding:0;display:block}
+.card{position:sticky;top:calc(88px + var(--i) * 26px);margin-bottom:26px}
+.card__in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,3.4vw,56px);
+  align-items:center;padding:clamp(26px,3.4vw,52px);border-radius:var(--radius-lg);
+  border:1px solid var(--rule);background:rgba(20,16,17,.82);backdrop-filter:blur(18px);
+  box-shadow:0 32px 80px -40px rgba(0,0,0,.9)}
+.card--soon .card__in{background:rgba(16,13,14,.7)}
+.card__n{font:500 11px/1 var(--body);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--brand-2);margin:0 0 18px}
+.card--soon .card__n{color:var(--ink-3)}
+.card h3{font-size:clamp(40px,5.6vw,80px);font-weight:300;letter-spacing:-.045em;margin:0 0 18px}
+.card__lede{font-size:17px;max-width:40ch;color:var(--ink-2)}
+.card__note{font-size:14px;color:var(--ink-3);border-left:2px solid var(--rule-strong);
+  padding-left:16px;max-width:38ch;margin:22px 0 0}
+.card__plate{aspect-ratio:4/5;border-radius:var(--radius);overflow:hidden}
+.card__plate::before{transform:translate3d(0,calc(var(--p,.5) * -40px + 20px),0) scale(1.14);
+  will-change:transform}
+.card--soon .card__plate{opacity:.45}
+
+.chips{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:1px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius);overflow:hidden}
+.chips li{background:rgba(11,8,9,.72);padding:14px 18px;font:500 15px/1.3 var(--body)}
+.chips li span{display:block;font:300 13px/1.4 var(--body);color:var(--ink-3);margin-top:5px}
+@media (min-width:620px){.chips{grid-template-columns:1fr 1fr}}
+@media (max-width:900px){
+  .card{position:static}
+  .card__in{grid-template-columns:minmax(0,1fr)}
+  .card__plate{aspect-ratio:16/10}
+}
+
+/* ============================================================
+   STATEMENT
+   NXG's own promise, at the size a promise deserves.
+   ============================================================ */
+.statement{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:clamp(44px,6vw,88px) 0;margin-bottom:clamp(44px,6vw,84px)}
+/* :not() is load-bearing. `.statement > p` is (0,1,1) and beats a plain
+   `.statement__vow` at (0,1,0), so the shorthand below would silently
+   shrink the vow from 74px to 27px. Exclude it rather than fight it. */
+.statement > p:not(.statement__vow):not(.statement__sig){
+  font:300 clamp(19px,2.1vw,27px)/1.5 var(--body);color:var(--ink-2);
+  max-width:46ch;margin:0 0 clamp(30px,4vw,52px)}
+.statement__vow{font:400 clamp(30px,5.4vw,74px)/1.04 var(--display);letter-spacing:-.04em;
+  color:var(--ink);margin:0;max-width:none;
+  transform:translateX(calc(var(--p,.5) * -40px + 20px))}
+.statement__sig{font:500 13px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);margin:clamp(24px,3vw,38px) 0 0}
+
+.promises{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--rule);
+  border:1px solid var(--rule);border-radius:var(--radius-lg);overflow:hidden}
+.promises li{background:rgba(20,16,17,.72);padding:clamp(26px,3vw,42px)}
+.promises p{margin:0;font-size:16px}
+@media (min-width:820px){.promises{grid-template-columns:repeat(3,1fr)}}
+
+.slot{margin-top:clamp(34px,4.5vw,60px);border:1px dashed var(--rule-strong);
+  border-radius:var(--radius);padding:clamp(22px,3vw,34px);background:rgba(20,16,17,.4)}
+.slot__label{font:500 11px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--brand-2);margin:0 0 12px}
+.slot p{margin:0;font-size:15px;color:var(--ink-3);max-width:60ch}
+
+/* ============================================================
+   PATHS — the two audiences, side by side
+   ============================================================ */
+.paths__grid{display:grid;gap:clamp(18px,2.4vw,28px)}
+@media (min-width:940px){.paths__grid{grid-template-columns:1fr 1fr}}
+.path{border:1px solid var(--rule);border-radius:var(--radius-lg);
+  padding:clamp(26px,3.2vw,48px);background:rgba(20,16,17,.72);backdrop-filter:blur(14px);
+  display:flex;flex-direction:column}
+.path--alt{background:rgba(26,20,17,.72);border-color:#3A2D25}
+.path__k{font:500 11px/1 var(--body);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--brand-1);margin:0 0 16px}
+.path--alt .path__k{color:var(--brand-2)}
+.path h3{font-size:clamp(26px,3vw,38px);font-weight:300;letter-spacing:-.03em}
+.path__lede{font-size:16px;color:var(--ink-2);max-width:40ch}
+.path__points{margin:clamp(22px,3vw,34px) 0 0;display:grid;gap:18px}
+.path__points dt{font:500 15px/1.3 var(--body);color:var(--ink);margin-bottom:5px}
+.path__points dd{margin:0;font-size:15px;color:var(--ink-3);max-width:44ch}
+.steps{list-style:none;margin:clamp(26px,3.4vw,40px) 0 clamp(26px,3.4vw,38px);padding:0;
+  display:flex;flex-wrap:wrap;gap:8px}
+.steps li{display:inline-flex;align-items:center;gap:9px;font:400 13px/1 var(--body);
+  color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:100px;padding:9px 15px 9px 9px}
+.steps span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
+  background:var(--tint);font:500 11px/1 var(--body);color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.path .btn{align-self:flex-start;margin-top:auto}
+
+/* ============================================================
+   CONTACT — the three real addresses, as the action
+   ============================================================ */
+.contact{background:none}
+.contact__in{display:grid;gap:clamp(30px,4vw,64px);align-items:start}
+@media (min-width:940px){.contact__in{grid-template-columns:.9fr 1.1fr}}
+.contact address{font-style:normal;color:var(--ink-2);line-height:1.9;margin-top:24px;
+  font-size:17px}
+.mails{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--rule);
+  border:1px solid var(--rule);border-radius:var(--radius-lg);overflow:hidden}
+.mails a{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;
+  background:rgba(20,16,17,.72);padding:clamp(22px,2.6vw,34px);text-decoration:none;
+  transition:background-color .3s var(--ease)}
+.mails a:hover{background:rgba(38,29,22,.85)}
+.mails__k{grid-column:1;font:500 11px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:9px}
+.mails__a{grid-column:1;font:300 clamp(19px,2.4vw,30px)/1.1 var(--display);letter-spacing:-.02em;
+  color:var(--ink);word-break:break-word}
+.mails__go{grid-column:2;grid-row:1/3;font-size:24px;color:var(--brand-2);
+  transition:transform .3s var(--ease)}
+.mails a:hover .mails__go{transform:translateX(6px)}
+
+/* ---------- footer ---------- */
+.foot{border-top:1px solid var(--rule);padding:clamp(40px,5vw,64px) 0}
+.foot__in{display:grid;gap:22px;align-items:start}
+@media (min-width:820px){.foot__in{grid-template-columns:auto 1fr auto;gap:clamp(24px,4vw,56px)}}
+.foot__blurb{margin:0;font-size:14px;color:var(--ink-3);max-width:52ch}
+.foot__note{margin:0;font-size:13px;color:var(--ink-3);grid-column:1/-1}
+
+/* ============================================================
+   THE LOWER HALF
+   The first pass put every photograph above the fold and left the
+   argument, the two paths and the close as text on glass. Reading
+   it from the bottom up, the page ran out of pictures exactly
+   where it starts asking for something.
+   ============================================================ */
+
+/* a second hero, closing the argument and carrying the mid-page CTA */
+/* No 100vw here. The band is already a direct child of the section, so it
+   is full width on its own — and 100vw counts the scrollbar, which is how
+   a "full-bleed" block ends up 8px wider than the page it sits in. */
+.band2{position:relative;margin:clamp(48px,6vw,88px) 0 0;
+  min-height:min(78svh,720px);display:flex;align-items:flex-end;overflow:clip;isolation:isolate}
+.band2__plate{position:absolute;inset:0;z-index:-1;border-radius:0;
+  transform:translate3d(0,calc(var(--p,.5) * -70px + 35px),0) scale(1.16);will-change:transform}
+.band2__plate::after{background-image:none}
+.band2::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to top,rgba(11,8,9,.95) 0%,rgba(11,8,9,.5) 55%,rgba(11,8,9,.3) 100%)}
+.band2__in{max-width:var(--wrap);margin:0 auto;width:100%;
+  padding:0 var(--pad) clamp(48px,7vw,88px)}
+.band2__line{font:400 clamp(30px,5.4vw,74px)/1.02 var(--display);letter-spacing:-.04em;
+  color:var(--ink);margin:0;max-width:17ch}
+.band2__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(26px,3.4vw,40px)}
+.band2 .plate__tag{right:var(--pad);left:auto;bottom:auto;top:clamp(18px,2.4vw,28px)}
+
+/* the two paths get a picture each, bleeding to the card edge */
+.path{padding-top:0;overflow:hidden}
+.path__plate{display:block;aspect-ratio:16/9;
+  margin:0 calc(-1 * clamp(26px,3.2vw,48px)) clamp(24px,3vw,36px);
+  border-radius:0}
+.path__plate::before{transform:scale(1.04)}
+
+/* Hamburg behind the close */
+.contact{position:relative;overflow:clip;isolation:isolate}
+.contact__plate{position:absolute;inset:0;z-index:-1;border-radius:0;opacity:.5;
+  transform:translate3d(0,calc(var(--p,.5) * -60px + 30px),0) scale(1.14);will-change:transform}
+.contact::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to bottom,rgba(11,8,9,.94) 0%,rgba(11,8,9,.8) 40%,rgba(11,8,9,.96) 100%)}
+
+/* Three of the new frames came back cool — teal corridors, blue dusk —
+   against six that are firmly warm. Grading them here keeps the series
+   coherent without regenerating, and the values stay adjustable when
+   NXG's real photography replaces them. */
+.plate--band{--photo-filter:saturate(.82) sepia(.24) hue-rotate(-14deg) brightness(1.04)}
+.plate--prof{--photo-filter:saturate(.8) sepia(.26) hue-rotate(-16deg) brightness(1.05)}
+.plate--city{--photo-filter:saturate(.85) sepia(.2) hue-rotate(-12deg) brightness(1.02)}
+.plate--comp{--photo-filter:saturate(1.02)}
+
+@media (max-width:820px){
+  .band2{min-height:min(64svh,520px)}
+}
+
+/* ---------- frames ---------- */
+.plate{border-radius:var(--radius)}
+.plate--hero{border-radius:0;background:linear-gradient(168deg,#241A1B 0%,#0D0A0B 100%)}
+.plate--it{background:linear-gradient(158deg,#2A1C1E 0%,#120D0E 100%)}
+.plate--fin{background:linear-gradient(158deg,#2A221F 0%,#120D0E 100%)}
+.plate--eng{background:linear-gradient(158deg,#28251F 0%,#120D0E 100%)}
+
+@media (prefers-reduced-motion:reduce){
+  .hero__plate,.card__plate::before,.statement__vow{transform:none}
+}
+.plate--team{background:linear-gradient(158deg,#1D1416 0%,#0B0809 100%)}

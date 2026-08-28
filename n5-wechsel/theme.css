@@ -1,0 +1,365 @@
+/* ============================================================
+   WECHSEL
+
+   Built to the reference the client sent: very little text, type
+   at poster scale, solid and outlined halves in the same headline,
+   full-bleed bands, and link rows that end in a round arrow.
+
+   WHAT IS BORROWED AND WHAT IS NOT
+
+   Glut with the lights on and off. Same voice — a hundred words, type
+   at poster scale, the band before the headline — but the page now
+   alternates: espresso, paper, espresso, paper, espresso. The switch
+   is a token flip on one class, so every component inside simply works
+   without knowing which side of it it is standing on.
+
+   One thing does not flip. Amber measures 1.59:1 on this paper, so on
+   the light sections the accent text is the coral darkened to #C4474B
+   (4.54:1) instead. The pill keeps the brand gradient on both, because
+   it carries its own fill and dark text.
+
+   The first attempt kept the reference's navy and its layout, and
+   the client's answer was the right one: that is not our style, it
+   is theirs. What the reference is good for is the SPARSENESS and
+   the poster scale of the type. Those stay. The colour and the
+   composition are ours.
+
+   The ground is derived rather than chosen. The brand ramp runs
+   coral 22deg, amber 74deg, cream 96deg; taking the amber's own hue
+   down to lightness .20 gives #221200. It is the brand at night
+   rather than a colour picked to sit near it, and it is distinct
+   from every ground already in use — Puls and Nachtaufnahme are
+   neutral near-black, Vorwärts is a coral-derived plum, Kontor and
+   Auftrieb are paper.
+
+   The composition is inverted where it had been copied: the band
+   comes first and the headline rises into it, and the portrait row
+   is staggered rather than a flat filmstrip.
+
+   THE WORD BUDGET
+
+   The client asked for roughly a hundred words on the whole page.
+   That is the actual design constraint here, not a style note: at
+   this type size a paragraph does not fit, so every section gets a
+   headline, a label, and at most one line. Anything that needed a
+   second line was cut rather than shrunk.
+   ============================================================ */
+
+:root{
+  --ground:#221200;
+  --ground-deep:#140600;
+  --surface:#2E1B03;
+  --surface-2:#3A2408;
+  --ink:#FFF6F2;             /* 17.07:1 on --ground */
+  --ink-2:#E0CFC2;           /* 11.46:1 */
+  --ink-3:#B39B88;           /*  6.72:1 */
+  --rule:#3B2408;
+  --rule-strong:#856A4E;     /*  3.61:1 on the ground, 3.27:1 on the form
+                                panel. The panel is LIGHTER than the ground here,
+                                so a border that clears 1.4.11 on one can fail on
+                                the other — #7A5F45 measured 3.08 and 2.79. */
+  --tint:rgba(255,246,242,.07);
+  --grain:rgba(255,246,242,.02);
+  --focus:#FFBB57;
+
+  /* the pill is amber with dark text on it, the one place the brand
+     colour can run at full strength and still be read */
+  --accent:#FFBB57;
+  --accent-hover:#FFC974;
+  --on-accent:#2A1500;       /* 11.34:1 on the amber */
+  --accent-text:#FFBB57;     /*  8.02:1 on --ground */
+
+  --header-bg:rgba(34,18,0,.86);
+  --header-bg-stuck:rgba(20,6,0,.97);
+  --header-h:clamp(64px,5.2vw,80px);
+
+  --phero-scrim:linear-gradient(to right,rgba(34,18,0,.97) 0%,rgba(34,18,0,.90) 46%,
+                rgba(34,18,0,.62) 78%,rgba(34,18,0,.50) 100%);
+  --form-bg:linear-gradient(168deg,#2E1B03 0%,#221200 100%);
+  --ink-placeholder:#A08872;  /* 5.04:1 on the panel */
+
+  --photo-filter:saturate(1.04) contrast(1.04);
+  --hero-scrim:linear-gradient(to top,rgba(20,6,0,.94) 0%,rgba(20,6,0,.62) 40%,
+               rgba(20,6,0,.22) 74%,rgba(20,6,0,.10) 100%);
+
+  --display:"Sofia Sans","Segoe UI","Helvetica Neue",Roboto,Arial,sans-serif;
+  --body:"Work Sans","Segoe UI",system-ui,sans-serif;
+  --radius:100px;            /* pills, like the reference */
+  --wrap:1400px;
+  --h1-weight:700;
+  --h2-weight:700;
+  --plate-ratio:3/4;
+}
+
+/* one soft field, painted once — the reference's ground is not flat */
+.glow{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(70% 50% at 84% -10%, rgba(255,187,87,.16) 0%, rgba(255,187,87,0) 60%),
+    radial-gradient(60% 46% at 6% 20%,  rgba(255,81,90,.14)  0%, rgba(255,81,90,0)  62%),
+    radial-gradient(80% 60% at 50% 108%, rgba(90,48,10,.80) 0%, rgba(90,48,10,0) 66%)}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(var(--grain) .5px,transparent .5px);
+  background-size:3px 3px}
+main,.foot{position:relative;z-index:2}   /* never .site — that kills sticky */
+
+body{background-color:var(--ground);background-image:linear-gradient(178deg,var(--ground) 0%,var(--ground-deep) 100%);
+  background-attachment:fixed;font-weight:400;
+  -webkit-font-smoothing:auto;-moz-osx-font-smoothing:auto}
+
+/* ============================================================
+   TYPE — poster scale, uppercase, solid against outline
+   ============================================================ */
+h1,h2{font-family:var(--display);text-transform:uppercase;letter-spacing:-.025em;
+  line-height:.9;margin:0;font-weight:700}
+h1{font-size:clamp(42px,8.4vw,118px)}
+h2{font-size:clamp(32px,5.8vw,86px)}
+h3{font-family:var(--display);font-weight:700;text-transform:uppercase;
+  letter-spacing:-.015em;margin:0}
+
+/* The outlined half. Sofia Sans is narrow and its stems are light enough that
+   a 2px wall reads as a letter rather than as two hairlines — the failure the
+   previous face had at this treatment. Kept off photographs, where a picture
+   showing through empty letters reads as stray lines. */
+.o{display:inline-block;color:transparent;-webkit-text-fill-color:transparent;
+  -webkit-text-stroke:2px var(--ink);letter-spacing:.006em}
+@media (min-width:900px){.o{-webkit-text-stroke-width:2.5px}}
+
+.eyebrow{display:inline-flex;align-items:center;gap:10px;margin:0 0 20px;
+  font:600 11px/1 var(--body);letter-spacing:.24em;text-transform:uppercase;
+  color:var(--ink-3)}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+
+.sec-head{max-width:min(100%,1100px);margin-bottom:clamp(34px,4vw,60px)}
+.sec-head h2{max-width:11em}
+.sec-head__lede{font-size:clamp(16px,1.4vw,19px);line-height:1.6;max-width:34ch;
+  margin-top:22px;color:var(--ink-2)}
+
+/* ============================================================
+   HEADER — the reference's: logo, plain links, one amber pill
+   ============================================================ */
+.site{border-bottom:1px solid var(--rule)}
+.site__in{max-width:none;padding:0 clamp(16px,2.6vw,44px);gap:clamp(12px,2vw,34px);
+  min-height:var(--header-h)}
+.site__logo{padding:14px 0;color:var(--ink)}
+.site__logo svg{width:clamp(92px,7.4vw,124px)}
+.site__nav{position:relative;gap:clamp(4px,1.4vw,22px);margin-left:auto}
+.site__nav a{font:500 clamp(13px,1.05vw,16px)/1 var(--body);letter-spacing:0;
+  padding:16px 4px;color:var(--ink);position:relative}
+.site__nav a::after{content:"";position:absolute;left:4px;right:4px;bottom:10px;height:2px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s var(--ease);display:block}
+.site__nav a:hover::after,.site__nav a[aria-current]::after{transform:scaleX(1)}
+.site__nav::before{display:none}          /* the reference underlines, not a pill */
+html{scroll-padding-top:calc(var(--header-h) + 14px)}
+
+.btn{border-radius:100px;padding:15px 26px;font:700 12px/1 var(--body);
+  letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;
+  gap:10px;min-height:48px}
+.btn i{font-style:normal;transition:transform .3s var(--ease)}
+.btn:hover i{transform:translateX(4px)}
+.btn--solid{background:var(--grad);color:var(--on-accent);border:0}
+.btn--solid:hover{filter:saturate(1.06) brightness(1.04)}
+.btn--ghost{border:1px solid var(--accent);color:var(--accent);background:none}
+.btn--ghost:hover{background:rgba(255,187,87,.1)}
+.site__cta{padding:12px 22px;min-height:44px}
+@media (max-width:1020px){.site__cta{display:none}}
+.site__burger{border:1px solid var(--rule-strong);border-radius:100px;
+  width:clamp(48px,5vw,56px);height:44px}
+
+/* ============================================================
+   01  HERO — headline over a full-bleed band
+   ============================================================ */
+/* display:block, not the flex row base.css sets. This hero is a vertical
+   stack — band, then headline — and as a flex item the band had no in-flow
+   content (its plate and video are both absolutely positioned), so it
+   collapsed to zero width and the video played into nothing. It measured
+   loaded, playing and opacity 1 the whole time; what was never measured was
+   whether its box had any area. */
+.hero{display:block;position:relative;isolation:isolate;overflow:clip;
+  padding:0 0 clamp(40px,5vw,72px)}
+/* The band leads and the headline rises into it. The reference does the
+   opposite — type first, picture under it — and copying that order was what
+   made the page read as theirs. */
+.hero h1{max-width:13em;position:relative;z-index:2;
+  margin-top:calc(-1 * clamp(38px,6vw,104px))}
+.hero__cta{display:flex;flex-wrap:wrap;gap:12px;
+  margin:clamp(28px,3.4vw,44px) 0 0;position:relative;z-index:2}
+
+/* the band runs edge to edge and the headline sits partly over it, exactly
+   as in the reference */
+.band{position:relative;width:100%;height:clamp(240px,34vw,440px);overflow:hidden}
+.band .plate{position:absolute;inset:0;border-radius:0}
+.band video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .9s var(--ease)}
+.band video.is-on{opacity:1}
+.band::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(34,18,0,.55) 0%,rgba(34,18,0,0) 34%,
+             rgba(20,6,0,.18) 100%)}
+
+/* ============================================================
+   02  BEREICHE — tabs with a thin amber underline
+   ============================================================ */
+.seg{padding:var(--sec) 0}
+.tabs{display:flex;flex-wrap:wrap;gap:clamp(18px,2.6vw,44px);
+  margin:0 0 clamp(30px,3.6vw,52px);border-bottom:1px solid var(--rule)}
+.tabs button{background:none;border:0;cursor:pointer;position:relative;
+  font:700 12px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);padding:0 0 16px;min-height:44px;
+  transition:color .25s var(--ease)}
+.tabs button::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s var(--ease)}
+.tabs button.is-active{color:var(--ink)}
+.tabs button.is-active::after{transform:scaleX(1)}
+.tabs button:hover{color:var(--ink-2)}
+
+.panel__grid{display:grid;gap:clamp(24px,3.4vw,56px);align-items:center}
+@media (min-width:900px){.panel__grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}}
+.panel__img{aspect-ratio:4/3;border-radius:0}
+.panel h3{font-size:clamp(26px,3.4vw,52px);color:var(--ink);margin:0 0 18px}
+.panel p{margin:0;color:var(--ink-2);font-size:clamp(16px,1.4vw,19px);max-width:30ch}
+.panel .btn{margin-top:clamp(22px,2.6vw,34px)}
+
+/* ============================================================
+   03  DUOTONE ROW — six columns, one colour each, labels only
+   ============================================================ */
+.duo{list-style:none;margin:0;padding:0;display:grid;gap:2px;
+  grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:760px){.duo{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1180px){.duo{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.duo__card{position:relative;overflow:hidden;background:var(--ground-deep);
+  aspect-ratio:3/4.4;display:flex;align-items:flex-end;min-width:0}
+/* Staggered, not a filmstrip. The NXG mark is scattered nodes on a diagonal;
+   dropping every second card echoes that instead of the reference's grid. */
+@media (min-width:1180px){
+  .duo{align-items:start}
+  .duo__card:nth-child(even){transform:translateY(clamp(20px,2.6vw,44px))}
+}
+.duo__img{position:absolute;inset:0;border-radius:0}
+.duo__img::before{transform:scale(1.02);transition:transform .7s var(--ease)}
+.duo__card:hover .duo__img::before{transform:scale(1.07)}
+.duo__img::after{background-image:none}
+.duo__card::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(20,6,0,.94) 0%,rgba(20,6,0,.16) 56%,transparent 100%)}
+.duo__body{position:relative;z-index:1;padding:clamp(16px,1.6vw,24px)}
+.duo__body b{display:block;font:700 clamp(13px,1.05vw,16px)/1.2 var(--display);
+  text-transform:uppercase;letter-spacing:-.005em;color:var(--ink)}
+.duo--1 .duo__img{--photo-filter:grayscale(1) brightness(1.3) contrast(1.1) sepia(1) hue-rotate(-30deg) saturate(4)}
+.duo--2 .duo__img{--photo-filter:grayscale(1) brightness(1.3) contrast(1.1) sepia(1) hue-rotate(-6deg) saturate(3.4)}
+.duo--3 .duo__img{--photo-filter:grayscale(1) brightness(1.28) contrast(1.12) sepia(1) hue-rotate(90deg) saturate(2.6)}
+.duo--4 .duo__img{--photo-filter:grayscale(1) brightness(1.26) contrast(1.12) sepia(1) hue-rotate(140deg) saturate(2.8)}
+.duo--5 .duo__img{--photo-filter:grayscale(1) brightness(1.24) contrast(1.14) sepia(1) hue-rotate(190deg) saturate(3)}
+.duo--6 .duo__img{--photo-filter:grayscale(1) brightness(1.24) contrast(1.14) sepia(1) hue-rotate(230deg) saturate(3.2)}
+
+/* ============================================================
+   04  STATEMENT — the vow, running edge to edge
+   ============================================================ */
+.vow{padding:var(--sec) 0;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.vow__track{display:flex;gap:clamp(24px,3.4vw,56px);width:max-content;
+  animation:vow 46s linear infinite}
+.vow__track span{font:700 clamp(34px,6.4vw,96px)/1 var(--display);text-transform:uppercase;
+  letter-spacing:-.025em;white-space:nowrap;color:var(--ink)}
+.vow__track span:nth-child(even){color:transparent;-webkit-text-fill-color:transparent;
+  -webkit-text-stroke:2px var(--ink)}
+@keyframes vow{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+@media (prefers-reduced-motion:reduce){.vow__track{animation:none}}
+
+.figs{display:flex;flex-wrap:wrap;gap:clamp(20px,3.4vw,60px);margin:0;padding:0;
+  list-style:none}
+.figs b{display:block;font:700 clamp(30px,4vw,60px)/1 var(--display);
+  text-transform:uppercase;letter-spacing:-.025em;color:var(--ink)}
+.figs span{display:block;margin-top:8px;font-size:13px;color:var(--ink-3)}
+
+/* ============================================================
+   05  KONTAKT — the reference's link rows with a round arrow
+   ============================================================ */
+.kontakt{position:relative;padding:var(--sec) 0;overflow:clip}
+.rows{list-style:none;margin:clamp(30px,3.6vw,52px) 0 0;padding:0;
+  border-top:1px solid var(--rule-strong)}
+.rows li{border-bottom:1px solid var(--rule-strong)}
+.rows a{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:20px;
+  padding:clamp(22px,2.6vw,34px) 0;color:var(--ink);
+  transition:padding-left .4s var(--ease)}
+.rows a:hover{padding-left:14px}
+.rows__t{display:block;font:400 clamp(17px,1.7vw,26px)/1.3 var(--body);min-width:0}
+.rows i{font-style:normal;width:clamp(40px,3.4vw,52px);height:clamp(40px,3.4vw,52px);
+  border-radius:50%;background:var(--grad);color:var(--on-accent);
+  display:grid;place-items:center;font-size:18px;flex:none;
+  transition:transform .35s var(--ease)}
+.rows a:hover i{transform:translateX(5px)}
+
+/* ============================================================
+   FOOTER — four columns, like the reference
+   ============================================================ */
+.foot{border-top:1px solid var(--rule);padding:clamp(40px,5vw,70px) 0 clamp(26px,3vw,40px)}
+.foot__in{display:grid;gap:clamp(24px,3vw,44px)}
+@media (min-width:760px){.foot__in{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1060px){.foot__in{grid-template-columns:auto repeat(2,minmax(0,1fr)) auto}}
+.foot h4{font:700 11px/1 var(--body);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink);margin:0 0 16px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+/* 20px tall is under the 24px WCAG 2.5.8 minimum. The gap between rows
+   already gives the room, so the link takes it rather than the list. */
+.foot a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:24px}
+.foot a:hover{color:var(--ink)}
+.foot__logo{color:var(--ink)}
+.foot__logo svg{width:104px}
+.foot__note{grid-column:1/-1;margin:clamp(26px,3vw,40px) 0 0;padding-top:22px;
+  border-top:1px solid var(--rule);font-size:12px;color:var(--ink-3)}
+address{font-style:normal;color:var(--ink-2);line-height:1.9;font-size:15px}
+
+
+/* ---------- frames ---------- */
+.plate--hero{background:linear-gradient(168deg,#3A2408 0%,#140600 100%)}
+.plate--glutframe{--photo:url(../media/glutframe.webp)}
+.plate--heroframe{--photo:url(../media/heroframe.webp)}
+.plate--it{--photo:url(../media/it.webp)}
+.plate--fin{--photo:url(../media/fin.webp)}
+.plate--eng{--photo:url(../media/eng.webp)}
+.plate--team{--photo:url(../media/team.webp)}
+.plate--comp{--photo:url(../media/comp.webp)}
+.plate--prof{--photo:url(../media/prof.webp)}
+.plate--city{--photo:url(../media/city.webp)}
+
+/* ============================================================
+   THE LIGHT SIDE
+
+   One class, the whole token set flipped underneath it. The outline
+   type, the rules, the eyebrows and the arrows all follow without a
+   single component-level override — .o strokes with --ink and --ink
+   is simply dark here.
+
+   The section paints an opaque ground of its own because .glow and
+   .grain are fixed layers behind everything; a translucent light
+   section would let the warm field bleed through and stop being paper.
+   ============================================================ */
+.light{
+  --ground:#FDF8F1;
+  --ground-deep:#F4EADC;
+  --surface:#FFFFFF;
+  --surface-2:#F4EADC;
+  --ink:#221200;             /* 17.21:1 on the paper */
+  --ink-2:#5A4632;           /*  8.43:1 */
+  --ink-3:#7A6449;           /*  5.30:1 */
+  --rule:#E7DACA;
+  --rule-strong:#A18B70;     /*  3.09:1 — non-text, WCAG 1.4.11 */
+  --tint:rgba(34,18,0,.06);
+  --accent-text:#C4474B;     /*  4.54:1 — amber is 1.59 here and cannot be text */
+  --form-bg:linear-gradient(168deg,#FFFFFF 0%,#F4EADC 100%);
+  --ink-placeholder:#8A7154;  /*  4.52:1 on the panel */
+  --photo-filter:brightness(1.08) contrast(.96) saturate(.94);
+  background:var(--ground);
+  color:var(--ink);
+  position:relative;
+  z-index:2;
+}
+/* the seam between the two sides, in the brand ramp */
+.light + .seg,.light + .kontakt,.seg + .light,.kontakt + .light{position:relative}
+.light::before,.seg + .light::before{content:"";position:absolute;top:0;left:0;right:0;
+  height:2px;background:var(--grad);opacity:.9}
+.light .eyebrow i{background:var(--accent-text)}
+.light .btn--ghost{border-color:var(--accent-text);color:var(--accent-text)}
+.light .btn--ghost:hover{background:rgba(196,71,75,.08)}
+.light .tabs button.is-active::after,.light .site__nav a::after{background:var(--accent-text)}

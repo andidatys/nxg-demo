@@ -1,0 +1,3 @@
+# Client design review. Not for indexing.
+User-agent: *
+Disallow: /

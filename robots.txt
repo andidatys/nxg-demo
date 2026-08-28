@@ -1,3 +1,9 @@
 # Client design review. Not for indexing.
+#
+# Crawling is deliberately allowed: every page carries
+#   <meta name="robots" content="noindex, nofollow">
+# and a crawler that is blocked here can never read it. Disallow
+# would hide the instruction rather than enforce it, and a URL
+# picked up from a link elsewhere could still be listed.
 User-agent: *
-Disallow: /
+Allow: /

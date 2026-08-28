@@ -1,0 +1,52 @@
+# Netlify serves this repo as-is. The site sits at the root here, not under
+# demo/ as it does in the private working repository, because GitHub Pages can
+# only publish a branch's root — so the publish directory is the root too.
+#
+# There is no build step by design: the agreed scope rules out third-party
+# libraries and bundlers, so what is committed is what is served. If a build
+# command ever appears here, something has drifted from the scope.
+
+[build]
+  publish = "."
+
+# ---------------------------------------------------------------------------
+# The redesign is not announced. Every page already carries
+#   <meta name="robots" content="noindex, nofollow">
+# but a meta tag only reaches crawlers that parse the document — a header
+# reaches the ones that do not, and covers the images and the video as well.
+# GitHub Pages cannot send this; Netlify can, so on that host it is belt and
+# braces rather than the only line of defence.
+# ---------------------------------------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, noimageindex"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+
+# Stylesheets and scripts are requested with a content hash in the query
+# (theme.css?v=d928139b), and browsers key their cache on the full URL, so a
+# changed file arrives under a URL that was never cached. Safe to hold.
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# Media carries no hash — it is referenced by plain name from the stylesheets.
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# The pages themselves must never be held: they are what changes between
+# review rounds, and a stale one wastes a client meeting.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

@@ -35,8 +35,10 @@ a{color:inherit;text-decoration:none}
 @media (min-width:780px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:1100px){
   .grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+  /* Six divides by three, so every card spans two and both rows are full.
+     The old nth-of-type(n+4) rule widened the leftovers because five did
+     not divide; with a sixth direction it would strand the last card. */
   .grid > .card{grid-column:span 2}
-  .grid > .card:nth-of-type(n+4){grid-column:span 3}
 }
 .card{--pad:clamp(24px,2.8vw,32px);
   position:relative;overflow:hidden;border-radius:18px;
@@ -80,6 +82,12 @@ a{color:inherit;text-decoration:none}
   padding:var(--pad)}
 .card--wechsel .card__n,.card--wechsel .card__go{color:#FFBB57}
 .card--wechsel .card__thesis{color:#E0CFC2}
+/* Atome is Vorwärts with a different head, so it keeps that card's plum and
+   separates itself on the accent alone rather than pretending to be a new
+   colour world. */
+.card--atome{background:linear-gradient(160deg,#331520,#1B0C12);border:1px solid #3A1E27}
+.card--atome .card__n,.card--atome .card__go{color:#FFBB57}
+.card--atome .card__thesis{color:#D8C9C6}
 </style>
 </head>
 <body>
@@ -127,6 +135,15 @@ a{color:inherit;text-decoration:none}
         <span class="card__n">05</span>
         <span class="card__name">Wechsel</span>
         <span class="card__thesis">Glut, aber im Wechsel. Dunkle und papierhelle Abschnitte lösen einander ab; jede Seite trägt beide Seiten der Marke.</span>
+        <span class="card__go">Öffnen &rarr;</span>
+      </span>
+    </a>
+    <a class="card card--atome" href="n6-atome/">
+      <span class="card__seam" aria-hidden="true"></span>
+      <span class="card__body">
+        <span class="card__n">06</span>
+        <span class="card__name">Atome</span>
+        <span class="card__thesis">Vorwärts, aber der Kopf trägt einen Film aus dem Zeichen selbst: die fünf Kugeln lösen sich, finden neue Verbindungen und setzen sich wieder zusammen.</span>
         <span class="card__go">Öffnen &rarr;</span>
       </span>
     </a>

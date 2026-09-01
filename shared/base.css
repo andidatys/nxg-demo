@@ -114,6 +114,7 @@ p{margin:0 0 18px;color:var(--ink-2)}
 /* the first frame of the hero clip, so the still and the video are the same
    picture and the upgrade is invisible when it arrives */
 .plate--heroframe{--photo:url(../media/heroframe.webp)}
+.plate--atomsframe{--photo:url(../media/atomsframe.webp)}
 
 /* Anything sitting ON a photograph gets an opaque ground. A translucent
    chip over an unknown image has unknown contrast — and the photographs

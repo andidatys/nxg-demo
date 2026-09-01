@@ -1,0 +1,423 @@
+/* ============================================================
+   VORWÄRTS — the energy of the reference, in NXG's own colours
+
+   What actually makes vibegroup.com feel alive is not the navy.
+   It is four devices, and none of them are tied to that palette:
+
+     1. display type where half the words are solid and half are
+        outlined — the single most recognisable thing on the page
+     2. a saturated ground, never flat black, lifted by large soft
+        light
+     3. portraits reduced to two colours, gridded edge to edge
+     4. big list rows that end in a circular arrow
+
+   All four are rebuilt here on NXG's warm triad. The ground is a
+   deep plum rather than navy for the same reason theirs is navy:
+   it is the brand's own hue pushed to its darkest, so the accents
+   read as light coming off it instead of paint sitting on it.
+
+   Every value below is measured. Outlined type is judged on its
+   stroke colour, not its transparent fill.
+   ============================================================ */
+:root{
+  --ground:#1B0C12;          /* deep plum — saturated, not black */
+  --surface:#241016;
+  --surface-2:#2E141C;
+  --ink:#FFF6F2;             /* 17.80:1 */
+  --ink-2:#D8C9C6;           /* 11.81:1 */
+  --ink-3:#A08F8C;           /*  6.20:1 */
+  --rule:#3A1E27;
+  --rule-strong:#7A5C63;     /*  3.30:1 */
+  --tint:rgba(255,246,242,.07);
+  --grain:rgba(255,255,255,.014);
+  --focus:#FFEDA3;
+
+  --accent:#FFBB57;          /* the pill — 11.28:1 for dark text on it */
+  --accent-hover:#FFEDA3;
+  --on-accent:#1B0C12;
+  --accent-text:#FFBB57;
+
+  --header-h:clamp(64px,5.4vw,82px);   /* bar height AND anchor offset */
+  --header-bg:rgba(27,12,18,.86);
+  --header-bg-stuck:rgba(21,9,14,.96);
+  /* the headline sits in the lower two thirds, so that band is held near
+     opaque — the photograph reads at the top of frame, not behind the type */
+  /* Two dampers in series, each doing part of the job. Holding the scrim at
+     .92 behind the headline AND filling the letters at .62 left the photo
+     invisible inside the type — the see-through effect gone, over-corrected.
+     The scrim stays moderate so the hero still reads as a photograph; the
+     letter fill takes the rest. 199 points of photo contrast arrive at the
+     type as roughly 40, then leave it at roughly 15: movement, not hairlines. */
+  --hero-scrim:linear-gradient(to top,rgba(27,12,18,.96) 0%,rgba(27,12,18,.80) 35%,rgba(27,12,18,.42) 70%,rgba(27,12,18,.30) 100%);
+
+  --phero-scrim:linear-gradient(to right,rgba(27,12,18,.97) 0%,rgba(27,12,18,.90) 46%,rgba(27,12,18,.62) 78%,rgba(27,12,18,.50) 100%);
+  --form-bg:linear-gradient(168deg,#241017 0%,#1B0C12 100%);
+  --ink-placeholder:#947F85;
+
+  --display:"Sofia Sans","Segoe UI","Helvetica Neue",Roboto,Arial,sans-serif;
+  --body:"Work Sans","Segoe UI",system-ui,sans-serif;
+  --radius:0px;              /* this direction is square and graphic */
+  --wrap:1320px;
+}
+
+/* ============================================================
+   BODY COPY ON A DARK GROUND
+
+   base.css sets body to Work Sans 300 because it was written for the
+   light directions, where a light stem reads as elegant. On this ground
+   the same setting is working against three things at once:
+
+     - light-on-dark loses apparent stem weight (halation: the bright
+       glyph bleeds into the dark field, the field does not bleed back)
+     - -webkit-font-smoothing:antialiased removes the stem darkening the
+       platform would otherwise apply. It measures as nothing in Chromium
+       on Windows, which is why it went unnoticed here, but on macOS it is
+       exactly the compensation this text needs, thrown away
+     - 300 was already the thinnest weight the loaded family has
+
+   Measured: weight 400 carries 39.5% more ink than 300 at the same size
+   and colour, and costs 30px of line width (5.5%), which the measure
+   absorbs without reflowing. So: 400, and let the platform smooth.
+   ============================================================ */
+body{
+  font-weight:400;
+  -webkit-font-smoothing:auto;      /* NOT antialiased — see above */
+  -moz-osx-font-smoothing:auto;
+}
+
+/* the ground is lit, not painted — large static radials, no animated blur */
+.glow{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(62% 48% at 84% -8%, rgba(255,81,90,.26) 0%, transparent 68%),
+    radial-gradient(56% 44% at 4% 30%, rgba(255,187,87,.15) 0%, transparent 68%),
+    radial-gradient(70% 54% at 46% 108%, rgba(255,237,163,.10) 0%, transparent 68%)}
+/* .site must NOT be in this list. It is position:sticky from base.css, and
+   naming it here silently overwrites that with relative — the header then
+   scrolls away with the page. This is the third time a blanket position
+   rule has broken sticky in this project; the audit now fails the build
+   for it rather than relying on anyone spotting it. */
+main,.foot{position:relative;z-index:2}
+
+/* ============================================================
+   DISPLAY TYPE — solid and outlined in the same breath
+   ============================================================ */
+h1,h2{text-transform:uppercase;font-family:var(--display);font-weight:700;
+  letter-spacing:-.035em;line-height:.92;margin:0}
+h1{font-size:clamp(42px,8.6vw,114px)}   /* the longest line needs 1279px in a 1176px box at 118px */   /* max chosen so the longest marked-up line stays on one line */
+h2{font-size:clamp(34px,6.6vw,96px)}
+h3{font:600 clamp(24px,2.6vw,36px)/1.1 var(--display);letter-spacing:-.02em;
+  text-transform:uppercase;margin:0 0 18px}
+/* The outline.
+
+   A fully transparent fill was the mistake. Measuring the photograph that
+   sits behind the hero headline: luminance range 6..205 across the band,
+   and its edge energy runs diagonally 1.37x more than on either axis —
+   architectural lines. Through empty letters those diagonals read as stray
+   hairlines cutting across B, D and U, letters that have no diagonals of
+   their own. It was never a stroke bug; it was the picture showing through.
+
+   So the letters keep their transparency — that is the point of the
+   treatment — but at a strength that damps the backdrop instead of framing
+   it. At 62% ground the photo still moves inside the type; its contrast
+   arrives reduced to roughly a third. */
+.o{color:transparent;
+   -webkit-text-stroke:2px var(--ink);
+   -webkit-text-fill-color:rgba(27,12,18,.62);
+   paint-order:stroke fill;
+   letter-spacing:.022em}
+/* Tracking, and an honest note about why.
+
+   The value used to be -.012em. I changed it after a column-scan of the
+   rasterised line appeared to show two glyphs fused. That reading was WRONG:
+   the scan counted columns containing no ink, and two letters can leave no
+   empty column between them while sharing no pixel at all, because they are
+   offset vertically. A per-glyph pixel-intersection test — validated by
+   forcing real overlaps at -8px and -20px, which it catches — reports ZERO
+   touching pairs at -1.14em, at 0, and at every value up to +.05em.
+
+   So this is not a bug fix. It is a convention: a stroke is centred on the
+   contour and so spends half its width outside the glyph, which eats the
+   sidebearing the designer drew. Giving it back is what outlined settings
+   normally do. It costs 41px of a 886px column.
+
+   Recorded plainly because nothing else in this treatment measured as
+   defective either. Every mechanical fault I proposed was refuted by my own
+   measurement. If it still reads badly, the reason is that the treatment does
+   not suit the brand at this size — which is a judgement, not an arithmetic
+   error, and is why prototyp/_specimen/ exists. */
+@media (min-width:900px){.o{-webkit-text-stroke-width:2.5px}}
+/* over a flat ground there is nothing to damp, so let it go fully hollow */
+.vow__track span.o,.sec-head .o,.why__grid .o,.kontakt .o{
+  -webkit-text-fill-color:transparent}
+h1 .o,h2 .o{display:inline-block}
+
+.eyebrow{display:inline-flex;align-items:center;gap:10px;margin:0 0 22px;
+  font-weight:600;letter-spacing:.22em}
+.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--brand-1);flex:none}
+.sec-head{max-width:min(100%,1000px);margin-bottom:clamp(40px,5vw,72px)}
+.sec-head h2{max-width:9.4em}   /* em, not ch: ch is the width of the digit zero, which varies far more
+      between faces than the letters do — the swap of display face broke
+      every ch-based headline measure at once. em tracks the type size
+      directly. Value derived from the longest marked-up line. */
+/* 52ch measures 65 rendered characters here, because ch is the width of
+   the digit zero and Work Sans sets zero wider than its lowercase. 46ch
+   lands at a comfortable ~58. The old 26px gap was set against a 40px
+   heading and never revisited when the display scale grew to 95px. */
+.sec-head__lede{font-size:clamp(17px,1.5vw,20px);line-height:1.7;max-width:46ch;
+  margin-top:clamp(24px,2.6vw,38px);color:var(--ink-2)}
+
+/* pills with an arrow, like the reference's */
+.btn{border-radius:100px;padding:16px 28px;font-size:13px;font-weight:600;
+  display:inline-flex;align-items:center;gap:10px}
+.btn i{font-style:normal;transition:transform .3s var(--ease)}
+.btn:hover i{transform:translateX(4px)}
+.btn--ghost{border-color:var(--rule-strong)}
+
+/* ============================================================
+   HEADER — edge to edge, and it gets out of the way
+
+   Puls floats a rounded capsule. This direction is square and
+   graphic, so its header is the opposite: full bleed, hard edges,
+   a solid block of accent at the right rather than a pill, and a
+   hairline of the brand gradient along the bottom that fills as
+   you read. It also retracts when you scroll down and comes back
+   the moment you scroll up, so a page this tall is not carrying a
+   bar it does not need.
+   ============================================================ */
+.site{border-bottom:1px solid var(--rule);
+  transition:transform .42s var(--ease),background-color .35s var(--ease),
+             border-color .35s var(--ease)}
+.site.is-away{transform:translateY(-102%)}   /* opt-in only, via data-retract */
+
+/* The bar is sticky and now never retracts, so every in-page link has to land
+   BELOW it. Without this a click on "Fachbereiche" parks the heading behind
+   the header — the retracting version hid this, because scrolling down was
+   exactly the gesture that got the bar out of the way. 14px of air on top of
+   the bar's own height so the eyebrow is not flush against the edge. */
+html{scroll-padding-top:calc(var(--header-h) + 14px)}
+.site__in{max-width:none;padding:0 clamp(16px,2.6vw,44px);gap:clamp(14px,2.4vw,40px);
+  min-height:var(--header-h)}
+.site__logo{padding:14px 0}
+.site__logo svg{width:clamp(88px,7vw,116px)}
+
+.site__nav{position:relative;gap:0;margin-left:auto}
+.site__nav a{font:600 clamp(11px,.92vw,13px)/1 var(--body);letter-spacing:.14em;
+  text-transform:uppercase;padding:16px clamp(11px,1.1vw,18px);color:var(--ink-3)}
+.site__nav a::after{display:none}
+.site__nav a:hover,.site__nav a.is-here{color:var(--ink)}
+/* the indicator is a block behind the label, not a line under it */
+.site__nav::before{content:"";position:absolute;left:var(--nx,0);width:var(--nw,0);
+  top:50%;height:34px;margin-top:-17px;background:var(--tint);opacity:var(--no,0);
+  transition:left .4s var(--ease),width .4s var(--ease),opacity .3s var(--ease)}
+
+/* a solid block, full header height — no pill anywhere in this direction */
+.site__cta{border-radius:0;padding:0 clamp(18px,2vw,34px);font-size:clamp(11px,.9vw,12px);
+  letter-spacing:.14em;align-self:stretch;margin-right:calc(-1 * clamp(16px,2.6vw,44px));
+  display:inline-flex;align-items:center;flex:none}
+@media (max-width:980px){.site__cta{display:none}}
+
+/* reading progress, in the brand gradient, along the header's own edge */
+.site::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;
+  width:calc(var(--read,0) * 100%);background:var(--grad);
+  transition:width .12s linear;pointer-events:none}
+
+.site__burger{border-left:1px solid var(--rule);width:clamp(56px,5vw,72px);height:auto;
+  align-self:stretch;border-radius:0}
+
+/* ---------- hero ---------- */
+.hero{min-height:min(96svh,900px);align-items:flex-end}
+/* inset:-6% rather than scale(1.12): both grow the layer 6% per side, but a
+   scaled layer is bilinearly resampled every frame while a translated one is
+   rasterised once and moved. Same parallax travel, no resampling — which is
+   what keeps the backdrop's fine detail from folding into new structure at
+   fractional device pixel ratios. */
+.hero__plate{opacity:.72;position:absolute;inset:-6%;
+  transform:translate3d(0,calc(var(--p,0) * 70px),0);
+  will-change:transform;overflow:hidden}
+/* A hair of blur on the backdrop under the type. It costs nothing visually at
+   this scale — the layer is already a soft dusk interior — and it puts the
+   photograph's edge detail below Nyquist, so no fractional DPR, GPU resample
+   or screenshot rescale can fold it back into visible structure. */
+.hero__plate::before{filter:blur(1.2px)}
+
+/* The clip sits above the still and below the scrim. It is only ever attached
+   by script, and only on a pointer device wide enough to be worth the bytes —
+   an autoplaying hero video is exactly the kind of thing that costs the mobile
+   Lighthouse budget the brief puts a number on. */
+.hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .9s var(--ease);pointer-events:none;
+  border:0;display:block}
+.hero__video.is-on{opacity:1}
+@media (prefers-reduced-motion:reduce){.hero__video{display:none}}
+.hero h1{max-width:none}
+.hero__row{display:grid;gap:clamp(22px,3vw,48px);margin-top:clamp(26px,3.4vw,44px);
+  align-items:end}
+@media (min-width:900px){.hero__row{grid-template-columns:minmax(0,1fr) auto}}
+.hero__sub{font-size:clamp(17px,1.5vw,21px);max-width:40ch;color:var(--ink-2);margin:0}
+.hero__cta{display:flex;flex-wrap:wrap;gap:12px}
+.plate__tag{right:var(--pad);bottom:18px}
+
+/* Opaque, not .88 translucent. This chip is position:fixed, so it floats over
+   whatever happens to be underneath — including the brightest part of the
+   contact photograph, where a 12% leak was enough to drop 10px --ink-3 text to
+   3.2:1 against the 4.5 it needs. Fixed chrome cannot assume its backdrop. */
+
+/* ============================================================
+   DUOTONE GRID
+   Six portraits, six colours off the brand triad, edge to edge.
+   The images arrive rim-lit and near-monochrome, so a hue-rotate
+   over a brightened base reads as a real duotone rather than a
+   tint laid on top.
+   ============================================================ */
+.fach{padding:calc(var(--sec) * .5) 0 0}
+.duo{list-style:none;margin:clamp(30px,4vw,56px) 0 0;padding:0;display:grid;gap:2px}
+@media (min-width:560px){.duo{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:900px){.duo{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:1400px){.duo{grid-template-columns:repeat(6,1fr)}}
+.duo__card{position:relative;overflow:hidden;background:var(--ground);
+  aspect-ratio:3/4.6;display:flex;align-items:flex-end}
+@media (min-width:1400px){.duo__card{aspect-ratio:2/5}}
+.duo__img{position:absolute;inset:0;border-radius:0}
+.duo__img::before{transform:scale(1.02);transition:transform .7s var(--ease)}
+.duo__card:hover .duo__img::before{transform:scale(1.07)}
+.duo__img::after{background-image:none}
+.duo__card::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(27,12,18,.94) 0%,rgba(27,12,18,.15) 55%,transparent 100%)}
+.duo__body{position:relative;z-index:1;padding:clamp(18px,1.8vw,26px);display:block}
+.duo__body b{display:block;font:600 clamp(15px,1.15vw,18px)/1.2 var(--display);
+  text-transform:uppercase;letter-spacing:-.01em;color:var(--ink)}
+.duo__body span{display:block;margin-top:8px;font:400 13px/1.45 var(--body);color:var(--ink-2)}
+/* one colour per card, mixed into the plate itself */
+.duo--1 .duo__img{--photo-filter:grayscale(1) brightness(1.35) contrast(1.15) sepia(1) hue-rotate(-25deg) saturate(4.2)}
+.duo--2 .duo__img{--photo-filter:grayscale(1) brightness(1.35) contrast(1.15) sepia(1) hue-rotate(-8deg) saturate(3.4)}
+.duo--3 .duo__img{--photo-filter:grayscale(1) brightness(1.4) contrast(1.12) sepia(1) hue-rotate(5deg) saturate(3)}
+.duo--4 .duo__img{--photo-filter:grayscale(1) brightness(1.38) contrast(1.15) sepia(1) hue-rotate(-16deg) saturate(3.6)}
+.duo--5 .duo__img{--photo-filter:grayscale(1) brightness(1.32) contrast(1.18) sepia(1) hue-rotate(-32deg) saturate(4)}
+.duo--6 .duo__img{--photo-filter:grayscale(1) brightness(1.42) contrast(1.1) sepia(1) hue-rotate(12deg) saturate(2.6)}
+.duo__note{margin:18px auto 0;font:400 13px/1.5 var(--body);color:var(--ink-3)}
+
+/* ============================================================
+   THE VOW, AT BILLBOARD SCALE
+   Their own three-part promise, given the treatment the
+   reference gives its own — huge, uppercase, half outlined,
+   moving. shared/app.js repeats the track until it is full.
+   ============================================================ */
+.why{padding:calc(var(--sec) * .5) 0}
+.vow{overflow:hidden;padding:clamp(30px,4vw,58px) 0;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  margin-bottom:clamp(48px,6vw,92px)}
+.vow__track{display:flex;gap:clamp(28px,3vw,56px);width:max-content;
+  animation:vow 42s linear infinite;will-change:transform}
+.vow__track span{font:700 clamp(38px,7.6vw,116px)/1 var(--display);letter-spacing:-.04em;
+  text-transform:uppercase;white-space:nowrap;color:var(--ink)}
+.vow__track span.o{color:transparent}
+.vow:hover .vow__track{animation-play-state:paused}
+@keyframes vow{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.vow__track{animation:none}}
+
+/* Display type inside a grid column has to scale with the COLUMN, not the
+   viewport. `vw` does not know the column got narrower, so a long uppercase
+   word — PERSPEKTIVE. at 96px — outgrows its own .ln box and gets sliced.
+   cqi measures the container, so the fit holds at every width. */
+.why__grid{display:grid;gap:clamp(26px,3.4vw,64px);align-items:start}
+.why__grid > div{container-type:inline-size}
+.why__grid h2{font-size:clamp(30px,12cqi,88px)}
+@media (min-width:960px){.why__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.why__lede{font:400 clamp(19px,1.9vw,26px)/1.5 var(--body);color:var(--ink);max-width:44ch}
+.why__text p{max-width:48ch}
+.why__sig{font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:12px;
+  color:var(--accent-text)}
+
+.promises{list-style:none;margin:clamp(44px,5vw,80px) 0 0;padding:0;display:grid;gap:0;
+  border-top:1px solid var(--rule)}
+@media (min-width:900px){.promises{grid-template-columns:repeat(3,1fr)}}
+.promises li{padding:clamp(24px,2.6vw,38px) 0;border-bottom:1px solid var(--rule)}
+@media (min-width:900px){
+  .promises li{padding:clamp(24px,2.6vw,38px) clamp(20px,2vw,34px);
+    border-right:1px solid var(--rule);border-bottom:0}
+  .promises li:first-child{padding-left:0}
+  .promises li:last-child{border-right:0;padding-right:0}
+}
+.promises b{display:block;font:600 clamp(17px,1.4vw,22px)/1.2 var(--display);
+  text-transform:uppercase;margin-bottom:12px}
+.promises span{font-size:15px;color:var(--ink-2)}
+
+/* ---------- tabs ---------- */
+.wege{padding:calc(var(--sec) * .5) 0}
+.tabs{display:flex;flex-wrap:wrap;gap:clamp(18px,2.4vw,40px);
+  border-bottom:1px solid var(--rule);margin-bottom:clamp(30px,3.6vw,52px)}
+.tabs button{background:none;border:0;cursor:pointer;color:var(--ink-3);
+  font:600 clamp(12px,1.1vw,14px)/1 var(--body);letter-spacing:.14em;text-transform:uppercase;
+  padding:16px 0;min-height:44px;position:relative;transition:color .25s var(--ease)}
+.tabs button::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;
+  transition:transform .35s var(--ease)}
+.tabs button.is-active{color:var(--ink)}
+.tabs button.is-active::after{transform:scaleX(1)}
+.panel__grid{display:grid;gap:clamp(26px,3.4vw,60px);align-items:center}
+@media (min-width:900px){.panel__grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}}
+.panel__img{aspect-ratio:4/5;border-radius:0}
+.panel p{max-width:46ch}
+.points{margin:clamp(24px,3vw,36px) 0 0;display:grid;gap:18px}
+.points dt{font:600 15px/1.3 var(--body);color:var(--ink);margin-bottom:5px}
+.points dd{margin:0;font-size:15px;color:var(--ink-3);max-width:46ch}
+.steps{list-style:none;margin:clamp(26px,3vw,38px) 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.steps li{display:inline-flex;align-items:center;gap:9px;font:400 13px/1 var(--body);
+  color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:100px;padding:9px 15px 9px 9px}
+.steps span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
+  background:var(--tint);font:600 11px/1 var(--body);color:var(--ink);
+  font-variant-numeric:tabular-nums}
+
+/* ============================================================
+   ROWS — the reference's closing device
+   A hairline, a line of text, a circular arrow on the right.
+   ============================================================ */
+.kontakt{position:relative;overflow:clip;isolation:isolate;padding:calc(var(--sec) * .5) 0}
+/* z-index -2, not -1. The scrim below is .kontakt::before, also at -1, and at
+   equal z-index paint order follows the tree: a ::before paints before its
+   element's children, so the photograph landed ON TOP of the scrim meant to
+   hold it down. The section looked right because the plate is only 40% opaque,
+   but the scrim was contributing nothing, and the brightest highlights in
+   city.webp reached the contact links at 4.33:1 where body text needs 4.5.
+   One layer down and the scrim does the job it was written for. */
+.kontakt__plate{position:absolute;inset:-7%;z-index:-2;border-radius:0;opacity:.4;
+  transform:translate3d(0,calc(var(--p,.5) * -60px + 30px),0);will-change:transform}
+.kontakt::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to bottom,rgba(27,12,18,.95),rgba(27,12,18,.82) 45%,rgba(27,12,18,.97))}
+.rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule-strong)}
+.rows li{border-bottom:1px solid var(--rule-strong)}
+.rows a{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+  gap:clamp(14px,2vw,32px);padding:clamp(22px,2.8vw,38px) 0;text-decoration:none;
+  transition:padding-left .35s var(--ease)}
+.rows a:hover{padding-left:clamp(10px,1.4vw,22px)}
+.rows__t{grid-column:1;font:400 clamp(18px,2.2vw,30px)/1.25 var(--body);color:var(--ink)}
+.rows__m{grid-column:1;margin-top:8px;font:400 14px/1 var(--body);letter-spacing:.06em;
+  color:var(--ink-3)}
+.rows__go{grid-column:2;grid-row:1/3;width:clamp(44px,4vw,58px);height:clamp(44px,4vw,58px);
+  border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;
+  place-items:center;font-size:20px;flex:none;transition:transform .35s var(--ease)}
+.rows a:hover .rows__go{transform:translateX(6px)}
+.kontakt address{font-style:normal;margin-top:clamp(30px,3.4vw,48px);color:var(--ink-2);
+  font-size:17px}
+
+/* ---------- footer ---------- */
+.foot{border-top:1px solid var(--rule);padding:clamp(40px,5vw,64px) 0}
+.foot__in{display:grid;gap:22px;align-items:start}
+@media (min-width:820px){.foot__in{grid-template-columns:auto 1fr auto;gap:clamp(24px,4vw,56px)}}
+.foot__blurb{margin:0;font-size:14px;color:var(--ink-3);max-width:52ch}
+.foot__note{margin:0;font-size:13px;color:var(--ink-3);grid-column:1/-1}
+
+/* ---------- frames ---------- */
+/* grain measured at 1 unit of 255 on a scaled, GPU-promoted layer: no visible
+   contribution, only a resampling risk. Off on anything that transforms. */
+.hero__plate::after,.kontakt__plate::after{background-image:none}
+.plate--hero{background:linear-gradient(168deg,#3A1A22 0%,#180A10 100%)}
+.plate--comp{background:linear-gradient(158deg,#341620 0%,#1A0B11 100%);--photo-filter:saturate(1.05)}
+.plate--prof{background:linear-gradient(158deg,#341620 0%,#1A0B11 100%);
+  --photo-filter:saturate(.85) sepia(.24) hue-rotate(-16deg) brightness(1.06)}
+.plate--city{background:linear-gradient(180deg,#2C1219 0%,#170A0F 100%);
+  --photo-filter:saturate(.8) sepia(.24) hue-rotate(-14deg) brightness(1.02)}
+
+@media (prefers-reduced-motion:reduce){
+  .hero__plate,.kontakt__plate,.duo__img::before{transform:none}
+}

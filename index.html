@@ -34,11 +34,12 @@ a{color:inherit;text-decoration:none}
   padding:clamp(16px,3vw,44px) clamp(16px,4vw,52px)}
 @media (min-width:780px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:1100px){
-  .grid{grid-template-columns:repeat(6,minmax(0,1fr))}
-  /* Six divides by three, so every card spans two and both rows are full.
-     The old nth-of-type(n+4) rule widened the leftovers because five did
-     not divide; with a sixth direction it would strand the last card. */
-  .grid > .card{grid-column:span 2}
+  .grid{grid-template-columns:repeat(12,minmax(0,1fr))}
+  /* Seven cards: four across, then three. Twelve columns divide by both, so
+     neither row is left with a gap. Six used to divide by three and took a
+     simpler rule; a seventh direction stranded one card on its own row. */
+  .grid > .card{grid-column:span 3}
+  .grid > .card:nth-of-type(n+5){grid-column:span 4}
 }
 .card{--pad:clamp(24px,2.8vw,32px);
   position:relative;overflow:hidden;border-radius:18px;
@@ -88,6 +89,11 @@ a{color:inherit;text-decoration:none}
 .card--atome{background:linear-gradient(160deg,#331520,#1B0C12);border:1px solid #3A1E27}
 .card--atome .card__n,.card--atome .card__go{color:#FFBB57}
 .card--atome .card__thesis{color:#D8C9C6}
+/* Auftakt is the brand film, so its card is the darkest of the set and lets
+   the coral end of the gradient carry it. */
+.card--auftakt{background:linear-gradient(160deg,#241019,#0A0508);border:1px solid #3A1E27}
+.card--auftakt .card__n,.card--auftakt .card__go{color:#FF7A82}
+.card--auftakt .card__thesis{color:#D8C9C6}
 </style>
 </head>
 <body>
@@ -144,6 +150,15 @@ a{color:inherit;text-decoration:none}
         <span class="card__n">06</span>
         <span class="card__name">Atome</span>
         <span class="card__thesis">Vorwärts, aber der Kopf trägt einen Film aus dem Zeichen selbst: die fünf Kugeln lösen sich, finden neue Verbindungen und setzen sich wieder zusammen.</span>
+        <span class="card__go">Öffnen &rarr;</span>
+      </span>
+    </a>
+    <a class="card card--auftakt" href="n7-auftakt/">
+      <span class="card__seam" aria-hidden="true"></span>
+      <span class="card__body">
+        <span class="card__n">07</span>
+        <span class="card__name">Auftakt</span>
+        <span class="card__thesis">Der Markenfilm im Kopf: das Zeichen erscheint flach, wird zu einem realen Körper und dreht sich frei im Raum.</span>
         <span class="card__go">Öffnen &rarr;</span>
       </span>
     </a>

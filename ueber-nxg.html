@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <meta http-equiv="Cache-Control" content="no-store">
-<title>Kontakt — NXG GmbH, Hamburg</title>
-<meta name="description" content="NXG GmbH, Schlüterstr. 44, 20146 Hamburg. Anfrage per Formular oder direkt per E-Mail an companys@, apply@ oder info@nxg-group.de.">
+<title>Über NXG — Wir sind Ihr Recruitment Team</title>
+<meta name="description" content="Seit über 10 Jahren vermittelt NXG IT-Talente. Sechs Leistungen, ein Ansprechpartner. Stets maßgeschneidert. Stets offen. Stets zukunftsorientiert.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap">
-<link rel="stylesheet" href="../shared/base.css?v=ea4125c2">
-<link rel="stylesheet" href="theme.css?v=22e07bfe">
+<link rel="stylesheet" href="shared/base.css?v=5f5609fd">
+<link rel="stylesheet" href="theme.css?v=1967ff0f">
 </head>
 </head>
 <body>
@@ -36,9 +36,9 @@
     </a>
     <nav class="site__nav" aria-label="Hauptnavigation">
       <a href="fachbereiche.html">Bereiche</a>
-      <a href="ueber-nxg.html">Über NXG</a>
+      <a href="ueber-nxg.html" aria-current="page">Über NXG</a>
       <a href="fuer-wen.html">Für wen</a>
-      <a href="kontakt.html" aria-current="page">Kontakt</a>
+      <a href="kontakt.html">Kontakt</a>
     </nav>
     <a class="btn btn--solid site__cta" href="mailto:apply@nxg-group.de">
       Jetzt bewerben <i aria-hidden="true">&rarr;</i></a>
@@ -47,102 +47,50 @@
     </button>
   </div>
   <nav class="site__mnav" id="site-nav-m" aria-label="Hauptnavigation mobil" hidden>
-    <a href="fachbereiche.html">Bereiche</a><a href="ueber-nxg.html">Über NXG</a>
-    <a href="fuer-wen.html">Für wen</a><a href="kontakt.html" aria-current="page">Kontakt</a><a href="mailto:apply@nxg-group.de">Jetzt bewerben</a>
+    <a href="fachbereiche.html">Bereiche</a><a href="ueber-nxg.html" aria-current="page">Über NXG</a>
+    <a href="fuer-wen.html">Für wen</a><a href="kontakt.html">Kontakt</a><a href="mailto:apply@nxg-group.de">Jetzt bewerben</a>
   </nav>
 </header>
 
 <main id="main">
   <section class="phero" data-scrub>
-    <div class="phero__plate plate plate--city" aria-hidden="true"></div>
+    <div class="phero__plate plate plate--team" aria-hidden="true"></div>
     <div class="wrap">
-      <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Kontakt</p>
-      <h1><span class="ln"><span>Sprechen Sie</span></span>
-        <span class="ln"><span class="o">uns an.</span></span></h1>
+      <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Über NXG</p>
+      <h1><span class="ln"><span>Seit über</span></span>
+        <span class="ln"><span class="o">zehn Jahren.</span></span></h1>
       
     </div>
   </section>
-  <section class="contact" aria-labelledby="k-h">
-    <div class="wrap contact__grid">
-      <div class="contact__intro">
-        <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Anfrage</p>
-        <h2 id="k-h"><span class="ln"><span>Zwei Wege.</span></span>
-          <span class="ln"><span class="o">Wählen Sie Ihren.</span></span></h2>
-        <p data-reveal>Sagen Sie uns, worum es geht — den Rest klären wir im Gespräch.
-          Pflichtfelder legen wir gemeinsam fest.</p>
-        <address data-reveal>
-          NXG GmbH &middot; Schlüterstr. 44 &middot; 20146 Hamburg<br>
-          <a href="mailto:info@nxg-group.de">info@nxg-group.de</a>
-        </address>
-      </div>
 
-      <div class="cform" data-reveal>
-        <fieldset class="cform__role">
-          <legend class="cform__legend">Ich bin</legend>
-          <label><input type="radio" name="rolle" id="r-u" value="unternehmen" checked>
-            <span><b>Unternehmen</b><i>Ich suche Personal</i></span></label>
-          <label><input type="radio" name="rolle" id="r-k" value="fachkraft">
-            <span><b>Fachkraft</b><i>Ich suche eine Stelle</i></span></label>
-        </fieldset>
-
-        <form novalidate>
-          <div class="f"><label for="c-name">Name</label>
-            <input id="c-name" name="name" type="text" autocomplete="name" placeholder="Vor- und Nachname"></div>
-
-          <div class="f"><label for="c-mail">E-Mail</label>
-            <input id="c-mail" name="email" type="email" autocomplete="email" placeholder="name@firma.de"></div>
-
-          <div class="f" data-role="u"><label for="c-firma">Unternehmen</label>
-            <input id="c-firma" name="firma" type="text" autocomplete="organization" placeholder="Firmenname"></div>
-
-          <div class="f" data-role="k"><label for="c-start">Verfügbar ab</label>
-            <input id="c-start" name="start" type="text" placeholder="z. B. sofort, in 3 Monaten"></div>
-
-          <div class="f"><label for="c-seg">Fachbereich</label>
-            <select id="c-seg" name="fachbereich">
-              <option>Software Development</option><option>Data Science</option>
-              <option>Cybersecurity</option><option>Cloud &amp; DevOps</option>
-              <option>IT Management</option><option>UX/UI Design</option>
-              <option>Noch offen</option></select>
-          </div>
-
-          <div class="f f--full"><label for="c-note">Worum geht es?</label>
-            <textarea id="c-note" name="note" rows="3"
-              placeholder="Position, Standort, Zeitrahmen — so viel oder so wenig, wie Sie mögen"></textarea></div>
-
-          <p class="cform__hint" data-role="u">Geht per E-Mail an companys@nxg-group.de.
-            Keine Datenbank, kein Tracking.</p>
-          <p class="cform__hint" data-role="k">Geht per E-Mail an apply@nxg-group.de.
-            Den Lebenslauf können Sie später nachreichen — erst sprechen wir.</p>
-
-          <button class="btn btn--solid cform__send" type="submit">
-            Anfrage senden <i aria-hidden="true">&rarr;</i></button>
-        </form>
+  <section class="seg">
+    <div class="wrap">
+      <ul class="figs" data-reveal>
+        <li><b>Sechs</b><span>Fachbereiche</span></li>
+        <li><b>Hamburg</b><span>Schlüterstr. 44</span></li>
+        <li><b>Ein Team</b><span>für beide Seiten</span></li>
+      </ul>
+      <ol class="leist__grid">
+        <li data-reveal><i>01</i><b>Personalvermittlung</b></li>
+        <li data-reveal><i>02</i><b>Karriereberatung</b></li>
+        <li data-reveal><i>03</i><b>Unternehmensberatung</b></li>
+        <li data-reveal><i>04</i><b>Bewerbungsmanagement</b></li>
+        <li data-reveal><i>05</i><b>Marktanalyse</b></li>
+        <li data-reveal><i>06</i><b>Weiterbildung</b></li>
+      </ol>
+    </div>
+    <div class="vow" aria-hidden="true" data-clip-ok>
+      <div class="vow__track">
+        <span>Maßgeschneidert</span><span>Offen</span><span>Zukunftsorientiert</span>
       </div>
     </div>
+    <p class="sr">Stets maßgeschneidert. Stets offen. Stets zukunftsorientiert.</p>
   </section>
 
-  <section class="kontakt" data-scrub aria-labelledby="kd-h">
-    <div class="kontakt__plate plate plate--city" aria-hidden="true"></div>
+  <section class="kontakt">
     <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Direkt</p>
-        <h2 id="kd-h"><span class="ln"><span>Lieber gleich</span></span>
-          <span class="ln"><span class="o">per E-Mail?</span></span></h2>
-      </div>
       <ul class="rows">
-        <li><a href="mailto:companys@nxg-group.de">
-          <span><span class="rows__t">Unternehmen — unverbindlich anfragen</span>
-          <span class="rows__m">companys@nxg-group.de</span></span>
-          <i aria-hidden="true">&rarr;</i></a></li>
-        <li><a href="mailto:apply@nxg-group.de">
-          <span><span class="rows__t">Fachkräfte — Bewerbung senden</span>
-          <span class="rows__m">apply@nxg-group.de</span></span>
-          <i aria-hidden="true">&rarr;</i></a></li>
-        <li><a href="mailto:info@nxg-group.de">
-          <span><span class="rows__t">Allgemeine Anfrage</span>
-          <span class="rows__m">info@nxg-group.de</span></span>
-          <i aria-hidden="true">&rarr;</i></a></li>
+        <li><a href="kontakt.html"><span class="rows__t">Sprechen Sie uns an</span><i aria-hidden="true">&rarr;</i></a></li>
       </ul>
     </div>
   </section>
@@ -170,9 +118,9 @@
   </div>
 </footer>
 
-<script src="../shared/app.js?v=26fe0f99" defer></script>
-<script src="../shared/scroll.js?v=36c4d846" defer></script>
-<script src="../shared/nav.js?v=1dd80814" defer></script>
-<script src="../shared/video.js?v=531ff503" defer></script>
+<script src="shared/app.js?v=26fe0f99" defer></script>
+<script src="shared/scroll.js?v=36c4d846" defer></script>
+<script src="shared/nav.js?v=1dd80814" defer></script>
+<script src="shared/video.js?v=531ff503" defer></script>
 </body>
 </html>

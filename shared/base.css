@@ -116,6 +116,8 @@ p{margin:0 0 18px;color:var(--ink-2)}
 .plate--heroframe{--photo:url(../media/heroframe.webp)}
 .plate--atomsframe{--photo:url(../media/atomsframe.webp)}
 .plate--auftaktframe{--photo:url(../media/auftaktframe.webp)}
+.plate--goldframe{--photo:url(../media/goldframe.webp)}
+.plate--glut2frame{--photo:url(../media/glut2frame.webp)}
 
 /* Anything sitting ON a photograph gets an opaque ground. A translucent
    chip over an unknown image has unknown contrast — and the photographs

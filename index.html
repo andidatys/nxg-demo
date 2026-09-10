@@ -3,166 +3,212 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NXG — Entwürfe zur Auswahl</title>
-<meta name="description" content="Fünf Entwurfsrichtungen für nxg-group.de, jeweils als vollständige, bedienbare Website aus fünf Seiten.">
 <meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-store">
+<title>NXG — Ihre Karriere verbindet Zukunft</title>
+<meta name="description" content="NXG GmbH, Hamburg. Als spezialisierter Partner für IT verbinden wir ambitionierte Fachkräfte mit innovativen Unternehmen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;500;600&family=Work+Sans:wght@300;400;500;600&display=swap">
-<style>
-:root{
-  --ground:#0B0809; --ink:#F7F4F2;
-  --disp:"Sofia Sans","Segoe UI","Helvetica Neue",Roboto,Arial,sans-serif;
-  --body:"Work Sans","Segoe UI",system-ui,sans-serif;
-  --ease:cubic-bezier(.22,.61,.36,1);
-}
-*,*::before,*::after{box-sizing:border-box}
-body{margin:0;background:var(--ground);color:var(--ink);
-  font:400 17px/1.65 var(--body);-webkit-font-smoothing:auto;overflow-x:clip}
-a{color:inherit;text-decoration:none}
-/* the page says nothing out loud, but a document still needs a heading and a
-   screen reader still needs to be told what this list is */
-.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
-  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
-
-/* Five cards do not divide by three. They stack on a phone, pair up on a
-   tablet, and from 1100px a six-column grid takes 3 across then 2 across so
-   neither row is left hanging. With nothing else on the page the grid fills
-   the viewport rather than sitting in the top corner of it. */
-.grid{display:grid;gap:clamp(12px,1.6vw,22px);grid-template-columns:1fr;
-  align-content:center;min-height:100svh;max-width:1180px;margin:0 auto;
-  padding:clamp(16px,3vw,44px) clamp(16px,4vw,52px)}
-@media (min-width:780px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (min-width:1100px){
-  .grid{grid-template-columns:repeat(12,minmax(0,1fr))}
-  /* Seven cards: four across, then three. Twelve columns divide by both, so
-     neither row is left with a gap. Six used to divide by three and took a
-     simpler rule; a seventh direction stranded one card on its own row. */
-  .grid > .card{grid-column:span 3}
-  .grid > .card:nth-of-type(n+5){grid-column:span 4}
-}
-.card{--pad:clamp(24px,2.8vw,32px);
-  position:relative;overflow:hidden;border-radius:18px;
-  min-height:clamp(248px,30vh,290px);
-  padding:var(--pad);display:flex;flex-direction:column;
-  justify-content:flex-end;transition:transform .5s var(--ease)}
-.card__body{display:block}
-.card:hover{transform:translateY(-6px)}
-.card:focus-visible{outline:3px solid #FFBB57;outline-offset:3px}
-.card__seam{position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,#017AAA,#089AD5 22%,#FF515A 58%,#FFBB57 80%,#FFEDA3)}
-.card__n{font:600 11px/1 var(--body);letter-spacing:.18em}
-.card__name{font:300 clamp(26px,2.8vw,34px)/1.1 var(--disp);letter-spacing:-.02em;
-  margin:10px 0 8px}
-.card__thesis{font-size:14px;line-height:1.5;margin:0 0 18px}
-.card__go{font:600 11px/1 var(--body);letter-spacing:.14em;text-transform:uppercase}
-.card--puls{background:linear-gradient(165deg,#171112,#0B0809);border:1px solid #221C1E}
-.card--puls .card__n,.card--puls .card__go{color:#FFBB57}
-.card--puls .card__thesis{color:#B9B0AE}
-.card--vorwaerts{background:linear-gradient(160deg,#2A1119,#1B0C12);border:1px solid #3A1E27}
-.card--vorwaerts .card__n,.card--vorwaerts .card__go{color:#FF7A82}
-.card--vorwaerts .card__thesis{color:#D8C9C6}
-.card--auftrieb{background:linear-gradient(160deg,#FFFFFF,#EDF1F8);color:#0E1524;
-  border:1px solid #DEE5F0}
-/* 4.61:1 against the darker end of the card's own gradient; the brand
-   blue itself measures 4.25 there and 11px is small text */
-.card--auftrieb .card__n,.card--auftrieb .card__go{color:#0174A2}
-.card--auftrieb .card__thesis{color:#3B475C}
-.card--glut{background:linear-gradient(160deg,#3A2408,#221200);border:1px solid #4A3316}
-.card--glut .card__n,.card--glut .card__go{color:#FFBB57}
-.card--glut .card__thesis{color:#E0CFC2}
-/* The card shows what the direction does: paper above, espresso below. The
-   dark half is painted on the copy's own wrapper rather than as a stop in the
-   card's gradient, so the boundary sits exactly at the top of the text. A
-   percentage cut the title in half on the wider second row; a fixed offset
-   from the bottom left 4px of clearance on a narrow phone, where the copy
-   wraps to five lines. This cannot be crossed at any width. */
-.card--wechsel{background:#FDF8F1;border:1px solid #4A3316}
-.card--wechsel .card__body{background:#221200;
-  margin:0 calc(-1 * var(--pad)) calc(-1 * var(--pad));
-  padding:var(--pad)}
-.card--wechsel .card__n,.card--wechsel .card__go{color:#FFBB57}
-.card--wechsel .card__thesis{color:#E0CFC2}
-/* Atome is Vorwärts with a different head, so it keeps that card's plum and
-   separates itself on the accent alone rather than pretending to be a new
-   colour world. */
-.card--atome{background:linear-gradient(160deg,#331520,#1B0C12);border:1px solid #3A1E27}
-.card--atome .card__n,.card--atome .card__go{color:#FFBB57}
-.card--atome .card__thesis{color:#D8C9C6}
-/* Auftakt is the brand film, so its card is the darkest of the set and lets
-   the coral end of the gradient carry it. */
-.card--auftakt{background:linear-gradient(160deg,#241019,#0A0508);border:1px solid #3A1E27}
-.card--auftakt .card__n,.card--auftakt .card__go{color:#FF7A82}
-.card--auftakt .card__thesis{color:#D8C9C6}
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="shared/base.css?v=5f5609fd">
+<link rel="stylesheet" href="theme.css?v=1967ff0f">
 </head>
 <body>
-<h1 class="sr">NXG — Entwurfsrichtungen zur Auswahl</h1>
-<main class="grid" aria-label="Entwurfsrichtungen">
-    <a class="card card--puls" href="n1-puls/">
-      <span class="card__seam" aria-hidden="true"></span>
-      <span class="card__body">
-        <span class="card__n">01</span>
-        <span class="card__name">Puls</span>
-        <span class="card__thesis">Dunkel und ruhig. Schwebende Kapsel im Kopf, Glaskarten, ein zweiter Hero-Abschnitt in der unteren Hälfte.</span>
-        <span class="card__go">Öffnen &rarr;</span>
-      </span>
+
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<div class="glow" aria-hidden="true"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="ng" x1="243.164" y1="28.5" x2="56.4718" y2="262.518" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#FF515A"/><stop offset="0.485" stop-color="#FFBB57"/><stop offset="1" stop-color="#FFEDA3"/>
+  </linearGradient>
+  <symbol id="nxg" viewBox="0 0 644 248">
+    <path fill="url(#ng)" fill-rule="evenodd" clip-rule="evenodd" d="M262 43.5C262 61.4493 247.002 76 228.5 76C223.4 76 218.567 74.8945 214.24 72.917C209.069 70.5539 202.687 70.4299 198.535 74.3134L169.484 101.487C165.432 105.277 165.01 111.449 167.097 116.589C168.97 121.204 170 126.235 170 131.5C170 138.173 168.346 144.47 165.417 150.02C162.762 155.05 162.635 161.426 166.497 165.601L171.049 170.522C174.649 174.413 180.481 174.984 185.557 173.456C188.698 172.51 192.038 172 195.5 172C214.002 172 229 186.551 229 204.5C229 222.449 214.002 237 195.5 237C176.998 237 162 222.449 162 204.5C162 200.09 162.905 195.885 164.546 192.05C166.739 186.924 166.837 180.695 163.051 176.602L158.549 171.735C154.858 167.745 148.845 167.209 143.775 169.168C139.047 170.996 133.894 172 128.5 172C105.58 172 87 153.868 87 131.5C87 109.132 105.58 91 128.5 91C135.324 91 141.763 92.6073 147.442 95.455C152.418 97.9507 158.634 97.943 162.7 94.1399L193.006 65.7926C196.783 62.2595 197.371 56.6013 196.049 51.6011C195.364 49.0114 195 46.297 195 43.5C195 25.5507 209.998 11 228.5 11C247.002 11 262 25.5507 262 43.5ZM54 217.5C54 228.27 44.8218 237 33.5 237C22.1782 237 13 228.27 13 217.5C13 206.73 22.1782 198 33.5 198C44.8218 198 54 206.73 54 217.5ZM75.5 88C86.8218 88 96 79.2696 96 68.5C96 57.7304 86.8218 49 75.5 49C64.1782 49 55 57.7304 55 68.5C55 79.2696 64.1782 88 75.5 88Z"/>
+    <path fill="currentColor" d="M318.6 193C315.42 193 313.83 191.41 313.83 188.23V81.76C313.83 78.58 315.42 76.99 318.6 76.99C320.28 76.99 321.9 77.92 323.46 79.78L399.69 177.7H397.53V81.76C397.53 78.58 399.12 76.99 402.3 76.99C405.42 76.99 406.98 78.58 406.98 81.76V188.23C406.98 191.41 405.42 193 402.3 193C400.56 193 398.94 192.07 397.44 190.21L321.12 92.29H323.28V188.23C323.28 191.41 321.72 193 318.6 193ZM433.458 191.92C430.938 190.12 430.518 187.93 432.198 185.35L468.378 132.52L434.178 84.64C432.378 82.18 432.768 79.99 435.348 78.07C437.868 76.27 440.088 76.66 442.008 79.24L474.588 124.96L508.338 79.15C510.258 76.63 512.478 76.3 514.998 78.16C517.518 80.02 517.848 82.21 515.988 84.73L480.528 133.24L517.788 185.26C519.588 187.78 519.198 190 516.618 191.92C514.098 193.72 511.938 193.33 510.138 190.75L474.228 140.71L440.028 190.66C438.228 193.24 436.038 193.66 433.458 191.92ZM575.864 193C562.844 193 553.334 190 547.334 184C541.334 178 538.334 168.49 538.334 155.47V114.52C538.334 101.38 541.304 91.84 547.244 85.9C553.244 79.96 562.724 76.99 575.684 76.99H597.464C608.504 76.99 616.724 79.3 622.124 83.92C627.524 88.48 630.494 95.83 631.034 105.97C631.214 107.59 630.884 108.82 630.044 109.66C629.264 110.5 628.094 110.92 626.534 110.92C623.534 110.92 621.884 109.33 621.584 106.15C621.164 98.71 619.124 93.58 615.464 90.76C611.804 87.88 605.804 86.44 597.464 86.44H575.684C568.784 86.44 563.294 87.34 559.214 89.14C555.134 90.88 552.194 93.82 550.394 97.96C548.654 102.04 547.784 107.56 547.784 114.52V155.47C547.784 162.43 548.684 167.95 550.484 172.03C552.284 176.11 555.224 179.05 559.304 180.85C563.384 182.65 568.904 183.55 575.864 183.55H597.464C603.584 183.55 608.414 182.8 611.954 181.3C615.554 179.8 618.104 177.28 619.604 173.74C621.104 170.2 621.854 165.31 621.854 159.07V147.82L602.144 147.64C599.024 147.64 597.464 146.05 597.464 142.87C597.464 139.75 599.024 138.19 602.144 138.19L626.624 138.37C629.744 138.37 631.304 139.93 631.304 143.05V159.07C631.304 170.95 628.634 179.59 623.294 184.99C617.954 190.33 609.344 193 597.464 193H575.864Z"/>
+  </symbol>
+</defs></svg>
+
+<header class="site" id="site-header">
+  <div class="site__in">
+    <a class="site__logo" href="index.html" aria-label="NXG — Startseite">
+      <svg viewBox="0 0 644 248" role="img" aria-label="NXG"><use href="#nxg"/></svg>
     </a>
-    <a class="card card--vorwaerts" href="n2-vorwaerts/">
-      <span class="card__seam" aria-hidden="true"></span>
-      <span class="card__body">
-        <span class="card__n">02</span>
-        <span class="card__name">Vorwärts</span>
-        <span class="card__thesis">Kantig und grafisch. Kopfzeile ohne Radien, Video im Hero, Duotone-Raster über sechs Porträts.</span>
-        <span class="card__go">Öffnen &rarr;</span>
-      </span>
-    </a>
-    <a class="card card--auftrieb" href="n3-auftrieb/">
-      <span class="card__seam" aria-hidden="true"></span>
-      <span class="card__body">
-        <span class="card__n">03</span>
-        <span class="card__name">Auftrieb</span>
-        <span class="card__thesis">Hell statt dunkel. Kühles Papier, Verläufe als Atmosphäre, ein einziger dunkler Abschnitt in der Mitte.</span>
-        <span class="card__go">Öffnen &rarr;</span>
-      </span>
-    </a>
-    <a class="card card--glut" href="n4-glut/">
-      <span class="card__seam" aria-hidden="true"></span>
-      <span class="card__body">
-        <span class="card__n">04</span>
-        <span class="card__name">Glut</span>
-        <span class="card__thesis">Plakativ und wortkarg. Rund hundert Wörter, Schrift in Plakatgröße, warmes Espressobraun aus dem Marken-Verlauf.</span>
-        <span class="card__go">Öffnen &rarr;</span>
-      </span>
-    </a>
-    <a class="card card--wechsel" href="n5-wechsel/">
-      <span class="card__seam" aria-hidden="true"></span>
-      <span class="card__body">
-        <span class="card__n">05</span>
-        <span class="card__name">Wechsel</span>
-        <span class="card__thesis">Glut, aber im Wechsel. Dunkle und papierhelle Abschnitte lösen einander ab; jede Seite trägt beide Seiten der Marke.</span>
-        <span class="card__go">Öffnen &rarr;</span>
-      </span>
-    </a>
-    <a class="card card--atome" href="n6-atome/">
-      <span class="card__seam" aria-hidden="true"></span>
-      <span class="card__body">
-        <span class="card__n">06</span>
-        <span class="card__name">Atome</span>
-        <span class="card__thesis">Vorwärts, aber der Kopf trägt einen Film aus dem Zeichen selbst: die fünf Kugeln lösen sich, finden neue Verbindungen und setzen sich wieder zusammen.</span>
-        <span class="card__go">Öffnen &rarr;</span>
-      </span>
-    </a>
-    <a class="card card--auftakt" href="n7-auftakt/">
-      <span class="card__seam" aria-hidden="true"></span>
-      <span class="card__body">
-        <span class="card__n">07</span>
-        <span class="card__name">Auftakt</span>
-        <span class="card__thesis">Der Markenfilm im Kopf: das Zeichen erscheint flach, wird zu einem realen Körper und dreht sich frei im Raum.</span>
-        <span class="card__go">Öffnen &rarr;</span>
-      </span>
-    </a>
+    <nav class="site__nav" aria-label="Hauptnavigation">
+      <a href="fachbereiche.html">Bereiche</a>
+      <a href="ueber-nxg.html">Über NXG</a>
+      <a href="fuer-wen.html">Für wen</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="btn btn--solid site__cta" href="mailto:apply@nxg-group.de">
+      Jetzt bewerben <i aria-hidden="true">&rarr;</i></a>
+    <button class="site__burger" type="button" aria-expanded="false" aria-controls="site-nav-m">
+      <span></span><span></span><span class="sr">Menü</span>
+    </button>
+  </div>
+  <nav class="site__mnav" id="site-nav-m" aria-label="Hauptnavigation mobil" hidden>
+    <a href="fachbereiche.html">Bereiche</a><a href="ueber-nxg.html">Über NXG</a>
+    <a href="fuer-wen.html">Für wen</a><a href="kontakt.html">Kontakt</a><a href="mailto:apply@nxg-group.de">Jetzt bewerben</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ============ 01  HERO ============ -->
+  <section class="hero" data-scrub>
+    <div class="band">
+      <span class="plate plate--glut2frame" aria-hidden="true"></span>
+      <video class="hero__video" muted loop playsinline preload="none"
+             data-src="media/glut2-web.mp4" aria-hidden="true"></video>
+    </div>
+    <div class="wrap">
+      <h1><span class="ln"><span>Ihre Karriere</span></span>
+        <span class="ln"><span class="o">verbindet Zukunft</span></span></h1>
+      <p class="eyebrow" data-reveal><i aria-hidden="true"></i>IT-Recruiting &middot; Hamburg</p>
+      <div class="hero__cta" data-reveal>
+        <a class="btn btn--solid" href="mailto:apply@nxg-group.de">
+          Jetzt bewerben <i aria-hidden="true">&rarr;</i></a>
+        <a class="btn btn--ghost" href="mailto:companys@nxg-group.de">
+          Talent finden <i aria-hidden="true">&rarr;</i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02  BEREICHE ============ -->
+  <section class="seg" id="bereiche" aria-labelledby="b-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Bereiche</p>
+        <h2 id="b-h"><span class="ln"><span>Sechs Bereiche,</span></span>
+          <span class="ln"><span class="o">eine Branche.</span></span></h2>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Bereich wählen">
+        <button role="tab" id="tab-u" aria-controls="p-u" aria-selected="true" class="is-active" type="button">Entwicklung</button>
+        <button role="tab" id="tab-k" aria-controls="p-k" aria-selected="false" type="button">Daten &amp; Cloud</button>
+      </div>
+
+      <div class="panel" id="p-u" role="tabpanel" aria-labelledby="tab-u">
+        <div class="panel__grid">
+          <div class="panel__img plate plate--it" data-reveal aria-hidden="true">
+            <span class="plate__tag">Bildfläche</span>
+          </div>
+          <div>
+            <h3 data-reveal>Software Development</h3>
+            <p data-reveal>Frontend, Backend, Fullstack, Mobile.</p>
+            <a class="btn btn--ghost" href="mailto:companys@nxg-group.de" data-reveal>
+              Anfragen <i aria-hidden="true">&rarr;</i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="p-k" role="tabpanel" aria-labelledby="tab-k" hidden>
+        <div class="panel__grid">
+          <div class="panel__img plate plate--fin" data-reveal aria-hidden="true">
+            <span class="plate__tag">Bildfläche</span>
+          </div>
+          <div>
+            <h3 data-reveal>Data Science, Cloud &amp; DevOps</h3>
+            <p data-reveal>BI, Big Data, AWS, Azure, Kubernetes.</p>
+            <a class="btn btn--ghost" href="mailto:companys@nxg-group.de" data-reveal>
+              Anfragen <i aria-hidden="true">&rarr;</i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03  DUOTONE ROW ============ -->
+  <section class="seg" aria-labelledby="d-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="d-h"><span class="ln"><span>Wo wir</span></span>
+          <span class="ln"><span class="o">vermitteln.</span></span></h2>
+      </div>
+    </div>
+    <ul class="duo" data-clip-ok>
+      <li class="duo__card duo--1"><span class="duo__img plate plate--p1" aria-hidden="true"></span>
+        <span class="duo__body"><b>Software Development</b></span></li>
+      <li class="duo__card duo--2"><span class="duo__img plate plate--p2" aria-hidden="true"></span>
+        <span class="duo__body"><b>Data Science</b></span></li>
+      <li class="duo__card duo--3"><span class="duo__img plate plate--p3" aria-hidden="true"></span>
+        <span class="duo__body"><b>Cybersecurity</b></span></li>
+      <li class="duo__card duo--4"><span class="duo__img plate plate--p4" aria-hidden="true"></span>
+        <span class="duo__body"><b>Cloud &amp; DevOps</b></span></li>
+      <li class="duo__card duo--5"><span class="duo__img plate plate--p5" aria-hidden="true"></span>
+        <span class="duo__body"><b>IT Management</b></span></li>
+      <li class="duo__card duo--6"><span class="duo__img plate plate--p6" aria-hidden="true"></span>
+        <span class="duo__body"><b>UX/UI Design</b></span></li>
+    </ul>
+  </section>
+
+  <!-- ============ 04  ÜBER NXG ============ -->
+  <section class="seg" id="ueber" aria-labelledby="u-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Über NXG</p>
+        <h2 id="u-h"><span class="ln"><span>Seit über</span></span>
+          <span class="ln"><span class="o">zehn Jahren.</span></span></h2>
+      </div>
+      <ul class="figs" data-reveal>
+        <li><b>Sechs</b><span>Fachbereiche</span></li>
+        <li><b>Hamburg</b><span>Schlüterstr. 44</span></li>
+        <li><b>Ein Team</b><span>für beide Seiten</span></li>
+      </ul>
+    </div>
+    <div class="vow" aria-hidden="true" data-clip-ok>
+      <div class="vow__track">
+        <span>Maßgeschneidert</span><span>Offen</span><span>Zukunftsorientiert</span>
+      </div>
+    </div>
+    <p class="sr">Stets maßgeschneidert. Stets offen. Stets zukunftsorientiert.</p>
+  </section>
+
+  <!-- ============ 05  KONTAKT ============ -->
+  <section class="kontakt" id="kontakt" aria-labelledby="k-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Kontakt</p>
+        <h2 id="k-h"><span class="ln"><span>Sprechen Sie</span></span>
+          <span class="ln"><span class="o">uns an.</span></span></h2>
+      </div>
+      <ul class="rows">
+        <li><a href="mailto:companys@nxg-group.de">
+          <span class="rows__t">Talent finden</span><i aria-hidden="true">&rarr;</i></a></li>
+        <li><a href="mailto:apply@nxg-group.de">
+          <span class="rows__t">Bewerbung senden</span><i aria-hidden="true">&rarr;</i></a></li>
+        <li><a href="mailto:info@nxg-group.de">
+          <span class="rows__t">Allgemeine Anfrage</span><i aria-hidden="true">&rarr;</i></a></li>
+      </ul>
+    </div>
+  </section>
 
 </main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <a class="foot__logo" href="index.html" aria-label="NXG">
+      <svg viewBox="0 0 644 248" role="img" aria-label="NXG"><use href="#nxg"/></svg></a>
+    <div>
+      <h4>Bereiche</h4>
+      <ul><li><a href="#bereiche">Entwicklung</a></li>
+        <li><a href="#bereiche">Daten &amp; Cloud</a></li>
+        <li><a href="#bereiche">Security &amp; Design</a></li></ul>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <ul><li><a href="mailto:companys@nxg-group.de">companys@nxg-group.de</a></li>
+        <li><a href="mailto:apply@nxg-group.de">apply@nxg-group.de</a></li>
+        <li><a href="mailto:info@nxg-group.de">info@nxg-group.de</a></li></ul>
+    </div>
+    <address>NXG GmbH<br>Schlüterstr. 44<br>20146 Hamburg</address>
+    <p class="foot__note">Entwurf &bdquo;Glut&ldquo;. Alle Inhalte stammen von
+      nxg-group.de. Bildflächen sind Platzhalter.</p>
+  </div>
+</footer>
+
+<script src="shared/app.js?v=26fe0f99" defer></script>
+<script src="shared/scroll.js?v=36c4d846" defer></script>
+<script src="shared/nav.js?v=1dd80814" defer></script>
+<script src="shared/video.js?v=531ff503" defer></script>
 </body>
 </html>

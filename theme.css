@@ -1,22 +1,11 @@
 /* ============================================================
-   WECHSEL
+   GLUT
 
    Built to the reference the client sent: very little text, type
    at poster scale, solid and outlined halves in the same headline,
    full-bleed bands, and link rows that end in a round arrow.
 
    WHAT IS BORROWED AND WHAT IS NOT
-
-   Glut with the lights on and off. Same voice — a hundred words, type
-   at poster scale, the band before the headline — but the page now
-   alternates: espresso, paper, espresso, paper, espresso. The switch
-   is a token flip on one class, so every component inside simply works
-   without knowing which side of it it is standing on.
-
-   One thing does not flip. Amber measures 1.59:1 on this paper, so on
-   the light sections the accent text is the coral darkened to #C4474B
-   (4.54:1) instead. The pill keeps the brand gradient on both, because
-   it carries its own fill and dark text.
 
    The first attempt kept the reference's navy and its layout, and
    the client's answer was the right one: that is not our style, it
@@ -313,53 +302,56 @@ address{font-style:normal;color:var(--ink-2);line-height:1.9;font-size:15px}
 
 /* ---------- frames ---------- */
 .plate--hero{background:linear-gradient(168deg,#3A2408 0%,#140600 100%)}
-.plate--glutframe{--photo:url(../media/glutframe.webp)}
-.plate--heroframe{--photo:url(../media/heroframe.webp)}
-.plate--it{--photo:url(../media/it.webp)}
-.plate--fin{--photo:url(../media/fin.webp)}
-.plate--eng{--photo:url(../media/eng.webp)}
-.plate--team{--photo:url(../media/team.webp)}
-.plate--comp{--photo:url(../media/comp.webp)}
-.plate--prof{--photo:url(../media/prof.webp)}
-.plate--city{--photo:url(../media/city.webp)}
+.plate--glutframe{--photo:url(media/glutframe.webp)}
+.plate--heroframe{--photo:url(media/heroframe.webp)}
+.plate--it{--photo:url(media/it.webp)}
+.plate--fin{--photo:url(media/fin.webp)}
+.plate--eng{--photo:url(media/eng.webp)}
+.plate--team{--photo:url(media/team.webp)}
+.plate--comp{--photo:url(media/comp.webp)}
+.plate--prof{--photo:url(media/prof.webp)}
+.plate--city{--photo:url(media/city.webp)}
+
 
 /* ============================================================
-   THE LIGHT SIDE
+   GLUT 4.2 — THE BAND HAS TO END, NOT STOP
 
-   One class, the whole token set flipped underneath it. The outline
-   type, the rules, the eyebrows and the arrows all follow without a
-   single component-level override — .o strokes with --ink and --ink
-   is simply dark here.
-
-   The section paints an opaque ground of its own because .glow and
-   .grain are fixed layers behind everything; a translucent light
-   section would let the warm field bleed through and stop being paper.
+   Same reason as 4.1. Glut's band is a fixed-height window with
+   overflow:hidden and its overlay only reaches .18 at the bottom, so the
+   last row of film is still 82% visible and the page then cuts to #221200
+   in a single pixel. Glut's own clip is dark enough for that to pass. This
+   one carries a warm glow across its lower half, so the cut would read as a
+   rule drawn across the page. The fade is carried all the way down to the
+   ground colour instead.
    ============================================================ */
-.light{
-  --ground:#FDF8F1;
-  --ground-deep:#F4EADC;
-  --surface:#FFFFFF;
-  --surface-2:#F4EADC;
-  --ink:#221200;             /* 17.21:1 on the paper */
-  --ink-2:#5A4632;           /*  8.43:1 */
-  --ink-3:#7A6449;           /*  5.30:1 */
-  --rule:#E7DACA;
-  --rule-strong:#A18B70;     /*  3.09:1 — non-text, WCAG 1.4.11 */
-  --tint:rgba(34,18,0,.06);
-  --accent-text:#C4474B;     /*  4.54:1 — amber is 1.59 here and cannot be text */
-  --form-bg:linear-gradient(168deg,#FFFFFF 0%,#F4EADC 100%);
-  --ink-placeholder:#8A7154;  /*  4.52:1 on the panel */
-  --photo-filter:brightness(1.08) contrast(.96) saturate(.94);
-  background:var(--ground);
-  color:var(--ink);
-  position:relative;
-  z-index:2;
-}
-/* the seam between the two sides, in the brand ramp */
-.light + .seg,.light + .kontakt,.seg + .light,.kontakt + .light{position:relative}
-.light::before,.seg + .light::before{content:"";position:absolute;top:0;left:0;right:0;
-  height:2px;background:var(--grad);opacity:.9}
-.light .eyebrow i{background:var(--accent-text)}
-.light .btn--ghost{border-color:var(--accent-text);color:var(--accent-text)}
-.light .btn--ghost:hover{background:rgba(196,71,75,.08)}
-.light .tabs button.is-active::after,.light .site__nav a::after{background:var(--accent-text)}
+.band::after{
+  background:linear-gradient(to bottom,
+    rgba(34,18,0,.55) 0%,
+    rgba(34,18,0,0) 30%,
+    rgba(34,18,0,.30) 66%,
+    rgba(34,18,0,.78) 88%,
+    rgba(34,18,0,1) 100%)}
+
+/* ============================================================
+   GLUT 4.2 — CROP FROM THE TOP, NOT FROM THE MIDDLE
+
+   MEASURED, not chosen. This film's composition sits high: the red sphere
+   lives in the upper right and the loose cream sphere low left, and the
+   bodies span essentially the whole frame height. In a 620px band on a
+   1440px page the window is 2.32:1 against a 16:9 film, so 77% of the
+   height comes through and 23% is discarded.
+
+   With the default centred crop that 23% is taken half from the top, and
+   the red sphere is cut in every wide shot. Anchoring the crop to the top
+   spends the whole loss at the bottom, where this film has only ground and
+   glow: the mark then survives whole in the wide shots, and the mid-film
+   close-up still fills the band because it is larger than the window
+   either way.
+
+   Making the band taller was the other option and it is worse here: the
+   subject reaches both edges, so nothing short of the full 810px keeps it
+   uncropped, and that hands the entire first screen to the hero.
+   ============================================================ */
+.band{height:clamp(320px,44vw,620px)}
+.band video{object-position:50% 0}
+.band .plate{background-position:50% 0}

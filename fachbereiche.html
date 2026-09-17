@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap">
 <link rel="stylesheet" href="shared/base.css?v=5f5609fd">
-<link rel="stylesheet" href="theme.css?v=1967ff0f">
+<link rel="stylesheet" href="theme.css?v=413ad7e6">
 </head>
 </head>
 <body>
@@ -35,20 +35,36 @@
       <svg viewBox="0 0 644 248" role="img" aria-label="NXG"><use href="#nxg"/></svg>
     </a>
     <nav class="site__nav" aria-label="Hauptnavigation">
-      <a href="fachbereiche.html" aria-current="page">Bereiche</a>
+      <div class="site__dd">
+        <button class="site__ddbtn" type="button" aria-expanded="false" aria-controls="dd-fach" aria-current="page">Fachbereiche <i aria-hidden="true">&#9662;</i></button>
+        <ul class="site__ddmenu" id="dd-fach">
+          <li><a href="index.html?fb=it#bereiche"><span class="dd__n">01</span><span class="dd__t"><b>IT</b><small>Software Development &middot; Data &middot; Cloud &amp; DevOps &middot; Security &middot; IT-Management &middot; UX/UI</small></span><i aria-hidden="true">&rarr;</i></a></li>
+          <li><a href="index.html?fb=sap#bereiche"><span class="dd__n">02</span><span class="dd__t"><b>SAP</b><small>FI/CO &middot; SD/MM &middot; HCM &middot; ABAP &middot; Basis &middot; S/4HANA-Transformation &middot; BW &amp; Analytics</small></span><i aria-hidden="true">&rarr;</i></a></li>
+          <li><a href="index.html?fb=fin#bereiche"><span class="dd__n">03</span><span class="dd__t"><b>Finance</b><small>Finanzbuchhaltung &middot; Bilanzbuchhaltung &middot; Controlling &middot; Konzernrechnungswesen &middot; Treasury &middot; Steuern</small></span><i aria-hidden="true">&rarr;</i></a></li>
+          <li><a href="index.html?fb=eng#bereiche"><span class="dd__n">04</span><span class="dd__t"><b>Engineering</b><small>Konstruktion &middot; Automatisierung &middot; Elektrotechnik &middot; Projektmanagement &middot; Qualität</small></span><i aria-hidden="true">&rarr;</i></a></li>
+        </ul>
+      </div>
+      <a href="fuer-wen.html#unternehmen">Für Unternehmen</a>
+      <a href="fuer-wen.html#kandidaten">Für Kandidaten</a>
       <a href="ueber-nxg.html">Über NXG</a>
-      <a href="fuer-wen.html">Für wen</a>
       <a href="kontakt.html">Kontakt</a>
     </nav>
-    <a class="btn btn--solid site__cta" href="mailto:apply@nxg-group.de">
-      Jetzt bewerben <i aria-hidden="true">&rarr;</i></a>
+    <div class="site__ctas">
+      <a class="btn btn--solid site__cta" href="kontakt.html?anliegen=unternehmen">Position besetzen</a>
+      <a class="btn btn--ghost site__cta site__cta--2" href="kontakt.html?anliegen=kandidat">Profil senden</a>
+    </div>
     <button class="site__burger" type="button" aria-expanded="false" aria-controls="site-nav-m">
       <span></span><span></span><span class="sr">Menü</span>
     </button>
   </div>
   <nav class="site__mnav" id="site-nav-m" aria-label="Hauptnavigation mobil" hidden>
-    <a href="fachbereiche.html" aria-current="page">Bereiche</a><a href="ueber-nxg.html">Über NXG</a>
-    <a href="fuer-wen.html">Für wen</a><a href="kontakt.html">Kontakt</a><a href="mailto:apply@nxg-group.de">Jetzt bewerben</a>
+    <a class="site__mcta site__mcta--solid" href="kontakt.html?anliegen=unternehmen">Position besetzen</a>
+    <a class="site__mcta" href="kontakt.html?anliegen=kandidat">Profil senden</a>
+    <a href="index.html#bereiche" aria-current="page">Fachbereiche</a>
+    <a href="fuer-wen.html#unternehmen">Für Unternehmen</a>
+    <a href="fuer-wen.html#kandidaten">Für Kandidaten</a>
+    <a href="ueber-nxg.html">Über NXG</a>
+    <a href="kontakt.html">Kontakt</a>
   </nav>
 </header>
 
@@ -58,7 +74,7 @@
     <div class="wrap">
       <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Bereiche</p>
       <h1><span class="ln"><span>Sechs Bereiche,</span></span>
-        <span class="ln"><span class="o">eine Branche.</span></span></h1>
+        <span class="ln"><span>eine Branche.</span></span></h1>
       
     </div>
   </section>
@@ -109,30 +125,65 @@
 
 </main>
 <footer class="foot">
+  <!-- Briefing section 13: four columns -- Fachbereiche, Navigation, Kontakt
+       with LinkedIn/XING, and the redirection to the candidate path -- then
+       the legal line. LinkedIn/XING and the legal pages wait for NXG's URLs
+       and texts; until then they are text, not dead links. -->
   <div class="wrap foot__in">
     <a class="foot__logo" href="index.html" aria-label="NXG">
       <svg viewBox="0 0 644 248" role="img" aria-label="NXG"><use href="#nxg"/></svg></a>
-    <div>
-      <h4>Bereiche</h4>
-      <ul><li><a href="#bereiche">Entwicklung</a></li>
-        <li><a href="#bereiche">Daten &amp; Cloud</a></li>
-        <li><a href="#bereiche">Security &amp; Design</a></li></ul>
+    <div class="foot__cols">
+      <div>
+        <h4>Fachbereiche</h4>
+        <ul>
+        <li><a href="index.html?fb=it#bereiche">IT</a></li>
+        <li><a href="index.html?fb=sap#bereiche">SAP</a></li>
+        <li><a href="index.html?fb=fin#bereiche">Finance</a></li>
+        <li><a href="index.html?fb=eng#bereiche">Engineering</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="fuer-wen.html#unternehmen">Für Unternehmen</a></li>
+          <li><a href="fuer-wen.html#kandidaten">Für Kandidaten</a></li>
+          <li><a href="ueber-nxg.html">Über NXG</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <address>NXG GmbH<br>Schlüterstr. 44<br>20146 Hamburg</address>
+        <ul class="foot__mail">
+          <li>kunden@nxg-group.de</li>
+          <li>apply@nxg-group.de</li>
+          <li>info@nxg-group.de</li>
+        </ul>
+        <ul class="foot__social" aria-label="Profile">
+          <li>LinkedIn</li>
+          <li>XING</li>
+        </ul>
+      </div>
+      <div class="foot__redirect">
+        <h4>Für Kandidaten</h4>
+        <p>Sie suchen stattdessen eine neue Position?</p>
+        <a class="btn btn--ghost" href="kontakt.html?anliegen=kandidat">Profil senden <i aria-hidden="true">&rarr;</i></a>
+      </div>
     </div>
-    <div>
-      <h4>Kontakt</h4>
-      <ul><li><a href="mailto:companys@nxg-group.de">companys@nxg-group.de</a></li>
-        <li><a href="mailto:apply@nxg-group.de">apply@nxg-group.de</a></li>
-        <li><a href="mailto:info@nxg-group.de">info@nxg-group.de</a></li></ul>
+    <div class="foot__legal">
+      <ul>
+        <li>Impressum</li>
+        <li>Datenschutz</li>
+        <li>Cookie-Einstellungen</li>
+      </ul>
+      <span>&copy; 2026 NXG GmbH, Hamburg</span>
     </div>
-    <address>NXG GmbH<br>Schlüterstr. 44<br>20146 Hamburg</address>
-    <p class="foot__note">Entwurf &bdquo;Glut&ldquo;. Alle Inhalte stammen von
-      nxg-group.de. Bildflächen sind Platzhalter.</p>
   </div>
 </footer>
 
-<script src="shared/app.js?v=26fe0f99" defer></script>
+<script src="shared/app.js?v=ea4bfb01" defer></script>
 <script src="shared/scroll.js?v=36c4d846" defer></script>
-<script src="shared/nav.js?v=1dd80814" defer></script>
+<script src="shared/nav.js?v=ca75d500" defer></script>
 <script src="shared/video.js?v=531ff503" defer></script>
 </body>
 </html>

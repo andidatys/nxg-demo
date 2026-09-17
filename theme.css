@@ -1,4 +1,13 @@
 /* ============================================================
+   GLUT 4.2.5 — 4.2 AS THE CLIENT SAW IT, CHANGED ONE STEP AT A TIME
+
+   Copied on 12 Sept 2026 from demo/n4-2-glut at the state that is live on
+   the client's link (andidatys/nxg-demo a6032c8). Nothing here differs from
+   4.2 yet; every change below this point is one the client asked for, in
+   the order they asked. 4.2 itself stays untouched as the reference.
+   ============================================================ */
+
+/* ============================================================
    GLUT
 
    Built to the reference the client sent: very little text, type
@@ -355,3 +364,417 @@ address{font-style:normal;color:var(--ink-2);line-height:1.9;font-size:15px}
 .band{height:clamp(320px,44vw,620px)}
 .band video{object-position:50% 0}
 .band .plate{background-position:50% 0}
+
+/* ============================================================
+   GLUT 4.2.5 — SCHRITT 1: HELLER GRUND  (12. September 2026)
+
+   Dominik, 12 Sept, relaying the client: not an 80/20 split but three
+   surfaces. #F7F5F2 warm off-white as the default ground (~80 % of the
+   page), #EFEBE6 for alternating sections (step 2), #1A1A1A only on
+   "Warum NXG" and Kontakt (step 3). This step changes the GROUND and
+   nothing else.
+
+   THE HERO STAYS AS THE CLIENT SAW IT. The client liked the brown inside
+   the film, and the headline rising into the band only works when both sit
+   on the same dark. So the whole hero — band, film, headline, buttons —
+   keeps its 4.2 colours, scoped through the custom properties, and the page
+   turns light at the hero's lower edge. The inner pages' photo heroes and
+   the portrait tiles keep their dark scrims for the same reason: white type
+   on a dark picture cannot follow the page ink.
+
+   Contrast on the new ground (measured): --ink 13.0:1, --ink-2 6.3:1,
+   --ink-3 5.5:1, --rule-strong 3.4:1 (borders only). Amber as TEXT fails
+   on light (1.6:1), so the two places that used it as text — ghost buttons
+   and inline links — take the ink instead. The amber stays as a fill
+   (buttons, dots, underlines). That is step 4's rule, applied early only
+   where the ground forces it.
+   ============================================================ */
+:root{
+  --ground:#F7F5F2;
+  --ground-deep:#F7F5F2;      /* body gradient collapses to flat */
+  --surface:#EFEBE6;          /* plate fallback, inputs */
+  --surface-2:#E6E0D9;
+  --ink:#2B2B2B;
+  --ink-2:#5A5A5A;
+  --ink-3:#636363;            /* used at 11–13 px: needs 4.5:1, #5A5A5A's cousin */
+  --rule:#DDD7D0;
+  --rule-strong:#857D74;
+  --tint:rgba(43,43,43,.06);
+  --grain:rgba(43,43,43,.025);
+  --focus:#2B2B2B;            /* amber ring would be 1.6:1 on light */
+  --accent-text:#2B2B2B;      /* amber never as text on light */
+  --header-bg:rgba(247,245,242,.86);
+  --header-bg-stuck:rgba(247,245,242,.97);
+  --form-bg:#EFEBE6;
+  --ink-placeholder:#5A5A5A;
+}
+.glow{display:none}           /* the warm field was painted for a dark ground */
+.btn--ghost{border-color:var(--ink);color:var(--ink)}
+.btn--ghost:hover{background:var(--tint)}
+
+/* the hero: 4.2's dark ground and its ink, unchanged, inside this box only */
+.hero{
+  --ink:#FFF6F2;--ink-2:#E0CFC2;--ink-3:#B39B88;
+  --tint:rgba(255,246,242,.07);--accent-text:#FFBB57;--focus:#FFBB57;
+  color:var(--ink);            /* color inherits as a value, not as the var */
+  background:linear-gradient(178deg,#221200 0%,#140600 100%)}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(70% 50% at 84% -10%, rgba(255,187,87,.16) 0%, rgba(255,187,87,0) 60%),
+    radial-gradient(60% 46% at 6% 20%,  rgba(255,81,90,.14)  0%, rgba(255,81,90,0)  62%),
+    radial-gradient(80% 60% at 50% 108%, rgba(90,48,10,.80) 0%, rgba(90,48,10,0) 66%)}
+.hero .btn--ghost{border-color:var(--accent);color:var(--accent)}
+.hero .btn--ghost:hover{background:rgba(255,187,87,.1)}
+
+/* dark pictures keep light type */
+.phero,.duo__card{--ink:#FFF6F2;--ink-2:#E0CFC2;--ink-3:#B39B88;--rule:#3B2408;color:var(--ink)}
+.duo__card{background:#140600}
+
+/* ---- header (same step). Briefing: transparent over the hero, then the
+   surface with a 1 px line once scrolled; 88 px -> 64 px after 80 px, 240 ms,
+   one state change. Over the dark film the bar reads in light ink; the mobile
+   panel is an opaque light sheet and keeps the page ink. ---- */
+.site{--stuck-at:80;--header-bg:rgba(34,18,0,.28);--header-bg-stuck:rgba(247,245,242,.84);
+  backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);
+  border-bottom-color:rgba(255,246,242,.10);      /* glass: a hairline, not a rule */
+  transition:background-color .24s var(--ease),border-color .24s var(--ease)}
+.site.is-stuck{border-bottom-color:var(--rule)}
+.site__in{min-height:88px;transition:min-height .24s var(--ease)}
+.site.is-stuck .site__in{min-height:64px}
+.site:not(.is-stuck){--ink:#FFF6F2;--ink-2:#E0CFC2;--ink-3:#B39B88;--rule-strong:#856A4E;color:var(--ink)}
+.site__mnav{--ink:#2B2B2B;--ink-2:#5A5A5A;--ink-3:#636363;--rule-strong:#857D74;color:var(--ink)}
+.site.is-open{--ink:#2B2B2B;--ink-2:#5A5A5A;--ink-3:#636363;--rule-strong:#857D74;color:var(--ink);
+  background:#F7F5F2;border-bottom-color:var(--rule)}   /* open menu = light sheet, bar included */
+/* "transparent over the hero" needs the hero UNDER the bar. The sticky header
+   sits in normal flow above it, so the hero and the inner pages' photo heroes
+   are pulled up by the bar's height and padded by the same amount: the bar
+   floats over their dark ground, the band itself is not cropped. */
+.hero,.phero{margin-top:-88px}
+/* the film is the hero's whole ground: from the top edge down past the buttons.
+   The band leaves the flow and fills the section; the headline keeps the same
+   room above it that the band used to give, so the atoms still sit above the
+   type and the fade still darkens the ground under the type. */
+.band{position:absolute;inset:0;height:auto;z-index:0}
+.hero{padding-top:clamp(300px,40vw,560px)}
+.hero h1{margin-top:0}
+/* as a column-flex item with margin:0 auto the wrap shrank to its content
+   and sat centred; full width puts the text on the page's left line like
+   every other section (16 Sept, the client: align left). */
+.hero .wrap{position:relative;z-index:2;width:100%}
+.phero{padding-top:calc(clamp(72px,9vw,132px) + 88px)}
+
+/* ============================================================
+   GLUT 4.2.5 — SCHRITT 2: ALTERNIERENDE ABSCHNITTE  (12. September 2026)
+
+   Briefing token --surface-muted #EFEBE6: every second section after the
+   hero sits on the muted beige, still light. On every page the sections are
+   direct children of <main> with the hero first, so the rule is one
+   selector and holds when a section is added or removed. Kontakt takes the
+   dark in step 3 and overrides this there.
+
+   kontakt.html: base.css paints the whole form section muted; here it
+   follows the alternation like any other section and only the form panel
+   inside carries the muted (step 1's --form-bg).
+   ============================================================ */
+:root{--surface-muted:#EFEBE6}
+main > section:nth-child(2n+3){background:var(--surface-muted)}
+.contact{background:none}
+
+/* ============================================================
+   GLUT 4.2.5 — SCHRITT 3: DUNKEL NUR AN ZWEI STELLEN  (12. September 2026)
+
+   Briefing token --surface-dark #1A1A1A: only section 04 "Warum NXG" and
+   section 12 Kontakt, the main CTA. 04 did not exist in this draft: it is
+   built here from the briefing's verbatim copy (index.html). 12 is the "Sprechen Sie uns an" block —
+   the same component closes every inner page, so it is dark everywhere it
+   appears; the form on kontakt.html is a page of its own and stays light.
+
+   Neutral dark, not the brown: the brown belongs to the film. Ink measured
+   on #1A1A1A: #F7F5F2 16:1, #CFCAC4 10.7:1, #A8A29B 6.9:1, borders #7A756E
+   3.8:1. The selector matches step 2's specificity so the alternation
+   yields to it.
+   ============================================================ */
+:root{--surface-dark:#1A1A1A}
+main > section.kontakt,main > section.warum{background:var(--surface-dark);color:var(--ink);
+  --ink:#F7F5F2;--ink-2:#CFCAC4;--ink-3:#A8A29B;
+  --rule:#333333;--rule-strong:#7A756E;--tint:rgba(247,245,242,.07);
+  --focus:#FFBB57;--accent-text:#FFBB57}
+
+/* ---- 04 Warum NXG (same step): two columns from 900 px, text 7 / aside 5.
+   The closing sentence is set larger, as the briefing's table asks, and the
+   h2 is smaller than Glut's poster h2 because it is a full sentence. ---- */
+.warum{padding:var(--sec) 0}
+.warum__grid{display:grid;gap:clamp(28px,5vw,80px);align-items:end}
+@media (min-width:900px){.warum__grid{grid-template-columns:7fr 5fr}}
+.warum h2{font-size:clamp(30px,3.8vw,56px);line-height:1;max-width:14em;margin:0 0 clamp(22px,2.6vw,34px)}
+.warum__text p{margin:0 0 1em;font-size:clamp(16px,1.25vw,18px);line-height:1.6;color:var(--ink-2);max-width:60ch}
+.warum__text p:last-child{margin-bottom:0}
+.warum__close{margin:0 0 clamp(22px,2.6vw,30px);font:500 clamp(19px,1.7vw,24px)/1.4 var(--body);color:var(--ink)}
+
+/* ============================================================
+   GLUT 4.2.5 — SCHRITT 4: AMBER NUR ALS FLÄCHE, KEIN VERLAUF  (12. Sept 2026)
+
+   Briefing tokens: --accent #FFC05F flat — never a gradient, never text on
+   light. --accent-strong #FF515A stroke-only and sparing. "Die Markenfarben
+   sind richtig — der Verlauf ist es nicht."
+
+   What changes: the brand ramp (coral → amber → cream) leaves the buttons
+   and the row arrows; both become solid amber with dark type (8.7:1). The
+   hover is the one the briefing specifies: 3 % darker, one pixel up, 160 ms
+   — no scale, no shadow, no arrow nudge. The gradient headline word (h1 em)
+   is neutralised although no page uses it, so nothing regenerated can bring
+   it back. The scrims on the film and the photos are not colour gradients
+   and stay; the mark's own gradient is the logo and stays.
+
+   After this step coral appears nowhere but in the mark. Step 5 (coral as a
+   stroke) therefore has nothing to add until a place for it is agreed.
+   ============================================================ */
+:root{--accent:#FFC05F;--accent-hover:#F7BA5C;--on-accent:#2B2B2B;--focus:#2B2B2B}
+.hero,main > section.kontakt,main > section.warum{--focus:#FFC05F}
+.btn{transition:background-color .16s var(--ease),transform .16s var(--ease),border-color .16s var(--ease)}
+.btn--solid{background:var(--accent);color:var(--on-accent)}
+.btn--solid:hover{background:var(--accent-hover);transform:translateY(-1px);filter:none}
+.btn:hover i{transform:none}
+.rows i{background:var(--accent);color:var(--on-accent)}
+h1 em{background:none;-webkit-background-clip:initial;background-clip:initial;
+  -webkit-text-fill-color:inherit;color:inherit}
+
+/* ============================================================
+   GLUT 4.2.5 — SCHRITT 5: KORALLE NUR ALS LINIE  (12. September 2026)
+
+   --accent-strong #FF515A, stroke-only, very sparing. base.css already uses
+   it that way in the contact form and nowhere else: a 2 px inset stroke on
+   the selected "Ich bin" card and a 1 px line under the focused field — one
+   of each at a time. This step adds the third stroke the form was missing:
+   an invalid field (Name and E-Mail are required now), shown only after
+   the visitor has touched it (:user-invalid), never on load. That is the
+   whole use of coral on the site: three strokes, all in the form, none as
+   a fill and none as text. Not a focus ring either: on the light ground it
+   measures 2.9:1, under the 3:1 a ring needs.
+   ============================================================ */
+:root{--accent-strong:#FF515A}
+.f input:user-invalid,.f select:user-invalid,.f textarea:user-invalid,
+.f [aria-invalid="true"]{border-color:var(--accent-strong)}
+
+/* ============================================================
+   GLUT 4.2.5 — DER FILM  (15. September 2026)
+
+   c100.mp4 from the client side, 4K, 17 s: the atoms drift apart, join,
+   turn, drift apart again; black at both ends, so the loop closes on its
+   own. The watermark pill top right is cropped off (282 px of the 4K
+   frame) rather than painted over: delogo left a visible box wherever an
+   atom crossed it. 1280x626, 1.2 MB. Poster = the frame at 2 s. The
+   previous cut (c45, 13 Sept) is in the history of this file.
+   ============================================================ */
+.plate--glut25frame{--photo:url(media/glut25frame.webp?v=6239811a)}
+
+/* ============================================================
+   KUNDENFEEDBACK 16. 9. — KEINE ZWISCHENÜBERSCHRIFTEN
+
+   The small uppercase labels above each section headline ("Warum NXG",
+   "Bereiche", "Kontakt", the hero's "IT-Recruiting · Hamburg") go, on every
+   page. Hidden rather than deleted from the markup, so the decision can be
+   reversed with one line and the generator keeps producing the same pages.
+   Not a briefing item — the briefing itself specifies eyebrows — so nothing
+   in the PDF turns green for it; it is the first frame-by-frame wish.
+   ============================================================ */
+.eyebrow{display:none}
+
+/* ============================================================
+   GLUT 4.2.5 — SCHRITT 8: DER NEUE HERO — TEXT UND CTAS  (16. September 2026)
+
+   Briefing M2, "Replace the hero completely": headline, subline and both
+   CTAs are the briefing's final copy, verbatim (index.html). The film stays
+   as the ground at the client's wish, so the layout is not the briefing's
+   two columns; only the words and the buttons change.
+
+   The headline keeps the page's own voice (16 Sept, the client): the same
+   uppercase display face and the same scale as the section headlines below
+   it, so hero and page read as one. A full sentence at 118 px would not fit
+   a line, so it sits on the H2 scale. The line-by-line reveal stays; both
+   lines are solid — whether the outlined half stays anywhere is decided for
+   the whole page in the clean-up step, not here.
+   ============================================================ */
+.hero h1{font-size:clamp(32px,5.8vw,86px);line-height:.9;letter-spacing:-.025em;
+  text-transform:uppercase;max-width:14em}
+.hero .hero__sub{font-size:clamp(17px,1.4vw,20px);line-height:1.6;max-width:52ch;
+  color:var(--ink-2);position:relative;z-index:2}
+/* 16 Sept, the client: the hero had grown taller than the screen. The room
+   above the headline shrinks and the section takes the briefing's height:
+   min-height 82svh, never a full viewport — both CTAs sit inside the first
+   screen on a 1080 p display and on a 900 px laptop. */
+/* 16 Sept, fourth look: 96 % of the screen, and the words sit low in it. The
+   hero becomes a column that aligns its one flow child (the text block) to
+   the bottom, so the height decides where the text sits: whatever the screen
+   gives beyond the text goes ABOVE it, into the film. padding-top is only the
+   floor of film that must remain above the headline on short screens. */
+.hero{display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:min(96svh,1060px);padding-top:clamp(160px,18vw,300px);
+  padding-bottom:clamp(88px,8vw,132px)}
+
+/* ============================================================
+   GLUT 4.2.5 — SCHRITT 7: VIER FACHBEREICHE  (16. September 2026)
+
+   Briefing M1 / section 03, the client's number one, carried into the
+   widget the client already knows: the tab row and the picture-plus-text
+   panel stay, four tabs instead of two, and the content is the briefing's —
+   IT · SAP · Finance · Engineering with their role lists, verbatim. (A first
+   version as four wide rows, the briefing's own form, was built and taken
+   back the same day at the client's wish; it is in this file's history.)
+   The role lists run long, so the panel text gets more room than the
+   original one-line descriptions had.
+   ============================================================ */
+.panel p{max-width:42ch}
+/* 16 Sept, the client: headline + subline took half a screen. The section
+   head becomes two columns from 900 px — headline left, subline right, both
+   sitting on the same bottom line — and the headline drops one scale step
+   so each of its two sentences fits a single line. */
+#bereiche .sec-head{max-width:none;display:grid;gap:clamp(16px,2.6vw,40px);align-items:end;
+  margin-bottom:clamp(28px,3.4vw,48px)}
+@media (min-width:900px){#bereiche .sec-head{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}}
+#bereiche .sec-head h2{font-size:clamp(30px,4.2vw,60px);max-width:none}
+#bereiche .sec-head__lede{margin-top:0;max-width:44ch}
+
+/* ============================================================
+   GLUT 4.2.5 — SCHRITT 6: AUFRÄUMEN  (16. September 2026)
+
+   Briefing M9 and the don'ts: what the client's analysis called cheap,
+   generic or unfinished leaves, and nothing else changes.
+
+   OUTLINE HEADLINES. Contour-only type fails 4.5:1 and is hard to read in
+   daylight (briefing: "No outline headlines"). The spans are unwrapped in
+   the markup and the class is neutralised here, so nothing regenerated can
+   bring the contour back.
+
+   LINE MASKS. base.css raises each headline line from below a clipping
+   edge over 950 ms; at normal scroll speed a headline sits half-cut for
+   several frames. The briefing wants the section reveal as opacity only,
+   and the line-by-line motion in the hero alone: opacity 0 -> 1 with a
+   12 px rise, 420 ms, cubic-bezier(.2,.7,.3,1), once, no clipping.
+
+   MARQUEE, "BILDFLÄCHE" TAGS, DRAFT NOTE, companys@, DEAD FOOTER LINKS:
+   removed from the markup; the first three are hidden here as well.
+   The six portrait tiles stay — decision of 11 Sept.
+   ============================================================ */
+.o{color:inherit;-webkit-text-fill-color:inherit;-webkit-text-stroke:0;letter-spacing:inherit}
+
+.js-scroll .ln{overflow:visible}
+.js-scroll .ln > span{transform:none;opacity:1;transition:none}
+.js-scroll .hero .ln > span{transform:translateY(12px);opacity:0;
+  transition:opacity .42s cubic-bezier(.2,.7,.3,1),transform .42s cubic-bezier(.2,.7,.3,1)}
+.js-scroll .hero .ln.is-in > span{transform:none;opacity:1}
+
+.vow,.plate__tag,.foot__note{display:none}
+
+/* ============================================================
+   GLUT 4.2.5 — SCHRITT M5: DIE NEUE NAVIGATION  (16. September 2026)
+
+   Briefing M5: "Für wen" goes. Fachbereiche as a dropdown (IT · SAP ·
+   Finance · Engineering, each landing on its tab), Für Unternehmen, Für
+   Kandidaten, Über NXG, Kontakt, and two permanent CTAs on the right —
+   "Position besetzen" filled, "Profil senden" outline. Jobs has no page and
+   the phone number is not known: both wait. The dropdown opens on hover and
+   on click, opacity + 6 px over 180 ms as the briefing specifies, and is
+   always a light sheet with dark type whatever the bar behind it shows.
+   The mobile menu carries both CTAs at the top, as the briefing asks.
+   ============================================================ */
+.site__nav{gap:clamp(2px,1vw,16px)}
+.site__nav a,.site__ddbtn{font:500 clamp(13px,.95vw,15px)/1 var(--body);padding:16px 6px;white-space:nowrap}
+.site__ddbtn{background:none;border:0;cursor:pointer;color:var(--ink);position:relative;
+  display:inline-flex;align-items:center;gap:6px;letter-spacing:0}
+.site__ddbtn i{font-style:normal;font-size:.8em;transition:transform .18s var(--ease)}
+.site__dd.is-open .site__ddbtn i,.site__dd:hover .site__ddbtn i{transform:translateY(1px)}
+.site__ddbtn::after{content:"";position:absolute;left:6px;right:6px;bottom:10px;height:2px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.site__ddbtn:hover::after,.site__ddbtn[aria-current]::after,.site__dd.is-open .site__ddbtn::after{transform:scaleX(1)}
+.site__dd{position:relative}
+/* the panel: opaque off-white, rounded, a hairline and depth; it rises
+   8 px while fading in (440 ms) and its rows follow 90 ms apart -- each
+   element moves once, within 450 ms (16 Sept: slowed down at the client's
+   wish). Closing is quicker. */
+.site__ddmenu{position:absolute;top:calc(100% - 6px);left:-8px;z-index:60;width:min(380px,calc(100vw - 32px));
+  margin:0;padding:10px;list-style:none;border-radius:16px;
+  --ink:#2B2B2B;--ink-2:#5A5A5A;--ink-3:#636363;color:var(--ink);
+  background:#F7F5F2;                       /* opaque -- 16 Sept, the client: not see-through */
+  border:1px solid rgba(43,43,43,.10);box-shadow:0 18px 48px -18px rgba(20,6,0,.35);
+  opacity:0;visibility:hidden;transform:translateY(8px);
+  transition:opacity .16s var(--ease),transform .16s var(--ease),visibility 0s linear .16s}
+.site__dd:hover .site__ddmenu,.site__dd:focus-within .site__ddmenu,.site__dd.is-open .site__ddmenu{
+  opacity:1;visibility:visible;transform:none;
+  transition:opacity .44s var(--ease),transform .44s var(--ease),visibility 0s}
+.site__ddmenu li{opacity:0;transform:translateY(6px);transition:opacity .16s var(--ease),transform .16s var(--ease)}
+.site__dd:hover .site__ddmenu li,.site__dd:focus-within .site__ddmenu li,.site__dd.is-open .site__ddmenu li{
+  opacity:1;transform:none;transition:opacity .44s var(--ease),transform .44s var(--ease)}
+.site__dd:hover .site__ddmenu li:nth-child(2),.site__dd:focus-within .site__ddmenu li:nth-child(2),.site__dd.is-open .site__ddmenu li:nth-child(2){transition-delay:.09s}
+.site__dd:hover .site__ddmenu li:nth-child(3),.site__dd:focus-within .site__ddmenu li:nth-child(3),.site__dd.is-open .site__ddmenu li:nth-child(3){transition-delay:.18s}
+.site__dd:hover .site__ddmenu li:nth-child(4),.site__dd:focus-within .site__ddmenu li:nth-child(4),.site__dd.is-open .site__ddmenu li:nth-child(4){transition-delay:.27s}
+.site__ddmenu li + li{border-top:1px solid rgba(43,43,43,.08)}
+.site__ddmenu a{display:grid;grid-template-columns:2.2em minmax(0,1fr) auto;column-gap:12px;align-items:center;
+  padding:12px 12px;border-radius:10px;color:var(--ink);text-decoration:none;font:inherit;white-space:normal;
+  transition:background-color .24s var(--ease)}
+.site__ddmenu a::after{display:none}
+.site__ddmenu a:hover,.site__ddmenu a:focus-visible{background:rgba(255,192,95,.16)}
+.dd__n{font:600 11px/1 var(--body);letter-spacing:.18em;color:var(--ink-3);padding-top:2px}
+.dd__t{display:grid;gap:4px;min-width:0}
+.dd__t b{font:700 17px/1.1 var(--display);text-transform:uppercase;letter-spacing:-.01em}
+.dd__t small{font:400 12px/1.45 var(--body);color:var(--ink-2)}
+.site__ddmenu i{font-style:normal;font-size:18px;line-height:1;color:var(--ink);transition:transform .24s var(--ease)}
+.site__ddmenu a:hover i{transform:translateX(6px)}
+.site__ddbtn i{transition:transform .44s var(--ease)}
+.site__dd.is-open .site__ddbtn i,.site__dd:hover .site__ddbtn i{transform:rotate(180deg)}
+@media (prefers-reduced-motion:reduce){
+  .site__ddmenu,.site__ddmenu li,.site__ddmenu i,.site__ddbtn i{transition:none}
+}
+.site__ctas{display:flex;gap:8px;flex:none;margin-left:clamp(8px,1vw,18px)}
+.site__cta{padding:12px 18px;min-height:44px;white-space:nowrap}
+@media (max-width:1180px){.site__cta--2{display:none}}
+@media (max-width:1020px){.site__ctas{display:none}}
+@media (max-width:760px){.site__nav{display:none}}
+/* mobile menu: the two CTAs first, as the briefing asks */
+.site__mcta{font-weight:600 !important}
+.site__mcta--solid{background:var(--accent);color:var(--on-accent) !important}
+
+/* ============================================================
+   GLUT 4.2.5 — SCHRITT 13: DER FOOTER  (16. September 2026)
+
+   Briefing, structure row 13: four columns — Fachbereiche · Navigation ·
+   Kontakt (address, addresses, LinkedIn/XING) · the redirection "Sie suchen
+   stattdessen eine neue Position?" — and beneath them the legal line
+   Impressum · Datenschutz · Cookie-Einstellungen · ©. The logo sits above
+   the columns. LinkedIn/XING and the legal pages are text until NXG
+   supplies URLs and texts: a link that leads nowhere is worse than none.
+   ============================================================ */
+.foot__in{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(28px,3.4vw,52px)}
+.foot__cols{display:grid;gap:clamp(24px,3vw,44px)}
+@media (min-width:640px){.foot__cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1060px){.foot__cols{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.foot ul.foot__mail{margin-top:14px;gap:6px}
+.foot__mail li,.foot__social li{color:var(--ink-2);font-size:15px}
+.foot ul.foot__social{margin-top:16px;display:flex;gap:18px}   /* beats .foot ul's grid */
+.foot__redirect p{margin:0 0 16px;font-size:clamp(16px,1.2vw,18px);line-height:1.5;color:var(--ink)}
+.foot__redirect .btn{padding:12px 20px}
+.foot__legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;
+  padding-top:22px;border-top:1px solid var(--rule);font-size:13px;color:var(--ink-3)}
+.foot__legal ul{display:flex;flex-wrap:wrap;gap:6px 22px}
+.foot__legal li{color:var(--ink-3)}
+
+/* ============================================================
+   GLUT 4.2.5 — SCHRITT 07: FÜR KANDIDATEN  (16. September 2026)
+
+   Briefing section 07: the second path, clearly set off — on the muted
+   surface through the alternation, two columns from 900 px: address and
+   text left with the two CTAs, the promise as a compact box on the right.
+   The box holds the confidentiality promise verbatim; the four promises
+   the briefing wants there come when NXG's wording does.
+   ============================================================ */
+.kand{padding:var(--sec) 0}
+.kand__grid{display:grid;gap:clamp(28px,4vw,64px);align-items:start}
+@media (min-width:900px){.kand__grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}}
+.kand h2{font-size:clamp(30px,4.2vw,60px);max-width:none;margin:0 0 clamp(20px,2.4vw,30px)}
+.kand__text > p{margin:0;font-size:clamp(16px,1.25vw,18px);line-height:1.6;color:var(--ink-2);max-width:60ch}
+.kand__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(26px,3vw,40px)}
+.kand__box{background:var(--ground);border:1px solid var(--rule);padding:clamp(22px,2.6vw,36px);
+  border-radius:16px}
+@media (min-width:900px){.kand__box{margin-top:clamp(28px,3.2vw,52px)}}
+.kand__box p{margin:0;font-size:clamp(16px,1.25vw,18px);line-height:1.6;color:var(--ink-2)}
+.kand__box b{display:block;margin-bottom:8px;font:700 clamp(19px,1.6vw,24px)/1.3 var(--display);color:var(--ink)}

@@ -11,6 +11,22 @@
   var nav = document.querySelector('.site__nav');
   if (!nav) return;
 
+  /* A dropdown in the nav (Glut 4.2.5, briefing M5). Hover opens it through
+     CSS; this adds click and keyboard: the button toggles, Escape closes, a
+     click anywhere else closes. Nothing here if the nav has no dropdown. */
+  var dds = [].slice.call(nav.querySelectorAll('.site__dd'));
+  dds.forEach(function (dd) {
+    var btn = dd.querySelector('.site__ddbtn');
+    if (!btn) return;
+    function set(open) {
+      dd.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function () { set(!dd.classList.contains('is-open')); });
+    dd.addEventListener('keydown', function (e) { if (e.key === 'Escape') { set(false); btn.focus(); } });
+    document.addEventListener('click', function (e) { if (!dd.contains(e.target)) set(false); });
+  });
+
   var links = [].slice.call(nav.querySelectorAll('a[href^="#"]'));
 
   /* Vorwärts is a multi-page site now, so its nav holds page links rather than

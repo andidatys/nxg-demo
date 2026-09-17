@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <meta http-equiv="Cache-Control" content="no-store">
-<title>NXG — Ihre Karriere verbindet Zukunft</title>
-<meta name="description" content="NXG GmbH, Hamburg. Als spezialisierter Partner für IT verbinden wir ambitionierte Fachkräfte mit innovativen Unternehmen.">
+<title>Personalberatung Hamburg | IT, SAP, Finance, Engineering — NXG</title>
+<meta name="description" content="NXG ist eine Boutique-Personalberatung aus Hamburg. Wir besetzen Fach- und Führungspositionen in IT, SAP, Finance und Engineering in Festanstellung — überwiegend mit Kandidaten, die nicht aktiv suchen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap">
 <link rel="stylesheet" href="shared/base.css?v=5f5609fd">
-<link rel="stylesheet" href="theme.css?v=1967ff0f">
+<link rel="stylesheet" href="theme.css?v=413ad7e6">
 </head>
 <body>
 
@@ -34,20 +34,36 @@
       <svg viewBox="0 0 644 248" role="img" aria-label="NXG"><use href="#nxg"/></svg>
     </a>
     <nav class="site__nav" aria-label="Hauptnavigation">
-      <a href="fachbereiche.html">Bereiche</a>
+      <div class="site__dd">
+        <button class="site__ddbtn" type="button" aria-expanded="false" aria-controls="dd-fach">Fachbereiche <i aria-hidden="true">&#9662;</i></button>
+        <ul class="site__ddmenu" id="dd-fach">
+          <li><a href="?fb=it#bereiche"><span class="dd__n">01</span><span class="dd__t"><b>IT</b><small>Software Development &middot; Data &middot; Cloud &amp; DevOps &middot; Security &middot; IT-Management &middot; UX/UI</small></span><i aria-hidden="true">&rarr;</i></a></li>
+          <li><a href="?fb=sap#bereiche"><span class="dd__n">02</span><span class="dd__t"><b>SAP</b><small>FI/CO &middot; SD/MM &middot; HCM &middot; ABAP &middot; Basis &middot; S/4HANA-Transformation &middot; BW &amp; Analytics</small></span><i aria-hidden="true">&rarr;</i></a></li>
+          <li><a href="?fb=fin#bereiche"><span class="dd__n">03</span><span class="dd__t"><b>Finance</b><small>Finanzbuchhaltung &middot; Bilanzbuchhaltung &middot; Controlling &middot; Konzernrechnungswesen &middot; Treasury &middot; Steuern</small></span><i aria-hidden="true">&rarr;</i></a></li>
+          <li><a href="?fb=eng#bereiche"><span class="dd__n">04</span><span class="dd__t"><b>Engineering</b><small>Konstruktion &middot; Automatisierung &middot; Elektrotechnik &middot; Projektmanagement &middot; Qualität</small></span><i aria-hidden="true">&rarr;</i></a></li>
+        </ul>
+      </div>
+      <a href="fuer-wen.html#unternehmen">Für Unternehmen</a>
+      <a href="fuer-wen.html#kandidaten">Für Kandidaten</a>
       <a href="ueber-nxg.html">Über NXG</a>
-      <a href="fuer-wen.html">Für wen</a>
       <a href="kontakt.html">Kontakt</a>
     </nav>
-    <a class="btn btn--solid site__cta" href="mailto:apply@nxg-group.de">
-      Jetzt bewerben <i aria-hidden="true">&rarr;</i></a>
+    <div class="site__ctas">
+      <a class="btn btn--solid site__cta" href="kontakt.html?anliegen=unternehmen">Position besetzen</a>
+      <a class="btn btn--ghost site__cta site__cta--2" href="kontakt.html?anliegen=kandidat">Profil senden</a>
+    </div>
     <button class="site__burger" type="button" aria-expanded="false" aria-controls="site-nav-m">
       <span></span><span></span><span class="sr">Menü</span>
     </button>
   </div>
   <nav class="site__mnav" id="site-nav-m" aria-label="Hauptnavigation mobil" hidden>
-    <a href="fachbereiche.html">Bereiche</a><a href="ueber-nxg.html">Über NXG</a>
-    <a href="fuer-wen.html">Für wen</a><a href="kontakt.html">Kontakt</a><a href="mailto:apply@nxg-group.de">Jetzt bewerben</a>
+    <a class="site__mcta site__mcta--solid" href="kontakt.html?anliegen=unternehmen">Position besetzen</a>
+    <a class="site__mcta" href="kontakt.html?anliegen=kandidat">Profil senden</a>
+    <a href="#bereiche">Fachbereiche</a>
+    <a href="fuer-wen.html#unternehmen">Für Unternehmen</a>
+    <a href="fuer-wen.html#kandidaten">Für Kandidaten</a>
+    <a href="ueber-nxg.html">Über NXG</a>
+    <a href="kontakt.html">Kontakt</a>
   </nav>
 </header>
 
@@ -56,62 +72,122 @@
   <!-- ============ 01  HERO ============ -->
   <section class="hero" data-scrub>
     <div class="band">
-      <span class="plate plate--glut2frame" aria-hidden="true"></span>
+      <span class="plate plate--glut25frame" aria-hidden="true"></span>
       <video class="hero__video" muted loop playsinline preload="none"
-             data-src="media/glut2-web.mp4" aria-hidden="true"></video>
+             data-src="media/glut25-web.mp4?v=0f0b6182" aria-hidden="true"></video>
     </div>
     <div class="wrap">
-      <h1><span class="ln"><span>Ihre Karriere</span></span>
-        <span class="ln"><span class="o">verbindet Zukunft</span></span></h1>
-      <p class="eyebrow" data-reveal><i aria-hidden="true"></i>IT-Recruiting &middot; Hamburg</p>
+      <!-- Briefing V2, M2 + section 04 "Hero — final recommendation": copy
+           verbatim. The eyebrow is in the markup as the briefing wants it and
+           hidden by the client's wish of 16 Sept (no section labels). CTA 2
+           points at the candidates page: /jobs does not exist and the client
+           would rather have no job board than half of one. The phone line is
+           left out until NXG supplies the number. -->
+      <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Personalberatung Hamburg</p>
+      <h1><span class="ln"><span>Die besten Leute</span></span>
+        <span class="ln"><span>bewerben sich nicht.</span></span></h1>
+      <p class="hero__sub" data-reveal>Wir besetzen Fach- und Führungspositionen in IT, SAP, Finance und Engineering — überwiegend mit Menschen, die gerade nicht suchen. Festanstellung. Direkt. Aus Hamburg.</p>
       <div class="hero__cta" data-reveal>
-        <a class="btn btn--solid" href="mailto:apply@nxg-group.de">
-          Jetzt bewerben <i aria-hidden="true">&rarr;</i></a>
-        <a class="btn btn--ghost" href="mailto:companys@nxg-group.de">
-          Talent finden <i aria-hidden="true">&rarr;</i></a>
+        <a class="btn btn--solid" href="kontakt.html?anliegen=unternehmen">
+          Position besprechen <i aria-hidden="true">&rarr;</i></a>
+        <a class="btn btn--ghost" href="fuer-wen.html">
+          Offene Positionen ansehen <i aria-hidden="true">&rarr;</i></a>
       </div>
     </div>
   </section>
 
-  <!-- ============ 02  BEREICHE ============ -->
+  <!-- ============ 03  FACHBEREICHE ============
+       Briefing V2, M1 + section 03, in the widget the client knows: the tabs
+       stay, their content becomes the four areas. H2, subline and the four
+       role lists are the briefing's copy, verbatim (Teil 06). The briefing
+       adds: NXG must confirm or correct the role lists. -->
   <section class="seg" id="bereiche" aria-labelledby="b-h">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Bereiche</p>
-        <h2 id="b-h"><span class="ln"><span>Sechs Bereiche,</span></span>
-          <span class="ln"><span class="o">eine Branche.</span></span></h2>
+        <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Fachbereiche</p>
+        <h2 id="b-h"><span class="ln"><span>Vier Fachbereiche.</span></span>
+          <span class="ln"><span>Keiner davon nebenbei.</span></span></h2>
+        <p class="sec-head__lede" data-reveal>In jedem Bereich arbeitet bei uns jemand, der die Rollen selbst besetzt und den Hamburger Markt kennt. Deshalb sind es vier und nicht fünfzehn.</p>
       </div>
 
-      <div class="tabs" role="tablist" aria-label="Bereich wählen">
-        <button role="tab" id="tab-u" aria-controls="p-u" aria-selected="true" class="is-active" type="button">Entwicklung</button>
-        <button role="tab" id="tab-k" aria-controls="p-k" aria-selected="false" type="button">Daten &amp; Cloud</button>
+      <div class="tabs" role="tablist" aria-label="Fachbereich wählen">
+        <button role="tab" id="tab-it" aria-controls="p-it" aria-selected="true" class="is-active" type="button">IT</button>
+        <button role="tab" id="tab-sap" aria-controls="p-sap" aria-selected="false" type="button">SAP</button>
+        <button role="tab" id="tab-fin" aria-controls="p-fin" aria-selected="false" type="button">Finance</button>
+        <button role="tab" id="tab-eng" aria-controls="p-eng" aria-selected="false" type="button">Engineering</button>
       </div>
 
-      <div class="panel" id="p-u" role="tabpanel" aria-labelledby="tab-u">
+      <div class="panel" id="p-it" role="tabpanel" aria-labelledby="tab-it">
         <div class="panel__grid">
           <div class="panel__img plate plate--it" data-reveal aria-hidden="true">
-            <span class="plate__tag">Bildfläche</span>
           </div>
           <div>
-            <h3 data-reveal>Software Development</h3>
-            <p data-reveal>Frontend, Backend, Fullstack, Mobile.</p>
-            <a class="btn btn--ghost" href="mailto:companys@nxg-group.de" data-reveal>
+            <h3 data-reveal>IT</h3>
+            <p data-reveal>Software Development &middot; Data &middot; Cloud &amp; DevOps &middot; Security &middot; IT-Management &middot; UX/UI</p>
+            <a class="btn btn--ghost" href="kontakt.html?anliegen=unternehmen" data-reveal>
               Anfragen <i aria-hidden="true">&rarr;</i></a>
           </div>
         </div>
       </div>
 
-      <div class="panel" id="p-k" role="tabpanel" aria-labelledby="tab-k" hidden>
+      <div class="panel" id="p-sap" role="tabpanel" aria-labelledby="tab-sap" hidden>
         <div class="panel__grid">
-          <div class="panel__img plate plate--fin" data-reveal aria-hidden="true">
-            <span class="plate__tag">Bildfläche</span>
+          <div class="panel__img plate plate--comp" data-reveal aria-hidden="true">
           </div>
           <div>
-            <h3 data-reveal>Data Science, Cloud &amp; DevOps</h3>
-            <p data-reveal>BI, Big Data, AWS, Azure, Kubernetes.</p>
-            <a class="btn btn--ghost" href="mailto:companys@nxg-group.de" data-reveal>
+            <h3 data-reveal>SAP</h3>
+            <p data-reveal>FI/CO &middot; SD/MM &middot; HCM &middot; ABAP &middot; Basis &middot; S/4HANA-Transformation &middot; BW &amp; Analytics</p>
+            <a class="btn btn--ghost" href="kontakt.html?anliegen=unternehmen" data-reveal>
               Anfragen <i aria-hidden="true">&rarr;</i></a>
           </div>
+        </div>
+      </div>
+
+      <div class="panel" id="p-fin" role="tabpanel" aria-labelledby="tab-fin" hidden>
+        <div class="panel__grid">
+          <div class="panel__img plate plate--fin" data-reveal aria-hidden="true">
+          </div>
+          <div>
+            <h3 data-reveal>Finance</h3>
+            <p data-reveal>Finanzbuchhaltung &middot; Bilanzbuchhaltung &middot; Controlling &middot; Konzernrechnungswesen &middot; Treasury &middot; Steuern</p>
+            <a class="btn btn--ghost" href="kontakt.html?anliegen=unternehmen" data-reveal>
+              Anfragen <i aria-hidden="true">&rarr;</i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="p-eng" role="tabpanel" aria-labelledby="tab-eng" hidden>
+        <div class="panel__grid">
+          <div class="panel__img plate plate--eng" data-reveal aria-hidden="true">
+          </div>
+          <div>
+            <h3 data-reveal>Engineering</h3>
+            <p data-reveal>Konstruktion &middot; Automatisierung &middot; Elektrotechnik &middot; Projektmanagement &middot; Qualität</p>
+            <a class="btn btn--ghost" href="kontakt.html?anliegen=unternehmen" data-reveal>
+              Anfragen <i aria-hidden="true">&rarr;</i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04  WARUM NXG ============
+       Briefing V2, section 04. Copy verbatim from the briefing (Teil 06,
+       "Why NXG"), which the client marked as binding. Dark surface 1 of 2.
+       Only the section reveal, no line masks. CTA goes to the contact page,
+       not to a mail client (the briefing bans mailto: CTAs). -->
+  <section class="warum" id="warum" aria-labelledby="w-h">
+    <div class="wrap">
+      <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Warum NXG</p>
+      <div class="warum__grid">
+        <div class="warum__text" data-reveal>
+          <h2 id="w-h">Ihre nächste Besetzung liest gerade keine Stellenanzeige.</h2>
+          <p>Die stärksten Profile in IT, SAP, Finance und Engineering sind festangestellt, zufrieden genug zum Bleiben und offen genug für ein gutes Gespräch. Auf einem Jobportal treffen Sie sie nicht.</p>
+          <p>Wir kennen diese Menschen, weil wir seit Jahren mit ihnen im Gespräch bleiben — auch dann, wenn gerade nichts für sie dabei ist. Wenn Sie uns eine Position geben, rufen wir keine Datenbank auf. Wir rufen Leute an.</p>
+        </div>
+        <div class="warum__aside" data-reveal>
+          <p class="warum__close">Was das für Sie bedeutet: Sie bekommen weniger Profile, aber jedes davon mit einem Namen, einer Begründung und einem echten Wechselmotiv dahinter.</p>
+          <a class="btn btn--solid" href="kontakt.html?anliegen=unternehmen">Position besprechen <i aria-hidden="true">&rarr;</i></a>
         </div>
       </div>
     </div>
@@ -122,7 +198,7 @@
     <div class="wrap">
       <div class="sec-head">
         <h2 id="d-h"><span class="ln"><span>Wo wir</span></span>
-          <span class="ln"><span class="o">vermitteln.</span></span></h2>
+          <span class="ln"><span>vermitteln.</span></span></h2>
       </div>
     </div>
     <ul class="duo" data-clip-ok>
@@ -141,13 +217,41 @@
     </ul>
   </section>
 
+  <!-- ============ 07  FÜR KANDIDATEN ============
+       Briefing V2, section 07: the second path, clearly set off. Headline and
+       both paragraphs verbatim (Teil 06). The compact box on the right is
+       meant to hold four promises; their wording is not in the compact
+       briefing, so the box carries the confidentiality promise -- verbatim --
+       until NXG's four texts arrive. "Offene Positionen" leads to the
+       candidate page because there is no job list yet. -->
+  <section class="kand" id="kandidaten" aria-labelledby="kd-h">
+    <div class="wrap">
+      <div class="kand__grid">
+        <div class="kand__text">
+          <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Für Kandidaten</p>
+          <h2 id="kd-h"><span class="ln"><span>Sie müssen nicht</span></span>
+            <span class="ln"><span>auf Jobsuche sein,</span></span>
+            <span class="ln"><span>um mit uns zu sprechen.</span></span></h2>
+          <p data-reveal>Die meisten Menschen, mit denen wir arbeiten, hatten beim ersten Gespräch keine Kündigung im Kopf. Sie wollten wissen, was der Markt gerade macht und was ihr Profil wert ist. Manchmal bleibt es dabei. Manchmal wird mehr daraus.</p>
+          <div class="kand__cta" data-reveal>
+            <a class="btn btn--solid" href="fuer-wen.html#kandidaten">Offene Positionen <i aria-hidden="true">&rarr;</i></a>
+            <a class="btn btn--ghost" href="kontakt.html?anliegen=kandidat">Vertraulich anfragen <i aria-hidden="true">&rarr;</i></a>
+          </div>
+        </div>
+        <aside class="kand__box" data-reveal aria-label="Vertraulichkeitszusage">
+          <p><b>Ihr Arbeitgeber erfährt nichts.</b> Wir stellen Sie keinem Unternehmen vor, ohne dass Sie im Einzelfall zugestimmt haben.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ 04  ÜBER NXG ============ -->
   <section class="seg" id="ueber" aria-labelledby="u-h">
     <div class="wrap">
       <div class="sec-head">
         <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Über NXG</p>
         <h2 id="u-h"><span class="ln"><span>Seit über</span></span>
-          <span class="ln"><span class="o">zehn Jahren.</span></span></h2>
+          <span class="ln"><span>zehn Jahren.</span></span></h2>
       </div>
       <ul class="figs" data-reveal>
         <li><b>Sechs</b><span>Fachbereiche</span></li>
@@ -155,12 +259,6 @@
         <li><b>Ein Team</b><span>für beide Seiten</span></li>
       </ul>
     </div>
-    <div class="vow" aria-hidden="true" data-clip-ok>
-      <div class="vow__track">
-        <span>Maßgeschneidert</span><span>Offen</span><span>Zukunftsorientiert</span>
-      </div>
-    </div>
-    <p class="sr">Stets maßgeschneidert. Stets offen. Stets zukunftsorientiert.</p>
   </section>
 
   <!-- ============ 05  KONTAKT ============ -->
@@ -169,14 +267,14 @@
       <div class="sec-head">
         <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Kontakt</p>
         <h2 id="k-h"><span class="ln"><span>Sprechen Sie</span></span>
-          <span class="ln"><span class="o">uns an.</span></span></h2>
+          <span class="ln"><span>uns an.</span></span></h2>
       </div>
       <ul class="rows">
-        <li><a href="mailto:companys@nxg-group.de">
+        <li><a href="kontakt.html?anliegen=unternehmen">
           <span class="rows__t">Talent finden</span><i aria-hidden="true">&rarr;</i></a></li>
-        <li><a href="mailto:apply@nxg-group.de">
+        <li><a href="kontakt.html?anliegen=kandidat">
           <span class="rows__t">Bewerbung senden</span><i aria-hidden="true">&rarr;</i></a></li>
-        <li><a href="mailto:info@nxg-group.de">
+        <li><a href="kontakt.html">
           <span class="rows__t">Allgemeine Anfrage</span><i aria-hidden="true">&rarr;</i></a></li>
       </ul>
     </div>
@@ -185,30 +283,74 @@
 </main>
 
 <footer class="foot">
+  <!-- Briefing section 13: four columns -- Fachbereiche, Navigation, Kontakt
+       with LinkedIn/XING, and the redirection to the candidate path -- then
+       the legal line. LinkedIn/XING and the legal pages wait for NXG's URLs
+       and texts; until then they are text, not dead links. -->
   <div class="wrap foot__in">
     <a class="foot__logo" href="index.html" aria-label="NXG">
       <svg viewBox="0 0 644 248" role="img" aria-label="NXG"><use href="#nxg"/></svg></a>
-    <div>
-      <h4>Bereiche</h4>
-      <ul><li><a href="#bereiche">Entwicklung</a></li>
-        <li><a href="#bereiche">Daten &amp; Cloud</a></li>
-        <li><a href="#bereiche">Security &amp; Design</a></li></ul>
+    <div class="foot__cols">
+      <div>
+        <h4>Fachbereiche</h4>
+        <ul>
+        <li><a href="?fb=it#bereiche">IT</a></li>
+        <li><a href="?fb=sap#bereiche">SAP</a></li>
+        <li><a href="?fb=fin#bereiche">Finance</a></li>
+        <li><a href="?fb=eng#bereiche">Engineering</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="fuer-wen.html#unternehmen">Für Unternehmen</a></li>
+          <li><a href="fuer-wen.html#kandidaten">Für Kandidaten</a></li>
+          <li><a href="ueber-nxg.html">Über NXG</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <address>NXG GmbH<br>Schlüterstr. 44<br>20146 Hamburg</address>
+        <ul class="foot__mail">
+          <li>kunden@nxg-group.de</li>
+          <li>apply@nxg-group.de</li>
+          <li>info@nxg-group.de</li>
+        </ul>
+        <ul class="foot__social" aria-label="Profile">
+          <li>LinkedIn</li>
+          <li>XING</li>
+        </ul>
+      </div>
+      <div class="foot__redirect">
+        <h4>Für Kandidaten</h4>
+        <p>Sie suchen stattdessen eine neue Position?</p>
+        <a class="btn btn--ghost" href="kontakt.html?anliegen=kandidat">Profil senden <i aria-hidden="true">&rarr;</i></a>
+      </div>
     </div>
-    <div>
-      <h4>Kontakt</h4>
-      <ul><li><a href="mailto:companys@nxg-group.de">companys@nxg-group.de</a></li>
-        <li><a href="mailto:apply@nxg-group.de">apply@nxg-group.de</a></li>
-        <li><a href="mailto:info@nxg-group.de">info@nxg-group.de</a></li></ul>
+    <div class="foot__legal">
+      <ul>
+        <li>Impressum</li>
+        <li>Datenschutz</li>
+        <li>Cookie-Einstellungen</li>
+      </ul>
+      <span>&copy; 2026 NXG GmbH, Hamburg</span>
     </div>
-    <address>NXG GmbH<br>Schlüterstr. 44<br>20146 Hamburg</address>
-    <p class="foot__note">Entwurf &bdquo;Glut&ldquo;. Alle Inhalte stammen von
-      nxg-group.de. Bildflächen sind Platzhalter.</p>
   </div>
 </footer>
 
-<script src="shared/app.js?v=26fe0f99" defer></script>
+<script src="shared/app.js?v=ea4bfb01" defer></script>
 <script src="shared/scroll.js?v=36c4d846" defer></script>
-<script src="shared/nav.js?v=1dd80814" defer></script>
+<!-- The Fachbereiche dropdown lands on one tab: ?fb=it|sap|fin|eng#bereiche -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  /* after the deferred app.js has wired the tabs */
+  var want = new URLSearchParams(location.search).get('fb');
+  var tab = want && document.getElementById('tab-' + want);
+  if (tab) { tab.click(); }
+});
+</script>
+<script src="shared/nav.js?v=ca75d500" defer></script>
 <script src="shared/video.js?v=531ff503" defer></script>
 </body>
 </html>

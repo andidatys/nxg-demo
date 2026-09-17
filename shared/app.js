@@ -120,22 +120,34 @@
     var header = document.getElementById('site-header');
     if (!header) return;
 
-    var stuck = null, last = 0;
+    /* the threshold is the theme's to set (--stuck-at on the header, in px);
+       4 stays the default so every existing direction behaves as before */
+    var lim = parseFloat(getComputedStyle(header).getPropertyValue('--stuck-at')) || 4;
+    var stuck = null, last = 0, trailing = 0;
     function check() {
-      var now = window.scrollY > 4;
+      var now = window.scrollY > lim;
       if (now === stuck) return;
       stuck = now;
       header.classList.toggle('is-stuck', now);
     }
+    /* Throttled by timestamp (rAF can be inert here), but never dropping the
+       LAST event: a fast flick back to the top used to land inside the 80 ms
+       window, get thrown away, and leave the bar seated over the hero. The
+       trailing timer re-checks once the window has passed; scrollend, where
+       the browser has it, settles it for good. */
     function onScroll() {
       var t = Date.now();
-      if (t - last < 80) return;      /* timestamp throttle: rAF can be inert */
+      if (t - last < 80) {
+        if (!trailing) trailing = setTimeout(function () { trailing = 0; check(); }, 90);
+        return;
+      }
       last = t;
       check();
     }
 
     check();
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scrollend', check, { passive: true });
   }
 
   /* ---- mobile menu --------------------------------------------------- */

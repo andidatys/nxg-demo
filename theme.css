@@ -311,15 +311,15 @@ address{font-style:normal;color:var(--ink-2);line-height:1.9;font-size:15px}
 
 /* ---------- frames ---------- */
 .plate--hero{background:linear-gradient(168deg,#3A2408 0%,#140600 100%)}
-.plate--glutframe{--photo:url(media/glutframe.webp)}
-.plate--heroframe{--photo:url(media/heroframe.webp)}
-.plate--it{--photo:url(media/it.webp)}
-.plate--fin{--photo:url(media/fin.webp)}
-.plate--eng{--photo:url(media/eng.webp)}
-.plate--team{--photo:url(media/team.webp)}
-.plate--comp{--photo:url(media/comp.webp)}
-.plate--prof{--photo:url(media/prof.webp)}
-.plate--city{--photo:url(media/city.webp)}
+.plate--glutframe{--photo:url(../media/glutframe.webp)}
+.plate--heroframe{--photo:url(../media/heroframe.webp)}
+.plate--it{--photo:url(../media/it.webp)}
+.plate--fin{--photo:url(../media/fin.webp)}
+.plate--eng{--photo:url(../media/eng.webp)}
+.plate--team{--photo:url(../media/team.webp)}
+.plate--comp{--photo:url(../media/comp.webp)}
+.plate--prof{--photo:url(../media/prof.webp)}
+.plate--city{--photo:url(../media/city.webp)}
 
 
 /* ============================================================
@@ -566,7 +566,7 @@ h1 em{background:none;-webkit-background-clip:initial;background-clip:initial;
    atom crossed it. 1280x626, 1.2 MB. Poster = the frame at 2 s. The
    previous cut (c45, 13 Sept) is in the history of this file.
    ============================================================ */
-.plate--glut25frame{--photo:url(media/glut25frame.webp?v=6239811a)}
+.plate--glut25frame{--photo:url(../media/glut25frame.webp?v=6239811a)}
 
 /* ============================================================
    KUNDENFEEDBACK 16. 9. — KEINE ZWISCHENÜBERSCHRIFTEN

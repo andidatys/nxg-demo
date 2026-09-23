@@ -8,11 +8,18 @@ wird.
 
 | Seite | |
 |---|---|
-| `index.html` | Startseite, im Kopf der Markenfilm |
-| `fachbereiche.html` | IT, Finance, Engineering |
-| `ueber-nxg.html` | Über NXG |
-| `fuer-wen.html` | Für Unternehmen und für Kandidat:innen |
+| `404.html` | Seite nicht gefunden |
+| `danke.html` | Danke |
+| `datenschutz.html` | Datenschutz |
+| `fachbereiche.html` | Fachbereiche |
+| `fuer-kandidaten.html` | Für Kandidaten |
+| `fuer-unternehmen.html` | Für Unternehmen |
+| `impressum.html` | Impressum |
+| `index.html` | Personalberatung Hamburg | IT, SAP, Finance, Engineering |
+| `job.html` | Position |
+| `jobs.html` | Offene Positionen |
 | `kontakt.html` | Kontakt |
+| `ueber-nxg.html` | Über NXG |
 
 `shared/` trägt Struktur und Verhalten, `theme.css` Farbe und Schrift.
 
@@ -22,3 +29,5 @@ Texte stammen wörtlich von nxg-group.de. Keine Seite wird indexiert: jede
 trägt `<meta name="robots" content="noindex, nofollow">`.
 
 Erzeugt aus dem privaten Arbeits-Repository; hier nicht von Hand bearbeiten.
+
+Die zuvor gezeigte Fassung liegt unter `archive/4-2-5/` und funktioniert dort weiter.

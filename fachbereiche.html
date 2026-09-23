@@ -11,8 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap">
 <link rel="stylesheet" href="shared/base.css?v=5f5609fd">
-<link rel="stylesheet" href="theme.css?v=4a6f7f90">
-</head>
+<link rel="stylesheet" href="theme.css?v=49cdcc79">
 </head>
 <body>
 
@@ -44,11 +43,18 @@
           <li><a href="index.html?fb=eng#bereiche"><span class="dd__n">04</span><span class="dd__t"><b>Engineering</b><small>Konstruktion &middot; Automatisierung &middot; Elektrotechnik &middot; Projektmanagement &middot; Qualität</small></span><i aria-hidden="true">&rarr;</i></a></li>
         </ul>
       </div>
-      <a href="fuer-wen.html#unternehmen">Für Unternehmen</a>
-      <a href="fuer-wen.html#kandidaten">Für Kandidaten</a>
+      <a href="fuer-unternehmen.html">Für Unternehmen</a>
+      <a href="fuer-kandidaten.html">Für Kandidaten</a>
+      <a href="jobs.html">Jobs</a>
       <a href="ueber-nxg.html">Über NXG</a>
       <a href="kontakt.html">Kontakt</a>
     </nav>
+    <!-- Die Rufnummer steht dauerhaft im Header, vor den Buttons (Briefing 2).
+         NXG hat sie noch nicht geliefert; bis dahin steht hier der Platzhalter
+         des Briefings. Sobald die Nummer da ist, wird aus dem span ein
+         <a href="tel:+4940...">: ein tel:-Link, der nirgendwo hinwaehlt, ist
+         schlechter als keiner. -->
+    <a class="site__tel" data-tel href="tel:+4940XXXXXXXX">040 XXX XXX XX</a>
     <div class="site__ctas">
       <a class="btn btn--solid site__cta" href="kontakt.html?anliegen=unternehmen">Position besetzen</a>
       <a class="btn btn--ghost site__cta site__cta--2" href="kontakt.html?anliegen=kandidat">Profil senden</a>
@@ -60,9 +66,11 @@
   <nav class="site__mnav" id="site-nav-m" aria-label="Hauptnavigation mobil" hidden>
     <a class="site__mcta site__mcta--solid" href="kontakt.html?anliegen=unternehmen">Position besetzen</a>
     <a class="site__mcta" href="kontakt.html?anliegen=kandidat">Profil senden</a>
+    <a class="site__mtel" data-tel href="tel:+4940XXXXXXXX">040 XXX XXX XX</a>
     <a href="index.html#bereiche" aria-current="page">Fachbereiche</a>
-    <a href="fuer-wen.html#unternehmen">Für Unternehmen</a>
-    <a href="fuer-wen.html#kandidaten">Für Kandidaten</a>
+    <a href="fuer-unternehmen.html">Für Unternehmen</a>
+    <a href="fuer-kandidaten.html">Für Kandidaten</a>
+    <a href="jobs.html">Jobs</a>
     <a href="ueber-nxg.html">Über NXG</a>
     <a href="kontakt.html">Kontakt</a>
   </nav>
@@ -145,8 +153,9 @@
       <div>
         <h4>Navigation</h4>
         <ul>
-          <li><a href="fuer-wen.html#unternehmen">Für Unternehmen</a></li>
-          <li><a href="fuer-wen.html#kandidaten">Für Kandidaten</a></li>
+          <li><a href="fuer-unternehmen.html">Für Unternehmen</a></li>
+          <li><a href="fuer-kandidaten.html">Für Kandidaten</a></li>
+          <li><a href="jobs.html">Jobs</a></li>
           <li><a href="ueber-nxg.html">Über NXG</a></li>
           <li><a href="kontakt.html">Kontakt</a></li>
         </ul>
@@ -154,6 +163,7 @@
       <div>
         <h4>Kontakt</h4>
         <address>NXG GmbH<br>Schlüterstr. 44<br>20146 Hamburg</address>
+        <p class="foot__tel"><a data-tel href="tel:+4940XXXXXXXX">040 XXX XXX XX</a></p>
         <ul class="foot__mail">
           <li>kunden@nxg-group.de</li>
           <li>apply@nxg-group.de</li>
@@ -171,9 +181,13 @@
       </div>
     </div>
     <div class="foot__legal">
+      <!-- Briefing 4: Impressum und Datenschutz waren Text, weil es die
+           Seiten nicht gab. Jetzt gibt es sie, also sind es Links. Die
+           Cookie-Einstellungen bleiben Text: die Demo setzt kein einziges
+           Cookie, das sich einstellen liesse. -->
       <ul>
-        <li>Impressum</li>
-        <li>Datenschutz</li>
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="datenschutz.html">Datenschutz</a></li>
         <li>Cookie-Einstellungen</li>
       </ul>
       <span>&copy; 2026 NXG GmbH, Hamburg</span>
@@ -181,9 +195,9 @@
   </div>
 </footer>
 
-<script src="shared/app.js?v=ea4bfb01" defer></script>
+<script src="shared/app.js?v=55d1ee53" defer></script>
 <script src="shared/scroll.js?v=36c4d846" defer></script>
-<script src="shared/nav.js?v=ca75d500" defer></script>
+<script src="shared/nav.js?v=9a2de421" defer></script>
 <script src="shared/video.js?v=531ff503" defer></script>
 </body>
 </html>

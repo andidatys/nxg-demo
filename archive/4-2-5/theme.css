@@ -1,11 +1,4 @@
 /* ============================================================
-   GLUT 4.3 — die Fassung nach dem Durchgang vom 17. September.
-   Sie beginnt als Kopie von 4.2.5 (dem Stand, den der Kunde gesehen hat)
-   und nimmt von hier an alles auf, was das Review verlangt. 4.2.5 bleibt
-   stehen, wie sie war.
-   ============================================================ */
-
-/* ============================================================
    GLUT 4.2.5 — 4.2 AS THE CLIENT SAW IT, CHANGED ONE STEP AT A TIME
 
    Copied on 12 Sept 2026 from demo/n4-2-glut at the state that is live on
@@ -228,6 +221,33 @@ html{scroll-padding-top:calc(var(--header-h) + 14px)}
 /* ============================================================
    03  DUOTONE ROW — six columns, one colour each, labels only
    ============================================================ */
+.duo{list-style:none;margin:0;padding:0;display:grid;gap:2px;
+  grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:760px){.duo{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1180px){.duo{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.duo__card{position:relative;overflow:hidden;background:var(--ground-deep);
+  aspect-ratio:3/4.4;display:flex;align-items:flex-end;min-width:0}
+/* Staggered, not a filmstrip. The NXG mark is scattered nodes on a diagonal;
+   dropping every second card echoes that instead of the reference's grid. */
+@media (min-width:1180px){
+  .duo{align-items:start}
+  .duo__card:nth-child(even){transform:translateY(clamp(20px,2.6vw,44px))}
+}
+.duo__img{position:absolute;inset:0;border-radius:0}
+.duo__img::before{transform:scale(1.02);transition:transform .7s var(--ease)}
+.duo__card:hover .duo__img::before{transform:scale(1.07)}
+.duo__img::after{background-image:none}
+.duo__card::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(20,6,0,.94) 0%,rgba(20,6,0,.16) 56%,transparent 100%)}
+.duo__body{position:relative;z-index:1;padding:clamp(16px,1.6vw,24px)}
+.duo__body b{display:block;font:700 clamp(13px,1.05vw,16px)/1.2 var(--display);
+  text-transform:uppercase;letter-spacing:-.005em;color:var(--ink)}
+.duo--1 .duo__img{--photo-filter:grayscale(1) brightness(1.3) contrast(1.1) sepia(1) hue-rotate(-30deg) saturate(4)}
+.duo--2 .duo__img{--photo-filter:grayscale(1) brightness(1.3) contrast(1.1) sepia(1) hue-rotate(-6deg) saturate(3.4)}
+.duo--3 .duo__img{--photo-filter:grayscale(1) brightness(1.28) contrast(1.12) sepia(1) hue-rotate(90deg) saturate(2.6)}
+.duo--4 .duo__img{--photo-filter:grayscale(1) brightness(1.26) contrast(1.12) sepia(1) hue-rotate(140deg) saturate(2.8)}
+.duo--5 .duo__img{--photo-filter:grayscale(1) brightness(1.24) contrast(1.14) sepia(1) hue-rotate(190deg) saturate(3)}
+.duo--6 .duo__img{--photo-filter:grayscale(1) brightness(1.24) contrast(1.14) sepia(1) hue-rotate(230deg) saturate(3.2)}
 
 /* ============================================================
    04  STATEMENT — the vow, running edge to edge
@@ -244,7 +264,7 @@ html{scroll-padding-top:calc(var(--header-h) + 14px)}
 @keyframes vow{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 @media (prefers-reduced-motion:reduce){.vow__track{animation:none}}
 
-.figs--unused{display:flex;flex-wrap:wrap;gap:clamp(20px,3.4vw,60px);margin:0;padding:0;
+.figs{display:flex;flex-wrap:wrap;gap:clamp(20px,3.4vw,60px);margin:0;padding:0;
   list-style:none}
 .figs b{display:block;font:700 clamp(30px,4vw,60px)/1 var(--display);
   text-transform:uppercase;letter-spacing:-.025em;color:var(--ink)}
@@ -407,7 +427,8 @@ address{font-style:normal;color:var(--ink-2);line-height:1.9;font-size:15px}
 .hero .btn--ghost:hover{background:rgba(255,187,87,.1)}
 
 /* dark pictures keep light type */
-.phero{--ink:#FFF6F2;--ink-2:#E0CFC2;--ink-3:#B39B88;--rule:#3B2408;color:var(--ink)}
+.phero,.duo__card{--ink:#FFF6F2;--ink-2:#E0CFC2;--ink-3:#B39B88;--rule:#3B2408;color:var(--ink)}
+.duo__card{background:#140600}
 
 /* ---- header (same step). Briefing: transparent over the hero, then the
    surface with a 1 px line once scrolled; 88 px -> 64 px after 80 px, 240 ms,
@@ -420,11 +441,7 @@ address{font-style:normal;color:var(--ink-2);line-height:1.9;font-size:15px}
 .site.is-stuck{border-bottom-color:var(--rule)}
 .site__in{min-height:88px;transition:min-height .24s var(--ease)}
 .site.is-stuck .site__in{min-height:64px}
-/* Seiten ohne dunklen Kopf (Impressum, Datenschutz, 404, Stellendetail)
-   beginnen mit heller Flaeche. Die Glasleiste ist dort ein blasses Band
-   mit weisser Schrift darauf, also sitzt die Leiste dort von Anfang an. */
-.site.is-light{--header-bg:var(--header-bg-stuck);border-bottom-color:var(--rule)}
-.site:not(.is-stuck):not(.is-light){--ink:#FFF6F2;--ink-2:#E0CFC2;--ink-3:#B39B88;--rule-strong:#856A4E;color:var(--ink)}
+.site:not(.is-stuck){--ink:#FFF6F2;--ink-2:#E0CFC2;--ink-3:#B39B88;--rule-strong:#856A4E;color:var(--ink)}
 .site__mnav{--ink:#2B2B2B;--ink-2:#5A5A5A;--ink-3:#636363;--rule-strong:#857D74;color:var(--ink)}
 .site.is-open{--ink:#2B2B2B;--ink-2:#5A5A5A;--ink-3:#636363;--rule-strong:#857D74;color:var(--ink);
   background:#F7F5F2;border-bottom-color:var(--rule)}   /* open menu = light sheet, bar included */
@@ -682,15 +699,15 @@ h1 em{background:none;-webkit-background-clip:initial;background-clip:initial;
   border:1px solid rgba(43,43,43,.10);box-shadow:0 18px 48px -18px rgba(20,6,0,.35);
   opacity:0;visibility:hidden;transform:translateY(8px);
   transition:opacity .16s var(--ease),transform .16s var(--ease),visibility 0s linear .16s}
-.site__dd:hover .site__ddmenu,.site__dd.is-open .site__ddmenu{
+.site__dd:hover .site__ddmenu,.site__dd:focus-within .site__ddmenu,.site__dd.is-open .site__ddmenu{
   opacity:1;visibility:visible;transform:none;
   transition:opacity .44s var(--ease),transform .44s var(--ease),visibility 0s}
 .site__ddmenu li{opacity:0;transform:translateY(6px);transition:opacity .16s var(--ease),transform .16s var(--ease)}
-.site__dd:hover .site__ddmenu li,.site__dd.is-open .site__ddmenu li{
+.site__dd:hover .site__ddmenu li,.site__dd:focus-within .site__ddmenu li,.site__dd.is-open .site__ddmenu li{
   opacity:1;transform:none;transition:opacity .44s var(--ease),transform .44s var(--ease)}
-.site__dd:hover .site__ddmenu li:nth-child(2),.site__dd.is-open .site__ddmenu li:nth-child(2){transition-delay:.09s}
-.site__dd:hover .site__ddmenu li:nth-child(3),.site__dd.is-open .site__ddmenu li:nth-child(3){transition-delay:.18s}
-.site__dd:hover .site__ddmenu li:nth-child(4),.site__dd.is-open .site__ddmenu li:nth-child(4){transition-delay:.27s}
+.site__dd:hover .site__ddmenu li:nth-child(2),.site__dd:focus-within .site__ddmenu li:nth-child(2),.site__dd.is-open .site__ddmenu li:nth-child(2){transition-delay:.09s}
+.site__dd:hover .site__ddmenu li:nth-child(3),.site__dd:focus-within .site__ddmenu li:nth-child(3),.site__dd.is-open .site__ddmenu li:nth-child(3){transition-delay:.18s}
+.site__dd:hover .site__ddmenu li:nth-child(4),.site__dd:focus-within .site__ddmenu li:nth-child(4),.site__dd.is-open .site__ddmenu li:nth-child(4){transition-delay:.27s}
 .site__ddmenu li + li{border-top:1px solid rgba(43,43,43,.08)}
 .site__ddmenu a{display:grid;grid-template-columns:2.2em minmax(0,1fr) auto;column-gap:12px;align-items:center;
   padding:12px 12px;border-radius:10px;color:var(--ink);text-decoration:none;font:inherit;white-space:normal;
@@ -711,6 +728,7 @@ h1 em{background:none;-webkit-background-clip:initial;background-clip:initial;
 .site__ctas{display:flex;gap:8px;flex:none;margin-left:clamp(8px,1vw,18px)}
 .site__cta{padding:12px 18px;min-height:44px;white-space:nowrap}
 @media (max-width:1180px){.site__cta--2{display:none}}
+@media (max-width:1020px){.site__ctas{display:none}}
 @media (max-width:760px){.site__nav{display:none}}
 /* mobile menu: the two CTAs first, as the briefing asks */
 .site__mcta{font-weight:600 !important}
@@ -760,405 +778,3 @@ h1 em{background:none;-webkit-background-clip:initial;background-clip:initial;
 @media (min-width:900px){.kand__box{margin-top:clamp(28px,3.2vw,52px)}}
 .kand__box p{margin:0;font-size:clamp(16px,1.25vw,18px);line-height:1.6;color:var(--ink-2)}
 .kand__box b{display:block;margin-bottom:8px;font:700 clamp(19px,1.6vw,24px)/1.3 var(--display);color:var(--ink)}
-
-/* ============================================================
-   GLUT 4.2.5 — BRIEFING 2: NAVIGATION UND HEADER
-
-   Vier Luecken, die der Durchgang gefunden hat:
-
-   RUFNUMMER. Sie stand nirgends auf der Seite. Jetzt dauerhaft im Header
-   vor den Buttons, im Mobilmenue unter den beiden Aktionen und im Footer.
-   Die Ziffern sind der Platzhalter des Briefings, bis NXG die Nummer
-   liefert.
-
-   SCHATTEN. Die abgesetzte Leiste traf eine dunkle Sektion mit einer harten
-   Kante. Ein flacher, getoenter Schatten traegt sie darueber.
-
-   PRIMAERE AKTION. Zwischen der Breite, in der die Buttons verschwanden,
-   und der, in der das Menuesymbol erscheint, hatte der Header gar keine
-   Aktion mehr. "Position besetzen" bleibt jetzt auf jeder Breite in der
-   Leiste; nur "Profil senden" darf ins Menue.
-
-   MOBILMENUE. Offen deckt es die Seite ab, also darf die Seite dahinter
-   nicht scrollen; Escape schliesst, Tab bleibt drin (shared/app.js).
-   ============================================================ */
-.site.is-stuck{box-shadow:0 2px 14px rgba(20,6,0,.10)}
-.site{transition:background-color .24s var(--ease),border-color .24s var(--ease),
-  box-shadow .24s var(--ease)}
-
-.site__tel{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;
-  margin-left:clamp(10px,1.4vw,20px);white-space:nowrap;
-  font:500 clamp(12px,1vw,14px)/1 var(--body);color:var(--ink)}
-@media (max-width:560px){.site__tel{display:none}}
-
-.site__mtel{display:flex;align-items:center;padding:15px var(--pad);min-height:44px;
-  border-bottom:1px solid var(--rule);font:500 16px/1 var(--body);color:var(--ink)}
-
-.foot__tel{margin:10px 0 0;font:500 15px/1.6 var(--body);color:var(--ink-2)}
-
-/* The Glut theme hid every header button under 1020 px, so between that
-   width and the one where the burger appears the header had no action at
-   all. The primary stays on every width, only tighter next to the burger;
-   the secondary is the one that may go. */
-@media (max-width:1020px){
-  .site__cta{display:inline-flex}
-  /* Five menu items, the number and the button do not fit next to each other
-     under about 1020 px -- measured, the bar overflowed by 136 px at 860 px.
-     So the menu items fold behind the burger there, and the bar keeps what
-     the briefing calls always visible: logo, number, primary action. */
-  .site__nav{display:none}
-  .site__burger{display:flex}
-}
-.site.is-open .site__mnav{display:flex}
-@media (max-width:1180px){.site__cta--2{display:none}}
-@media (max-width:760px){
-  .site__ctas{margin-left:auto}
-  .site__cta{padding:11px 14px;font-size:11px;letter-spacing:.05em}
-}
-@media (max-width:420px){.site__cta{padding:10px 12px;font-size:10px}}
-
-/* the page behind an open menu does not scroll */
-html.is-menu-open,html.is-menu-open body{overflow:hidden}
-
-/* ============================================================
-   GLUT 4.3 — BRIEFING 3: BUTTONS UND KLICKVERHALTEN
-
-   ANFRAGEN JE FACHBEREICH. War ein Kasten neben zwei anderen Kaesten und
-   sah aus wie die Hauptaktion. Jetzt ein Textlink mit Pfeil: der
-   Unterstrich waechst von links, der Pfeil rueckt nach. Er traegt seinen
-   Bereich mit (?fachbereich=sap), das Formular waehlt ihn vor.
-
-   DREI WEGE. Drei Zeilen wurden drei gleich grosse Karten; die ganze Karte
-   ist der Link, nicht mehr nur der Text.
-
-   AUSWAHLKARTE. Die gewaehlte Karte trug den Ring in der Fehlerfarbe. Rot
-   heisst im Formular "falsch", also traegt sie jetzt Amber auf einer
-   weichen Amber-Flaeche.
-
-   TERMIN BUCHEN. Zweite Aktion neben "Anfrage senden", oeffnet einen
-   Dialog; Escape und ein Klick daneben schliessen ihn.
-   ============================================================ */
-
-/* Anfragen: a text link with an arrow, no box */
-.tlink{display:inline-flex;align-items:center;gap:10px;position:relative;min-height:44px;
-  margin-top:clamp(22px,2.6vw,34px);font:700 12px/1 var(--body);letter-spacing:.07em;
-  text-transform:uppercase;color:var(--ink);text-decoration:none}
-.tlink::after{content:"";position:absolute;left:0;bottom:12px;height:1px;width:100%;
-  background:currentColor;transform:scaleX(0);transform-origin:left;
-  transition:transform .2s var(--ease)}
-.tlink:hover::after,.tlink:focus-visible::after{transform:scaleX(1)}
-.tlink i{font-style:normal;transition:transform .2s var(--ease)}
-.tlink:hover i{transform:translateX(4px)}
-
-/* three ways in, as cards */
-.ways{list-style:none;margin:clamp(30px,3.6vw,52px) 0 0;padding:0;display:grid;
-  gap:clamp(14px,1.6vw,20px)}
-@media (min-width:820px){.ways{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.ways a{display:grid;grid-template-rows:auto 1fr auto;gap:10px;height:100%;
-  padding:clamp(22px,2.4vw,30px);border:1px solid var(--rule-strong);border-radius:16px;
-  color:var(--ink);text-decoration:none;
-  transition:border-color .24s var(--ease),background-color .24s var(--ease)}
-.ways a:hover,.ways a:focus-visible{border-color:var(--accent);background:rgba(255,192,95,.08)}
-.ways__t{font:700 clamp(19px,1.7vw,24px)/1.2 var(--display);text-transform:uppercase;
-  letter-spacing:-.01em}
-.ways__s{font:400 15px/1.55 var(--body);color:var(--ink-2)}
-.ways i{justify-self:start;font-style:normal;width:clamp(38px,3vw,46px);height:clamp(38px,3vw,46px);
-  display:grid;place-items:center;border-radius:50%;background:var(--accent);color:var(--on-accent);
-  transition:transform .24s var(--ease)}
-.ways a:hover i{transform:translateX(6px)}
-
-/* the chosen role card: amber, not the error colour */
-.cform__role input:checked + span{border-color:var(--accent);background:rgba(255,192,95,.14);
-  box-shadow:none}
-
-/* the new fields */
-.f__opt{color:var(--ink-3);font-weight:400}
-.f input[type=file]{font:400 14px/1.4 var(--body);color:var(--ink-2)}
-.f input[type=file]::file-selector-button{margin-right:12px;padding:10px 14px;border:0;
-  border-radius:100px;background:var(--accent);color:var(--on-accent);
-  font:700 11px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;cursor:pointer}
-.f__file{font:400 13px/1.4 var(--body);color:var(--ink-3)}
-
-/* two actions under the form */
-.cform__send{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-
-/* the appointment dialog */
-.book[hidden]{display:none}
-.book{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:20px;
-  background:rgba(20,6,0,.55)}
-.book__panel{position:relative;width:min(520px,100%);padding:clamp(26px,3vw,40px);
-  border-radius:18px;background:var(--ground);border:1px solid var(--rule)}
-.book__panel h2{font-size:clamp(24px,2.4vw,32px);margin:0 0 14px}
-.book__panel p{margin:0 0 22px;font:400 16px/1.6 var(--body);color:var(--ink-2)}
-.book__x{position:absolute;top:10px;right:10px;width:44px;height:44px;border:0;background:none;
-  color:var(--ink);font-size:26px;line-height:1;cursor:pointer;border-radius:50%}
-.book__x:hover{background:var(--tint)}
-
-/* die zweite Aktion nimmt im Hover das Amber auf, damit sie als Aktion
-   lesbar bleibt und nicht als Rahmen (Briefing 3) */
-.btn--ghost:hover,.btn--ghost:focus-visible{border-color:var(--accent);
-  background:rgba(255,192,95,.07)}
-
-/* .foot a setzt min-height:24px und schlaegt .btn (2 Klassen schlagen
-   Klasse+Element): im Footer-Band ist "Profil senden" ein Button, kein
-   Fusszeilenlink, also eine richtige Klickflaeche */
-.foot__redirect .btn{min-height:44px}
-
-/* Unternehmensblock: zwei Aktionen nebeneinander */
-.panel__cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;
-  margin-top:clamp(22px,2.6vw,34px)}
-.panel__cta .btn{margin-top:0}
-
-/* zu grosse Datei: der Hinweis steht da, wo der Dateiname stuende */
-.f__file.is-bad{color:var(--bad, #C0392B);font-weight:600}
-
-/* ============================================================
-   GLUT 4.3 — BRIEFING 4: STARTSEITE UND SEITENAUFBAU
-
-   REIHENFOLGE. Hero, Proof-Zeile, Fachbereiche, Warum NXG, Fuer
-   Kandidaten, Team, Jobs, Kontakt, Footer.
-
-   "WO WIR VERMITTELN" ist raus. Sechs farbige Kacheln mit sechs
-   Bereichsnamen, direkt unter einer Ueberschrift, die vier Bereiche
-   nennt — der Widerspruch stand auf derselben Seite.
-
-   PROOF-ZEILE. Eine schmale Zeile, drei Punkte, keine Kacheln. Sie ist
-   die alte Zahlenreihe aus "Ueber NXG", nur dort, wo sie jemand liest.
-
-   TEAM. Portraits 1:1, gleicher Anschnitt, Name, Bereich, Durchwahl.
-   Beim Hover nimmt das Bild etwas Farbe zurueck.
-
-   ABSTAENDE. Ein Wert fuer alle Sektionen; zwischen Ueberschrift und
-   Tableiste stand eine Luecke ohne Grund, die Leiste gehoert zur
-   Ueberschrift.
-
-   HELL/DUNKEL. Zwei dunkle Sektionen, mehr nicht: Warum NXG und
-   Kontakt. Das war schon so und bleibt so.
-
-   DIE TABLEISTE BLEIBT eine Tableiste. Das Briefing will vier Reihen;
-   die Entscheidung vom 16. September, nach dem Blick auf genau diese
-   Reihen, war die Leiste. Wir setzen den Punkt bewusst nicht um.
-   ============================================================ */
-:root{--sec:clamp(88px,9.5vw,132px)}
-
-/* die Leiste gehoert zur Ueberschrift, nicht in die naechste Sektion */
-#bereiche .sec-head{margin-bottom:clamp(20px,2.2vw,32px)}
-
-/* ---- Proof-Zeile ---- */
-.proof{border-bottom:1px solid var(--rule)}
-.proof__in{display:grid;gap:clamp(14px,2vw,28px);padding:clamp(20px,2.4vw,30px) 0}
-@media (min-width:760px){.proof__in{grid-template-columns:repeat(3,minmax(0,1fr));
-  align-items:center}}
-.proof p{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
-.proof b{font:700 clamp(15px,1.3vw,18px)/1.3 var(--display);letter-spacing:-.01em;
-  text-transform:uppercase;color:var(--ink)}
-.proof span{font:400 clamp(13px,1.05vw,15px)/1.4 var(--body);color:var(--ink-3)}
-@media (min-width:760px){
-  .proof p + p{padding-left:clamp(14px,2vw,28px);border-left:1px solid var(--rule)}
-}
-
-/* ---- Team ---- */
-.team{padding:var(--sec) 0}
-.team__grid{list-style:none;margin:0;padding:0;display:grid;
-  gap:clamp(16px,2vw,26px);grid-template-columns:repeat(2,minmax(0,1fr))}
-@media (min-width:900px){.team__grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.team__card{display:grid;gap:4px}
-.team__img{aspect-ratio:1;border-radius:14px;margin-bottom:12px;
-  transition:filter .3s var(--ease)}
-.team__card:hover .team__img{filter:saturate(.55)}
-.team__name{font:700 clamp(16px,1.4vw,20px)/1.25 var(--display);
-  text-transform:uppercase;letter-spacing:-.01em}
-.team__name[data-name]{color:var(--ink-3)}      /* Platzhalter, kein Name */
-.team__area{font:600 12px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;
-  color:var(--accent)}
-.team__tel{font:400 15px/1.5 var(--body);color:var(--ink-2)}
-
-/* ---- Jobs-Teaser ---- */
-/* Der Teaser ist ein eigenes, getoentes Band. Ohne Polsterung oben sass
-   seine Kante genau auf der ersten Trennlinie und auf der Ueberschrift. */
-.jteaser{padding:var(--sec) 0}
-.jteaser__in{display:grid;gap:clamp(24px,3vw,48px)}
-@media (min-width:960px){.jteaser__in{grid-template-columns:minmax(0,5fr) minmax(0,7fr);
-  align-items:start}}
-.jteaser__head h2{font-size:clamp(28px,3.4vw,46px);max-width:12em}
-.jteaser__head p{margin:14px 0 0;font:400 16px/1.6 var(--body);color:var(--ink-2);
-  max-width:38ch}
-.jteaser__head .btn{margin-top:clamp(20px,2.4vw,30px)}
-.jteaser__list{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
-.jteaser__list li{border-bottom:1px solid var(--rule)}
-/* Der Pfeil gehoert nach rechts. Ohne eigene Spalte hat ihn das Raster in
-   die erste gesetzt und den Titel nach rechts geschoben; ausserdem sassen
-   die Zeilen zu dicht an ihren Linien. */
-.jteaser__list a{display:grid;grid-template-columns:minmax(0,1fr) auto;
-  align-items:center;column-gap:20px;row-gap:7px;
-  padding:clamp(22px,2.4vw,30px) 0;color:var(--ink);text-decoration:none;
-  transition:padding-left .24s var(--ease)}
-.jteaser__list a:hover{padding-left:10px}
-.jteaser__t{grid-column:1;grid-row:1;font:700 clamp(17px,1.6vw,22px)/1.25 var(--display);
-  text-transform:uppercase;letter-spacing:-.01em}
-.jteaser__m{grid-column:1;grid-row:2;font:400 14px/1.4 var(--body);color:var(--ink-3)}
-.jteaser__list i{grid-column:2;grid-row:1 / span 2;justify-self:end;
-  font-style:normal;color:var(--accent);transition:transform .24s var(--ease)}
-.jteaser__list a:hover i{transform:translateX(5px)}
-.jteaser__empty{padding:18px 0;font:400 15px/1.5 var(--body);color:var(--ink-3)}
-
-/* ============================================================
-   GLUT 4.3 — BRIEFING 4 — JOBS, RECHT UND 404
-
-   /JOBS. Ein Suchfeld, das sagt, wonach man suchen kann, Chips je
-   Fachbereich, Karten, in denen die ganze Flaeche klickt. Findet die
-   Auswahl nichts, steht dort eine gestaltete Flaeche mit dem zweiten
-   Weg: eine leere Liste geht nie raus.
-
-   DETAIL. Zwei Spalten; rechts laeuft die Karte des Ansprechpartners
-   mit, darunter die beiden Aktionen.
-
-   RECHT UND 404. Impressum und Datenschutz standen im Footer und gaben
-   404; jetzt stehen die Seiten. Die 404 ist unsere eigene, im Layout.
-   ============================================================ */
-.phero--jobs .phero__sub{margin:clamp(16px,1.8vw,24px) 0 0;max-width:46ch;
-  font:400 clamp(16px,1.35vw,19px)/1.6 var(--body);color:var(--ink-2)}
-
-.jobs{padding:var(--sec) 0}
-.jobs__filter{margin:0 0 clamp(26px,3vw,40px);display:grid;gap:clamp(14px,1.6vw,20px)}
-.jobs__q input{width:100%;min-height:52px;padding:14px 18px;border-radius:12px;
-  border:1px solid var(--rule-strong);background:var(--ground);color:var(--ink);
-  font:400 16px/1.4 var(--body)}
-.jobs__q input::placeholder{color:var(--ink-3)}
-.jobs__q input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;
-  border-color:var(--accent)}
-.jobs__chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{min-height:40px;padding:9px 16px;border-radius:100px;cursor:pointer;
-  border:1px solid var(--rule-strong);background:none;color:var(--ink-2);
-  font:600 12px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;
-  transition:border-color .2s var(--ease),background-color .2s var(--ease),color .2s var(--ease)}
-.chip:hover{border-color:var(--accent);color:var(--ink)}
-.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);
-  color:var(--on-accent)}
-.jobs__count{margin:0;font:400 14px/1.4 var(--body);color:var(--ink-3)}
-
-.jobs__list{list-style:none;margin:0;padding:0;display:grid;gap:clamp(12px,1.4vw,16px)}
-.jobs__card a{display:grid;gap:10px;padding:clamp(20px,2.2vw,28px);
-  border:1px solid var(--rule-strong);border-radius:16px;color:var(--ink);
-  text-decoration:none;
-  transition:border-color .24s var(--ease),background-color .24s var(--ease)}
-.jobs__card a:hover,.jobs__card a:focus-visible{border-color:var(--accent);
-  background:rgba(255,192,95,.06)}
-.jobs__t{font:700 clamp(19px,1.8vw,25px)/1.2 var(--display);text-transform:uppercase;
-  letter-spacing:-.01em}
-.jobs__meta{display:flex;flex-wrap:wrap;gap:6px 18px;
-  font:400 15px/1.5 var(--body);color:var(--ink-2)}
-.jobs__area{color:var(--accent);font-weight:600}
-.jobs__go{display:inline-flex;align-items:center;gap:8px;margin-top:4px;
-  font:700 12px/1 var(--body);letter-spacing:.07em;text-transform:uppercase}
-.jobs__go i{font-style:normal;transition:transform .24s var(--ease)}
-.jobs__card a:hover .jobs__go i{transform:translateX(5px)}
-
-.jobs__empty{padding:clamp(30px,4vw,54px);border-radius:18px;background:var(--tint);
-  border:1px solid var(--rule)}
-.jobs__empty h3{margin:0 0 12px;font-size:clamp(22px,2.4vw,32px)}
-.jobs__empty p{margin:0;max-width:52ch;font:400 16px/1.6 var(--body);color:var(--ink-2)}
-.jobs__emptycta{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(20px,2.4vw,28px)}
-.jobs__note{margin:clamp(26px,3vw,40px) 0 0;font:400 13px/1.5 var(--body);
-  color:var(--ink-3)}
-
-/* ---- Detail ---- */
-.job{padding:calc(var(--header-h) + clamp(40px,5vw,70px)) 0 var(--sec)}
-.job__grid{display:grid;gap:clamp(30px,4vw,60px)}
-@media (min-width:960px){.job__grid{grid-template-columns:minmax(0,7fr) minmax(0,4fr)}}
-.job h1{font-size:clamp(32px,4.4vw,64px);margin:6px 0 0}
-.job h2{font-size:clamp(20px,2vw,27px);margin:clamp(30px,3.4vw,46px) 0 12px}
-.job__facts{list-style:none;margin:clamp(22px,2.6vw,34px) 0 0;padding:0;
-  display:flex;flex-wrap:wrap;gap:10px 34px;border-top:1px solid var(--rule);
-  border-bottom:1px solid var(--rule);padding:16px 0}
-.job__facts span{display:block;font:400 12px/1 var(--body);letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
-.job__facts b{font:600 16px/1.3 var(--body)}
-.job__lede{margin:clamp(18px,2vw,26px) 0 0;max-width:58ch;
-  font:400 clamp(16px,1.3vw,18px)/1.7 var(--body);color:var(--ink-2)}
-.job__list{margin:0;padding-left:1.1em;max-width:58ch}
-.job__list li{margin:0 0 10px;font:400 16px/1.65 var(--body);color:var(--ink-2)}
-.job__list li::marker{color:var(--accent)}
-.job__side{align-self:start}
-@media (min-width:960px){.job__side{position:sticky;top:calc(var(--header-h) + 20px)}}
-.job__card{display:grid;gap:4px;padding:clamp(20px,2.2vw,28px);border-radius:18px;
-  border:1px solid var(--rule-strong);background:var(--tint)}
-.job__img{aspect-ratio:1;border-radius:14px;margin-bottom:14px}
-.job__who{margin:0 0 2px;font:400 12px/1 var(--body);letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ink-3)}
-.job__cta{display:grid;gap:10px;margin-top:clamp(18px,2vw,24px)}
-.job__cta .btn{justify-content:center}
-.job__gone{grid-column:1 / -1;max-width:56ch}
-.job__gone h1{margin:0 0 14px}
-.job__gone p{margin:0;font:400 17px/1.6 var(--body);color:var(--ink-2)}
-
-/* ---- Recht und 404 ---- */
-.legal{padding:calc(var(--header-h) + clamp(40px,5vw,70px)) 0 var(--sec)}
-.legal__in{max-width:72ch}
-.legal h1{font-size:clamp(32px,4.4vw,60px);margin:0 0 clamp(18px,2vw,26px)}
-.legal h2{font-size:clamp(18px,1.7vw,23px);margin:clamp(28px,3vw,40px) 0 10px}
-.legal p{margin:0;font:400 16px/1.7 var(--body);color:var(--ink-2)}
-.legal a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
-.legal__note{padding:16px 18px;border-radius:12px;background:var(--tint);
-  border:1px solid var(--rule);font-size:15px!important;color:var(--ink-3)!important}
-.legal__lede{margin:0 0 clamp(26px,3vw,40px)!important;
-  font-size:clamp(17px,1.4vw,19px)!important}
-.legal--404 .ways{margin-top:0}
-
-/* ein Platzhalter sieht aus wie ein Platzhalter, auch im Fliesstext */
-.legal p[data-name]{color:var(--ink-3)}
-
-/* Der Platz fuer das Portrait, solange keines da ist. 1:1 wie das spaetere
-   Bild, damit der Block nicht springt, wenn NXG die Fotos liefert. */
-.team__img--ph{display:grid;place-items:center;background:var(--tint);
-  border:1px solid var(--rule);font:600 11px/1 var(--body);letter-spacing:.09em;
-  text-transform:uppercase;color:var(--ink-3)}
-
-/* Die Rufnummer ist ein tel:-Link — am Telefon ein Anruf, am Rechner ein
-   Text, der sich nicht als Link aufdraengt. Die Ziffern bleiben der
-   Platzhalter, bis NXG die Nummer liefert; waehlen laesst sich "XXX"
-   nicht, der Dialer oeffnet sich und bleibt stehen. */
-a[data-tel]{color:inherit;text-decoration:none}
-a[data-tel]:hover,a[data-tel]:focus-visible{text-decoration:underline;
-  text-underline-offset:3px;text-decoration-thickness:1px}
-.foot__tel a{display:inline-flex;align-items:center;min-height:44px}
-.team__tel{display:inline-flex;align-items:center;min-height:32px}
-
-/* Die 404 traegt das Zeichen ueber der Zeile, und die drei Wege stehen
-   dort in voller Breite -- die Lesebreite der Rechtstexte hatte sie zu
-   drei schmalen Kaertchen zusammengedrueckt. Der Unterstrich gehoert zu
-   Links im Fliesstext, nicht zu Karten. */
-.legal__mark{display:block;width:clamp(104px,11vw,150px);margin:0 0 clamp(22px,2.6vw,34px)}
-.legal__mark svg{display:block;width:100%;height:auto;color:var(--ink)}
-.legal--404 .legal__in{max-width:none}
-.legal--404 .legal__lede{max-width:48ch}
-.legal .ways a{text-decoration:none}
-
-/* Die Zahl selbst. Die Eyebrow, die sie trug, ist seitenweit ausgeblendet
-   (16. September: keine Sektionslabels), also steht sie fuer sich -- gross,
-   aber leiser als der Satz darunter. */
-.legal .legal__code{margin:0 0 6px;font:700 clamp(64px,9vw,130px)/.85 var(--display);
-  letter-spacing:-.03em;color:var(--ink-3)}
-
-/* Das Band am Ende der beiden Zielgruppenseiten: ein Satz und die zwei
-   Aktionen, auf getoenter Flaeche statt auf einer weiteren dunklen. */
-.cta-band{padding:var(--sec) 0;background:var(--tint);border-top:1px solid var(--rule)}
-.cta-band__in{display:grid;gap:clamp(22px,3vw,44px);align-items:center}
-@media (min-width:900px){.cta-band__in{grid-template-columns:minmax(0,7fr) auto}}
-.cta-band h2{font-size:clamp(26px,3vw,42px);max-width:14em;margin:0}
-.cta-band p{margin:12px 0 0;font:400 clamp(16px,1.3vw,18px)/1.6 var(--body);
-  color:var(--ink-2);max-width:44ch}
-.cta-band__cta{display:flex;flex-wrap:wrap;gap:12px}
-
-/* Die Zielgruppenseiten setzen den Aufmacher-Satz unter die Schlagzeile,
-   wie die Startseite. */
-.phero__sub{margin:clamp(16px,1.8vw,24px) 0 0;max-width:52ch;
-  font:400 clamp(16px,1.35vw,19px)/1.6 var(--body);color:var(--ink-2)}
-
-/* vier Karten stehen zu zweit oder zu viert, nie drei und eine */
-@media (min-width:760px){.ways--4{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (min-width:1200px){.ways--4{grid-template-columns:repeat(4,minmax(0,1fr))}}
-
-/* Unterseiten sind nicht lauter als die Startseite: deren Schlagzeile
-   steht bei rund 84 px, die Unterseiten standen bei 118. */
-.phero h1{font-size:clamp(36px,5.6vw,74px)}

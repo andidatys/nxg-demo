@@ -10,8 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap">
-<link rel="stylesheet" href="shared/base.css?v=5f5609fd">
-<link rel="stylesheet" href="theme.css?v=49cdcc79">
+<link rel="stylesheet" href="../../shared/base.css?v=5f5609fd">
+<link rel="stylesheet" href="theme.css?v=db3d5131">
+</head>
 </head>
 <body>
 
@@ -43,18 +44,11 @@
           <li><a href="index.html?fb=eng#bereiche"><span class="dd__n">04</span><span class="dd__t"><b>Engineering</b><small>Konstruktion &middot; Automatisierung &middot; Elektrotechnik &middot; Projektmanagement &middot; Qualität</small></span><i aria-hidden="true">&rarr;</i></a></li>
         </ul>
       </div>
-      <a href="fuer-unternehmen.html">Für Unternehmen</a>
-      <a href="fuer-kandidaten.html">Für Kandidaten</a>
-      <a href="jobs.html">Jobs</a>
+      <a href="fuer-wen.html#unternehmen">Für Unternehmen</a>
+      <a href="fuer-wen.html#kandidaten">Für Kandidaten</a>
       <a href="ueber-nxg.html">Über NXG</a>
       <a href="kontakt.html" aria-current="page">Kontakt</a>
     </nav>
-    <!-- Die Rufnummer steht dauerhaft im Header, vor den Buttons (Briefing 2).
-         NXG hat sie noch nicht geliefert; bis dahin steht hier der Platzhalter
-         des Briefings. Sobald die Nummer da ist, wird aus dem span ein
-         <a href="tel:+4940...">: ein tel:-Link, der nirgendwo hinwaehlt, ist
-         schlechter als keiner. -->
-    <a class="site__tel" data-tel href="tel:+4940XXXXXXXX">040 XXX XXX XX</a>
     <div class="site__ctas">
       <a class="btn btn--solid site__cta" href="kontakt.html?anliegen=unternehmen">Position besetzen</a>
       <a class="btn btn--ghost site__cta site__cta--2" href="kontakt.html?anliegen=kandidat">Profil senden</a>
@@ -66,11 +60,9 @@
   <nav class="site__mnav" id="site-nav-m" aria-label="Hauptnavigation mobil" hidden>
     <a class="site__mcta site__mcta--solid" href="kontakt.html?anliegen=unternehmen">Position besetzen</a>
     <a class="site__mcta" href="kontakt.html?anliegen=kandidat">Profil senden</a>
-    <a class="site__mtel" data-tel href="tel:+4940XXXXXXXX">040 XXX XXX XX</a>
     <a href="index.html#bereiche">Fachbereiche</a>
-    <a href="fuer-unternehmen.html">Für Unternehmen</a>
-    <a href="fuer-kandidaten.html">Für Kandidaten</a>
-    <a href="jobs.html">Jobs</a>
+    <a href="fuer-wen.html#unternehmen">Für Unternehmen</a>
+    <a href="fuer-wen.html#kandidaten">Für Kandidaten</a>
     <a href="ueber-nxg.html">Über NXG</a>
     <a href="kontakt.html" aria-current="page">Kontakt</a>
   </nav>
@@ -108,14 +100,7 @@
             <span><b>Fachkraft</b><i>Ich suche eine Stelle</i></span></label>
         </fieldset>
 
-        <!-- Briefing 3, first error: the form had no action and no method, so
-             an enquiry went nowhere. It posts to Netlify Forms now (the host of
-             the preview) and lands on danke.html. No reCAPTCHA: a honeypot the
-             way the briefing asks. -->
-        <form name="kontakt" method="post" action="danke.html" enctype="multipart/form-data"
-              data-netlify="true" netlify-honeypot="bot-field" novalidate>
-          <input type="hidden" name="form-name" value="kontakt">
-          <p class="sr" aria-hidden="true"><label>Bitte leer lassen <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <form novalidate>
           <div class="f"><label for="c-name">Name</label>
             <input id="c-name" name="name" type="text" autocomplete="name" required placeholder="Vor- und Nachname"></div>
 
@@ -128,23 +113,12 @@
           <div class="f" data-role="k"><label for="c-start">Verfügbar ab</label>
             <input id="c-start" name="start" type="text" placeholder="z. B. sofort, in 3 Monaten"></div>
 
-          <!-- Briefing 3, second error: candidates had no way to leave a number
-               and no way to attach anything. -->
-          <div class="f"><label for="c-tel">Telefon <span class="f__opt">(optional)</span></label>
-            <input id="c-tel" name="telefon" type="tel" inputmode="tel" autocomplete="tel"
-                   placeholder="040 123456"></div>
-
-          <div class="f f--full" data-role="k"><label for="c-cv">Lebenslauf <span class="f__opt">(optional, PDF oder DOCX)</span></label>
-            <input id="c-cv" name="lebenslauf" type="file" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-            <span class="f__file" data-file>Keine Datei gewählt</span></div>
-
           <div class="f"><label for="c-seg">Fachbereich</label>
             <select id="c-seg" name="fachbereich">
-              <option value="it">IT</option>
-              <option value="sap">SAP</option>
-              <option value="fin">Finance</option>
-              <option value="eng">Engineering</option>
-              <option value="offen">Noch offen</option></select>
+              <option>Software Development</option><option>Data Science</option>
+              <option>Cybersecurity</option><option>Cloud &amp; DevOps</option>
+              <option>IT Management</option><option>UX/UI Design</option>
+              <option>Noch offen</option></select>
           </div>
 
           <div class="f f--full"><label for="c-note">Worum geht es?</label>
@@ -156,12 +130,8 @@
           <p class="cform__hint" data-role="k">Geht per E-Mail an apply@nxg-group.de.
             Den Lebenslauf können Sie später nachreichen — erst sprechen wir.</p>
 
-          <div class="cform__send">
-            <button class="btn btn--solid" type="submit">
-              Anfrage senden <i aria-hidden="true">&rarr;</i></button>
-            <button class="btn btn--ghost" type="button" data-book>
-              Termin buchen <i aria-hidden="true">&rarr;</i></button>
-          </div>
+          <button class="btn btn--solid cform__send" type="submit">
+            Anfrage senden <i aria-hidden="true">&rarr;</i></button>
         </form>
       </div>
     </div>
@@ -170,19 +140,6 @@
   <!-- The "Lieber gleich per E-Mail?" block (three mailto: rows) was removed on
        16 Sept with the mailto: CTAs (briefing M4): the form above is the one
        way in, the addresses stay in the footer as text. -->
-
-  <!-- Briefing 3: "Termin buchen" opens a dialog, Escape and a click outside
-       close it. The calendar itself is NXG's: as soon as the booking address
-       exists, the panel below carries its embed and nothing else changes. -->
-  <div class="book" id="book" hidden>
-    <div class="book__panel" role="dialog" aria-modal="true" aria-labelledby="book-h">
-      <button class="book__x" type="button" data-book-close aria-label="Schließen">&times;</button>
-      <h2 id="book-h">Termin buchen</h2>
-      <p>Hier steht der Kalender von NXG. Sobald die Buchungsadresse vorliegt, erscheint
-        an dieser Stelle der Kalender; bis dahin führt der Weg über das Formular.</p>
-      <a class="btn btn--solid" href="#anfrage" data-book-close>Zum Formular <i aria-hidden="true">&rarr;</i></a>
-    </div>
-  </div>
 
 </main>
 <footer class="foot">
@@ -206,9 +163,8 @@
       <div>
         <h4>Navigation</h4>
         <ul>
-          <li><a href="fuer-unternehmen.html">Für Unternehmen</a></li>
-          <li><a href="fuer-kandidaten.html">Für Kandidaten</a></li>
-          <li><a href="jobs.html">Jobs</a></li>
+          <li><a href="fuer-wen.html#unternehmen">Für Unternehmen</a></li>
+          <li><a href="fuer-wen.html#kandidaten">Für Kandidaten</a></li>
           <li><a href="ueber-nxg.html">Über NXG</a></li>
           <li><a href="kontakt.html">Kontakt</a></li>
         </ul>
@@ -216,7 +172,6 @@
       <div>
         <h4>Kontakt</h4>
         <address>NXG GmbH<br>Schlüterstr. 44<br>20146 Hamburg</address>
-        <p class="foot__tel"><a data-tel href="tel:+4940XXXXXXXX">040 XXX XXX XX</a></p>
         <ul class="foot__mail">
           <li>kunden@nxg-group.de</li>
           <li>apply@nxg-group.de</li>
@@ -234,13 +189,9 @@
       </div>
     </div>
     <div class="foot__legal">
-      <!-- Briefing 4: Impressum und Datenschutz waren Text, weil es die
-           Seiten nicht gab. Jetzt gibt es sie, also sind es Links. Die
-           Cookie-Einstellungen bleiben Text: die Demo setzt kein einziges
-           Cookie, das sich einstellen liesse. -->
       <ul>
-        <li><a href="impressum.html">Impressum</a></li>
-        <li><a href="datenschutz.html">Datenschutz</a></li>
+        <li>Impressum</li>
+        <li>Datenschutz</li>
         <li>Cookie-Einstellungen</li>
       </ul>
       <span>&copy; 2026 NXG GmbH, Hamburg</span>
@@ -248,82 +199,20 @@
   </div>
 </footer>
 
-<script src="shared/app.js?v=55d1ee53" defer></script>
-<script src="shared/scroll.js?v=36c4d846" defer></script>
-<script src="shared/nav.js?v=9a2de421" defer></script>
-<!-- The form reads two things from the URL and nothing else: ?anliegen picks
-     the role card (briefing M4), ?fachbereich picks the area the visitor came
-     from (briefing 3). Arriving with a role, the cursor lands in the first
-     field, so a click on "Position besetzen" leads straight into typing. -->
+<script src="../../shared/app.js?v=ea4bfb01" defer></script>
+<script src="../../shared/scroll.js?v=36c4d846" defer></script>
+<script src="../../shared/nav.js?v=9a2de421" defer></script>
+<!-- Briefing M4: the form is preselectable via URL. ?anliegen=unternehmen picks
+     the company card, ?anliegen=kandidat (or fachkraft) the candidate card.
+     Nothing else is read from the URL. -->
 <script>
 (function () {
-  var q = new URLSearchParams(location.search);
-
-  var role = { unternehmen: 'r-u', kandidat: 'r-k', fachkraft: 'r-k' }[q.get('anliegen')];
-  var el = role && document.getElementById(role);
-  if (el) {
-    el.checked = true;
-    var name = document.getElementById('c-name');
-    if (name) { name.focus({ preventScroll: true }); }
-  }
-
-  var area = q.get('fachbereich');
-  var seg = document.getElementById('c-seg');
-  if (area && seg && [].some.call(seg.options, function (o) { return o.value === area; })) {
-    seg.value = area;
-  }
-
-  /* the chosen file is named, so nobody wonders whether it attached; over
-     10 MB the form says so here instead of after sending */
-  var MAX = 10 * 1024 * 1024;
-  var cv = document.getElementById('c-cv');
-  var out = document.querySelector('[data-file]');
-  if (cv && out) {
-    cv.addEventListener('change', function () {
-      var file = cv.files && cv.files[0];
-      out.classList.remove('is-bad');
-      if (!file) { out.textContent = 'Keine Datei gewählt'; return; }
-      if (file.size > MAX) {
-        out.textContent = file.name + ' — zu groß, höchstens 10 MB';
-        out.classList.add('is-bad');
-        cv.value = '';
-        return;
-      }
-      out.textContent = file.name;
-    });
-  }
-
-  /* Termin buchen: a dialog that Escape and a click beside it close, and that
-     hands the focus back to the button it came from. */
-  var box = document.getElementById('book');
-  var opener = null;
-  function book(open) {
-    if (!box) return;
-    box.hidden = !open;
-    document.documentElement.classList.toggle('is-menu-open', open);
-    if (open) {
-      var first = box.querySelector('button, a');
-      if (first) first.focus();
-    } else if (opener) {
-      opener.focus();
-    }
-  }
-  document.addEventListener('click', function (e) {
-    var open = e.target.closest('[data-book]');
-    if (open) { opener = open; book(true); return; }
-    if (e.target.closest('[data-book-close]') || e.target === box) { book(false); }
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && box && !box.hidden) { book(false); }
-  });
-
-  /* arriving from the company page with #termin opens it straight away */
-  if (location.hash === '#termin') {
-    opener = document.querySelector('[data-book]');
-    book(true);
-  }
+  var want = new URLSearchParams(location.search).get('anliegen');
+  var id = { unternehmen: 'r-u', kandidat: 'r-k', fachkraft: 'r-k' }[want];
+  var el = id && document.getElementById(id);
+  if (el) { el.checked = true; }
 })();
 </script>
-<script src="shared/video.js?v=531ff503" defer></script>
+<script src="../../shared/video.js?v=531ff503" defer></script>
 </body>
 </html>

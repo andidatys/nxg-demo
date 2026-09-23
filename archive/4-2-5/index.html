@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap">
-<link rel="stylesheet" href="shared/base.css?v=5f5609fd">
-<link rel="stylesheet" href="theme.css?v=49cdcc79">
+<link rel="stylesheet" href="../../shared/base.css?v=5f5609fd">
+<link rel="stylesheet" href="theme.css?v=db3d5131">
 </head>
 <body>
 
@@ -43,18 +43,11 @@
           <li><a href="?fb=eng#bereiche"><span class="dd__n">04</span><span class="dd__t"><b>Engineering</b><small>Konstruktion &middot; Automatisierung &middot; Elektrotechnik &middot; Projektmanagement &middot; Qualität</small></span><i aria-hidden="true">&rarr;</i></a></li>
         </ul>
       </div>
-      <a href="fuer-unternehmen.html">Für Unternehmen</a>
-      <a href="fuer-kandidaten.html">Für Kandidaten</a>
-      <a href="jobs.html">Jobs</a>
+      <a href="fuer-wen.html#unternehmen">Für Unternehmen</a>
+      <a href="fuer-wen.html#kandidaten">Für Kandidaten</a>
       <a href="ueber-nxg.html">Über NXG</a>
       <a href="kontakt.html">Kontakt</a>
     </nav>
-    <!-- Die Rufnummer steht dauerhaft im Header, vor den Buttons (Briefing 2).
-         NXG hat sie noch nicht geliefert; bis dahin steht hier der Platzhalter
-         des Briefings. Sobald die Nummer da ist, wird aus dem span ein
-         <a href="tel:+4940...">: ein tel:-Link, der nirgendwo hinwaehlt, ist
-         schlechter als keiner. -->
-    <a class="site__tel" data-tel href="tel:+4940XXXXXXXX">040 XXX XXX XX</a>
     <div class="site__ctas">
       <a class="btn btn--solid site__cta" href="kontakt.html?anliegen=unternehmen">Position besetzen</a>
       <a class="btn btn--ghost site__cta site__cta--2" href="kontakt.html?anliegen=kandidat">Profil senden</a>
@@ -66,11 +59,9 @@
   <nav class="site__mnav" id="site-nav-m" aria-label="Hauptnavigation mobil" hidden>
     <a class="site__mcta site__mcta--solid" href="kontakt.html?anliegen=unternehmen">Position besetzen</a>
     <a class="site__mcta" href="kontakt.html?anliegen=kandidat">Profil senden</a>
-    <a class="site__mtel" data-tel href="tel:+4940XXXXXXXX">040 XXX XXX XX</a>
     <a href="#bereiche">Fachbereiche</a>
-    <a href="fuer-unternehmen.html">Für Unternehmen</a>
-    <a href="fuer-kandidaten.html">Für Kandidaten</a>
-    <a href="jobs.html">Jobs</a>
+    <a href="fuer-wen.html#unternehmen">Für Unternehmen</a>
+    <a href="fuer-wen.html#kandidaten">Für Kandidaten</a>
     <a href="ueber-nxg.html">Über NXG</a>
     <a href="kontakt.html">Kontakt</a>
   </nav>
@@ -83,13 +74,14 @@
     <div class="band">
       <span class="plate plate--glut25frame" aria-hidden="true"></span>
       <video class="hero__video" muted loop playsinline preload="none"
-             data-src="media/glut25-web.mp4?v=0f0b6182" aria-hidden="true"></video>
+             data-src="../../media/glut25-web.mp4?v=0f0b6182" aria-hidden="true"></video>
     </div>
     <div class="wrap">
       <!-- Briefing V2, M2 + section 04 "Hero — final recommendation": copy
            verbatim. The eyebrow is in the markup as the briefing wants it and
-           hidden by the client's wish of 16 Sept (no section labels). CTA 2 leads to
-           /jobs, which exists since the review of 17 September. The phone line is
+           hidden by the client's wish of 16 Sept (no section labels). CTA 2
+           points at the candidates page: /jobs does not exist and the client
+           would rather have no job board than half of one. The phone line is
            left out until NXG supplies the number. -->
       <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Personalberatung Hamburg</p>
       <h1><span class="ln"><span>Die besten Leute</span></span>
@@ -98,23 +90,9 @@
       <div class="hero__cta" data-reveal>
         <a class="btn btn--solid" href="kontakt.html?anliegen=unternehmen">
           Position besprechen <i aria-hidden="true">&rarr;</i></a>
-        <a class="btn btn--ghost" href="jobs.html">
+        <a class="btn btn--ghost" href="fuer-wen.html">
           Offene Positionen ansehen <i aria-hidden="true">&rarr;</i></a>
       </div>
-    </div>
-  </section>
-
-  <!-- ============ 02  PROOF BAR ============
-       Briefing 4: one narrow row under the hero, three elements, no tiles.
-       It takes over the three figures that sat far down the page in the
-       "Ueber NXG" block, where nobody arrived -- and corrects "Sechs
-       Fachbereiche" to four, which is what every other line on this page
-       says. NXG should confirm the three statements. -->
-  <section class="proof" aria-label="NXG in drei Punkten">
-    <div class="wrap proof__in">
-      <p><b>Seit &uuml;ber zehn Jahren</b><span>Personalberatung aus Hamburg</span></p>
-      <p><b>Vier Fachbereiche</b><span>IT &middot; SAP &middot; Finance &middot; Engineering</span></p>
-      <p><b>Ein Team</b><span>f&uuml;r Unternehmen und Kandidaten</span></p>
     </div>
   </section>
 
@@ -146,7 +124,7 @@
           <div>
             <h3 data-reveal>IT</h3>
             <p data-reveal>Software Development &middot; Data &middot; Cloud &amp; DevOps &middot; Security &middot; IT-Management &middot; UX/UI</p>
-            <a class="tlink" href="kontakt.html?anliegen=unternehmen&amp;fachbereich=it" data-reveal>
+            <a class="btn btn--ghost" href="kontakt.html?anliegen=unternehmen" data-reveal>
               Anfragen <i aria-hidden="true">&rarr;</i></a>
           </div>
         </div>
@@ -159,7 +137,7 @@
           <div>
             <h3 data-reveal>SAP</h3>
             <p data-reveal>FI/CO &middot; SD/MM &middot; HCM &middot; ABAP &middot; Basis &middot; S/4HANA-Transformation &middot; BW &amp; Analytics</p>
-            <a class="tlink" href="kontakt.html?anliegen=unternehmen&amp;fachbereich=sap" data-reveal>
+            <a class="btn btn--ghost" href="kontakt.html?anliegen=unternehmen" data-reveal>
               Anfragen <i aria-hidden="true">&rarr;</i></a>
           </div>
         </div>
@@ -172,7 +150,7 @@
           <div>
             <h3 data-reveal>Finance</h3>
             <p data-reveal>Finanzbuchhaltung &middot; Bilanzbuchhaltung &middot; Controlling &middot; Konzernrechnungswesen &middot; Treasury &middot; Steuern</p>
-            <a class="tlink" href="kontakt.html?anliegen=unternehmen&amp;fachbereich=fin" data-reveal>
+            <a class="btn btn--ghost" href="kontakt.html?anliegen=unternehmen" data-reveal>
               Anfragen <i aria-hidden="true">&rarr;</i></a>
           </div>
         </div>
@@ -185,7 +163,7 @@
           <div>
             <h3 data-reveal>Engineering</h3>
             <p data-reveal>Konstruktion &middot; Automatisierung &middot; Elektrotechnik &middot; Projektmanagement &middot; Qualität</p>
-            <a class="tlink" href="kontakt.html?anliegen=unternehmen&amp;fachbereich=eng" data-reveal>
+            <a class="btn btn--ghost" href="kontakt.html?anliegen=unternehmen" data-reveal>
               Anfragen <i aria-hidden="true">&rarr;</i></a>
           </div>
         </div>
@@ -215,12 +193,37 @@
     </div>
   </section>
 
+  <!-- ============ 03  DUOTONE ROW ============ -->
+  <section class="seg" aria-labelledby="d-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="d-h"><span class="ln"><span>Wo wir</span></span>
+          <span class="ln"><span>vermitteln.</span></span></h2>
+      </div>
+    </div>
+    <ul class="duo" data-clip-ok>
+      <li class="duo__card duo--1"><span class="duo__img plate plate--p1" aria-hidden="true"></span>
+        <span class="duo__body"><b>Software Development</b></span></li>
+      <li class="duo__card duo--2"><span class="duo__img plate plate--p2" aria-hidden="true"></span>
+        <span class="duo__body"><b>Data Science</b></span></li>
+      <li class="duo__card duo--3"><span class="duo__img plate plate--p3" aria-hidden="true"></span>
+        <span class="duo__body"><b>Cybersecurity</b></span></li>
+      <li class="duo__card duo--4"><span class="duo__img plate plate--p4" aria-hidden="true"></span>
+        <span class="duo__body"><b>Cloud &amp; DevOps</b></span></li>
+      <li class="duo__card duo--5"><span class="duo__img plate plate--p5" aria-hidden="true"></span>
+        <span class="duo__body"><b>IT Management</b></span></li>
+      <li class="duo__card duo--6"><span class="duo__img plate plate--p6" aria-hidden="true"></span>
+        <span class="duo__body"><b>UX/UI Design</b></span></li>
+    </ul>
+  </section>
+
   <!-- ============ 07  FÜR KANDIDATEN ============
        Briefing V2, section 07: the second path, clearly set off. Headline and
        both paragraphs verbatim (Teil 06). The compact box on the right is
        meant to hold four promises; their wording is not in the compact
        briefing, so the box carries the confidentiality promise -- verbatim --
-       until NXG's four texts arrive. "Offene Positionen" leads to /jobs. -->
+       until NXG's four texts arrive. "Offene Positionen" leads to the
+       candidate page because there is no job list yet. -->
   <section class="kand" id="kandidaten" aria-labelledby="kd-h">
     <div class="wrap">
       <div class="kand__grid">
@@ -231,7 +234,7 @@
             <span class="ln"><span>um mit uns zu sprechen.</span></span></h2>
           <p data-reveal>Die meisten Menschen, mit denen wir arbeiten, hatten beim ersten Gespräch keine Kündigung im Kopf. Sie wollten wissen, was der Markt gerade macht und was ihr Profil wert ist. Manchmal bleibt es dabei. Manchmal wird mehr daraus.</p>
           <div class="kand__cta" data-reveal>
-            <a class="btn btn--solid" href="jobs.html">Offene Positionen <i aria-hidden="true">&rarr;</i></a>
+            <a class="btn btn--solid" href="fuer-wen.html#kandidaten">Offene Positionen <i aria-hidden="true">&rarr;</i></a>
             <a class="btn btn--ghost" href="kontakt.html?anliegen=kandidat">Vertraulich anfragen <i aria-hidden="true">&rarr;</i></a>
           </div>
         </div>
@@ -242,66 +245,18 @@
     </div>
   </section>
 
-  <!-- ============ 10  TEAM ============
-       Briefing 4: portraits 1:1, all cropped the same way, name, specialist
-       area and the direct dial as a tel: link. The three figures that stood
-       here are the proof bar now; what is left of "Ueber NXG" is its
-       sentence, and it belongs over the faces.
-
-       NXG has not sent names, portraits and dials. The layout is built, the
-       four cards carry the placeholder, and a dial that dials nowhere stays
-       a span until the number arrives -- same rule as the header. -->
-  <section class="team" id="team" aria-labelledby="t-h">
+  <!-- ============ 04  ÜBER NXG ============ -->
+  <section class="seg" id="ueber" aria-labelledby="u-h">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Team</p>
-        <h2 id="t-h"><span class="ln"><span>Ein Team</span></span>
-          <span class="ln"><span>f&uuml;r beide Seiten.</span></span></h2>
-        <p class="sec-head__lede" data-reveal>In jedem Fachbereich hat eine Person den Hut auf &mdash; dieselbe, die Ihre Position bespricht und die Kandidaten anruft. Sie erreichen sie direkt.</p>
+        <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Über NXG</p>
+        <h2 id="u-h"><span class="ln"><span>Seit über</span></span>
+          <span class="ln"><span>zehn Jahren.</span></span></h2>
       </div>
-      <ul class="team__grid" data-reveal>
-        <li class="team__card">
-          <span class="team__img team__img--ph" aria-hidden="true">Foto folgt</span>
-          <b class="team__name" data-name>Name folgt</b>
-          <span class="team__area">IT</span>
-          <a class="team__tel" data-tel href="tel:+4940XXXXXX11">040 XXX XX&#8209;11</a>
-        </li>
-        <li class="team__card">
-          <span class="team__img team__img--ph" aria-hidden="true">Foto folgt</span>
-          <b class="team__name" data-name>Name folgt</b>
-          <span class="team__area">SAP</span>
-          <a class="team__tel" data-tel href="tel:+4940XXXXXX12">040 XXX XX&#8209;12</a>
-        </li>
-        <li class="team__card">
-          <span class="team__img team__img--ph" aria-hidden="true">Foto folgt</span>
-          <b class="team__name" data-name>Name folgt</b>
-          <span class="team__area">Finance</span>
-          <a class="team__tel" data-tel href="tel:+4940XXXXXX13">040 XXX XX&#8209;13</a>
-        </li>
-        <li class="team__card">
-          <span class="team__img team__img--ph" aria-hidden="true">Foto folgt</span>
-          <b class="team__name" data-name>Name folgt</b>
-          <span class="team__area">Engineering</span>
-          <a class="team__tel" data-tel href="tel:+4940XXXXXX14">040 XXX XX&#8209;14</a>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ============ 11  JOBS-TEASER ============
-       Briefing 4: the jobs teaser before the contact block. Three current
-       positions, then the way to the full list. The positions come from
-       jobs.js -- demo data until NXG's system delivers them. -->
-  <section class="jteaser" aria-labelledby="jt-h">
-    <div class="wrap jteaser__in">
-      <div class="jteaser__head">
-        <p class="eyebrow" data-reveal><i aria-hidden="true"></i>Offene Positionen</p>
-        <h2 id="jt-h">Gerade besetzen wir diese Rollen.</h2>
-        <p data-reveal>Was hier steht, ist der kleinere Teil. Die meisten Mandate besprechen wir, bevor sie eine Anzeige werden.</p>
-        <a class="btn btn--solid" href="jobs.html">Alle Positionen ansehen <i aria-hidden="true">&rarr;</i></a>
-      </div>
-      <ul class="jteaser__list" data-jobs-teaser data-reveal>
-        <li class="jteaser__empty">Die Liste l&auml;dt &hellip;</li>
+      <ul class="figs" data-reveal>
+        <li><b>Sechs</b><span>Fachbereiche</span></li>
+        <li><b>Hamburg</b><span>Schlüterstr. 44</span></li>
+        <li><b>Ein Team</b><span>für beide Seiten</span></li>
       </ul>
     </div>
   </section>
@@ -314,21 +269,13 @@
         <h2 id="k-h"><span class="ln"><span>Sprechen Sie</span></span>
           <span class="ln"><span>uns an.</span></span></h2>
       </div>
-      <!-- Briefing 3: three equal cards instead of three lines, and the whole
-           card is the link -- before this only the text was clickable. -->
-      <ul class="ways" data-reveal>
+      <ul class="rows">
         <li><a href="kontakt.html?anliegen=unternehmen">
-          <span class="ways__t">Talent finden</span>
-          <span class="ways__s">Sie haben eine Position zu besetzen.</span>
-          <i aria-hidden="true">&rarr;</i></a></li>
+          <span class="rows__t">Talent finden</span><i aria-hidden="true">&rarr;</i></a></li>
         <li><a href="kontakt.html?anliegen=kandidat">
-          <span class="ways__t">Bewerbung senden</span>
-          <span class="ways__s">Sie suchen eine neue Aufgabe.</span>
-          <i aria-hidden="true">&rarr;</i></a></li>
+          <span class="rows__t">Bewerbung senden</span><i aria-hidden="true">&rarr;</i></a></li>
         <li><a href="kontakt.html">
-          <span class="ways__t">Allgemeine Anfrage</span>
-          <span class="ways__s">Etwas anderes, das wir klären sollen.</span>
-          <i aria-hidden="true">&rarr;</i></a></li>
+          <span class="rows__t">Allgemeine Anfrage</span><i aria-hidden="true">&rarr;</i></a></li>
       </ul>
     </div>
   </section>
@@ -356,9 +303,8 @@
       <div>
         <h4>Navigation</h4>
         <ul>
-          <li><a href="fuer-unternehmen.html">Für Unternehmen</a></li>
-          <li><a href="fuer-kandidaten.html">Für Kandidaten</a></li>
-          <li><a href="jobs.html">Jobs</a></li>
+          <li><a href="fuer-wen.html#unternehmen">Für Unternehmen</a></li>
+          <li><a href="fuer-wen.html#kandidaten">Für Kandidaten</a></li>
           <li><a href="ueber-nxg.html">Über NXG</a></li>
           <li><a href="kontakt.html">Kontakt</a></li>
         </ul>
@@ -366,7 +312,6 @@
       <div>
         <h4>Kontakt</h4>
         <address>NXG GmbH<br>Schlüterstr. 44<br>20146 Hamburg</address>
-        <p class="foot__tel"><a data-tel href="tel:+4940XXXXXXXX">040 XXX XXX XX</a></p>
         <ul class="foot__mail">
           <li>kunden@nxg-group.de</li>
           <li>apply@nxg-group.de</li>
@@ -384,13 +329,9 @@
       </div>
     </div>
     <div class="foot__legal">
-      <!-- Briefing 4: Impressum und Datenschutz waren Text, weil es die
-           Seiten nicht gab. Jetzt gibt es sie, also sind es Links. Die
-           Cookie-Einstellungen bleiben Text: die Demo setzt kein einziges
-           Cookie, das sich einstellen liesse. -->
       <ul>
-        <li><a href="impressum.html">Impressum</a></li>
-        <li><a href="datenschutz.html">Datenschutz</a></li>
+        <li>Impressum</li>
+        <li>Datenschutz</li>
         <li>Cookie-Einstellungen</li>
       </ul>
       <span>&copy; 2026 NXG GmbH, Hamburg</span>
@@ -398,8 +339,8 @@
   </div>
 </footer>
 
-<script src="shared/app.js?v=55d1ee53" defer></script>
-<script src="shared/scroll.js?v=36c4d846" defer></script>
+<script src="../../shared/app.js?v=ea4bfb01" defer></script>
+<script src="../../shared/scroll.js?v=36c4d846" defer></script>
 <!-- The Fachbereiche dropdown lands on one tab: ?fb=it|sap|fin|eng#bereiche -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -409,8 +350,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (tab) { tab.click(); }
 });
 </script>
-<script src="jobs.js?v=fb67aa3f" defer></script>
-<script src="shared/nav.js?v=9a2de421" defer></script>
-<script src="shared/video.js?v=531ff503" defer></script>
+<script src="../../shared/nav.js?v=9a2de421" defer></script>
+<script src="../../shared/video.js?v=531ff503" defer></script>
 </body>
 </html>

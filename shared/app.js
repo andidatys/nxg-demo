@@ -157,16 +157,40 @@
     var nav = document.getElementById('site-nav-m');
     if (!btn || !nav) return;
 
-    btn.addEventListener('click', function () {
-      var open = header.classList.toggle('is-open');
+    /* An open menu covers the page, so the page behind it must not scroll,
+       Escape must close it, and Tab must stay inside it: a menu you can tab
+       out of while it covers everything leaves the focus somewhere invisible.
+       (NXG briefing, section 2, mobile menu.) */
+    function set(open) {
+      header.classList.toggle('is-open', open);
       btn.setAttribute('aria-expanded', String(open));
       nav.hidden = !open;
+      document.documentElement.classList.toggle('is-menu-open', open);
+      if (open) {
+        var first = nav.querySelector('a, button');
+        if (first) first.focus();
+      }
+    }
+
+    btn.addEventListener('click', function () {
+      set(!header.classList.contains('is-open'));
     });
     nav.addEventListener('click', function (e) {
       if (e.target.tagName !== 'A') return;
-      header.classList.remove('is-open');
-      btn.setAttribute('aria-expanded', 'false');
-      nav.hidden = true;
+      set(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (!header.classList.contains('is-open')) return;
+      if (e.key === 'Escape') { set(false); btn.focus(); return; }
+      if (e.key !== 'Tab') return;
+      var items = [btn].concat(Array.prototype.slice.call(nav.querySelectorAll('a, button')));
+      var i = items.indexOf(document.activeElement);
+      if (i < 0) return;
+      var next = e.shiftKey ? i - 1 : i + 1;
+      if (next < 0) next = items.length - 1;
+      if (next >= items.length) next = 0;
+      items[next].focus();
+      e.preventDefault();
     });
   }
 

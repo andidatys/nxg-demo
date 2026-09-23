@@ -11,9 +11,20 @@
   var nav = document.querySelector('.site__nav');
   if (!nav) return;
 
-  /* A dropdown in the nav (Glut 4.2.5, briefing M5). Hover opens it through
-     CSS; this adds click and keyboard: the button toggles, Escape closes, a
-     click anywhere else closes. Nothing here if the nav has no dropdown. */
+  /* A dropdown in the nav (Glut 4.2.5, briefing M5).
+
+     With a mouse it is hover and nothing else: pointing opens it, leaving
+     closes it. A click on the button does NOT latch it open — that was
+     confusing, because the menu was already open under the cursor and the
+     click looked like it had done nothing, or worse, left the menu standing
+     after the mouse had gone.
+
+     Where there is no hover — a touch screen — the click has to open it,
+     otherwise the menu is unreachable. And a keyboard must always be able
+     to open it: Enter and Space fire a click with no pointer before it,
+     which is how the two are told apart. Escape closes, a click outside
+     closes. Nothing here if the nav has no dropdown. */
+  var hoverable = !window.matchMedia || window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   var dds = [].slice.call(nav.querySelectorAll('.site__dd'));
   dds.forEach(function (dd) {
     var btn = dd.querySelector('.site__ddbtn');
@@ -22,9 +33,51 @@
       dd.classList.toggle('is-open', open);
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
-    btn.addEventListener('click', function () { set(!dd.classList.contains('is-open')); });
+    var byPointer = false;
+    btn.addEventListener('pointerdown', function () { byPointer = true; });
+
+    /* The CSS holds the menu open on :focus-within, which is right for a
+       keyboard and wrong for a mouse: a click parks the focus on the button,
+       and the menu then stands there until something else is clicked. A
+       mouse must not focus this button at all, so the default of mousedown
+       is refused. Tab still focuses it, and the menu still opens for a
+       keyboard. */
+    btn.addEventListener('mousedown', function (e) { if (hoverable) e.preventDefault(); });
+    btn.addEventListener('click', function () {
+      var pointer = byPointer;
+      byPointer = false;
+      if (hoverable && pointer) return;      /* hover is in charge here */
+      set(!dd.classList.contains('is-open'));
+    });
     dd.addEventListener('keydown', function (e) { if (e.key === 'Escape') { set(false); btn.focus(); } });
+
+    /* Since a mouse can no longer focus the button, focus here means a
+       keyboard: arriving opens the menu, leaving it closes. This replaces
+       the CSS :focus-within, which could not be talked out of staying open
+       when Escape was pressed — the focus is still on the button then, and
+       the menu stood there anyway. */
+    dd.addEventListener('focusin', function () { set(true); });
+    dd.addEventListener('focusout', function (e) {
+      if (!dd.contains(e.relatedTarget)) set(false);
+    });
     document.addEventListener('click', function (e) { if (!dd.contains(e.target)) set(false); });
+
+    /* The pointer travels diagonally from the button to the row it wants, and
+       on the way it leaves the menu for a moment. Closing on that first exit
+       makes the menu feel like it is running away, so a leave is given a
+       grace period and a re-entry cancels it. (NXG briefing, section 2.) */
+    var closing = 0;
+    dd.addEventListener('mouseleave', function () {
+      clearTimeout(closing);
+      closing = setTimeout(function () { set(false); }, 300);
+    });
+    dd.addEventListener('mouseenter', function () {
+      clearTimeout(closing);
+      /* the CSS opens it on hover anyway; opening it here as well keeps
+         aria-expanded honest, so a screen reader is told the same thing
+         the eye is shown */
+      if (hoverable) set(true);
+    });
   });
 
   var links = [].slice.call(nav.querySelectorAll('a[href^="#"]'));

@@ -1,0 +1,4 @@
+# Everything shows the blank page while the demo is on hold.
+# 200, not 301: nothing is moved, nothing is remembered by a browser,
+# and one line removes the hold again.
+/*    /index.html   200
